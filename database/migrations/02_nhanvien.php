@@ -14,13 +14,13 @@ return new class extends Migration
         Schema::dropIfExists('nhanvien');
         Schema::create('nhanvien', function (Blueprint $table) {
             $table->integer('maNhanVien')->autoIncrement();
-            $table->string('hoTen', 50);
-            $table->string('chucDanh');
-            $table->string('soDienThoai', 20);
-            $table->string('email', 50);
+            $table->string('hoTen', 50)->nullable();
+            $table->string('chucDanh')->nullable();
+            $table->string('soDienThoai', 20)->unique()->nullable();
+            $table->string('email', 50)->unique()->nullable();
             $table->enum('gioiTinh', ['Nam', 'Nữ', 'Khác']);
             $table->date('ngayVaoLam');
-            $table->date('ngaySinh');
+            $table->date('ngaySinh')->nullable();
             
             $table->integer('maTaiKhoan');  // Thêm cột khóa ngoại
 
@@ -28,6 +28,7 @@ return new class extends Migration
             
             $table->timestamps();
         });
+
     }
 
     /**
