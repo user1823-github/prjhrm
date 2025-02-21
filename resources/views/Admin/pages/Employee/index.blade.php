@@ -1,17 +1,19 @@
 @extends('app')
 
 @section('content')
-    <h2>Danh sách Nhân viên</h2>
+    {{-- <h2>Danh sách Nhân viên</h2> --}}
     {{-- <a href="{{ route('nhanvien.create') }}" class="btn btn-primary">Thêm Nhân viên</a> --}}
     <a href="" class="btn btn-primary">Thêm Nhân viên</a>
     
-    <table class="table">
+    <table class="table table-hover">
         <thead>
             <tr>
+                <th>ID</th>
                 <th>Họ tên</th>
                 <th>Chức danh</th>
-                <th>Email</th>
+                <th>Ngày vào làm</th>
                 <th>Số điện thoại</th>
+                <th>Email</th>
                 <th>Hành động</th>
             </tr>
         </thead>
@@ -34,10 +36,12 @@
                 data.forEach(nhanVien => {
                     rows += `
                         <tr>
+                            <td>${nhanVien.maNhanVien}</td>
                             <td>${nhanVien.hoTen}</td>
                             <td>${nhanVien.chucDanh}</td>
-                            <td>${nhanVien.email}</td>
+                            <td>${nhanVien.ngayVaoLam}</td>
                             <td>${nhanVien.soDienThoai}</td>
+                            <td>${nhanVien.email}</td>
                             <td>
                                 <a href="/nhanvien/${nhanVien.maNhanVien}/edit" class="btn btn-warning">Sửa</a>
                                 <button class="btn btn-danger" onclick="deleteNhanVien(${nhanVien.maNhanVien})">Xóa</button>

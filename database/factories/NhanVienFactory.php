@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\NhanVien;
+use App\Models\TaiKhoan;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -9,11 +11,9 @@ use Illuminate\Database\Eloquent\Factories\Factory;
  */
 class NhanVienFactory extends Factory
 {
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
+    
+
+    protected $model = NhanVien::class;
     public function definition(): array
     {
         return [
@@ -24,6 +24,9 @@ class NhanVienFactory extends Factory
             'gioiTinh' => $this->faker->randomElement(['Nam', 'Nữ', 'Khác']),
             'ngayVaoLam' => now()->toDateString(),
             'ngaySinh' => $this->faker->optional()->date(),
+            // 'maTaiKhoan' => TaiKhoan::factory()
+            'maTaiKhoan' => TaiKhoan::inRandomOrder()->first()->maTaiKhoan, // Lấy tài khoản ngẫu nhiên
+            // 'maTaiKhoan' => TaiKhoan::inRandomOrder()->first()?->maTaiKhoan ?? TaiKhoan::factory()->create()->maTaiKhoan
         ];
     }
 }

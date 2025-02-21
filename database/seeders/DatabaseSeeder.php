@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\TaiKhoan;
 use App\Models\NhanVien;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -21,6 +22,7 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
 
+        TaiKhoan::factory()->count(10)->create();
         NhanVien::factory()->count(10)->create();
     }
 }

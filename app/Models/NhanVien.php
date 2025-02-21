@@ -11,9 +11,22 @@ class NhanVien extends Model
 
     protected $table = 'nhanvien';
     protected $primaryKey = 'maNhanVien';
-    public $timestamps = true; 
+    public $timestamps = true;
 
     protected $fillable = [
-        'hoTen', 'chucDanh', 'soDienThoai', 'email', 'gioiTinh', 'ngayVaoLam', 'ngaySinh'
+        'hoTen',
+        'chucDanh',
+        'soDienThoai',
+        'email',
+        'gioiTinh',
+        'ngayVaoLam',
+        'ngaySinh',
+        'maTaiKhoan'
     ];
+
+    // Thiết lập quan hệ 1-1 với bảng TaiKhoan
+    public function taiKhoan()
+    {
+        return $this->belongsTo(TaiKhoan::class, 'maTaiKhoan', 'maTaiKhoan');
+    }
 }
