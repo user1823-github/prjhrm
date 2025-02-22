@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\HopThoaiController;
 use App\Http\Controllers\NhanVienController;
 use App\Http\Controllers\TaiKhoanController;
+use App\Http\Controllers\TaiLieuController;
 use App\Http\Controllers\ThongBaoController;
 use Illuminate\Support\Facades\Route;
 
@@ -21,13 +23,31 @@ Route::prefix('admin')->group(function () {
 });
 
 
-// Api thongbao
+// Api hộp thoại
+Route::prefix('api/hopthoai')->group(function () {
+    Route::get('/', [HopThoaiController::class, 'index']);
+    Route::post('/', [HopThoaiController::class, 'store']);
+    Route::get('/{id}', [HopThoaiController::class, 'show']);
+    Route::put('/{id}', [HopThoaiController::class, 'update']);
+    Route::delete('/{id}', [HopThoaiController::class, 'destroy']);
+});
+
+// Api thông báo
 Route::prefix('api/thongbao')->group(function () {
-    Route::get('/', [ThongBaoController::class, 'index']); 
-    Route::post('/', [ThongBaoController::class, 'store']); 
-    Route::get('/{id}', [ThongBaoController::class, 'show']); 
+    Route::get('/', [ThongBaoController::class, 'index']);
+    Route::post('/', [ThongBaoController::class, 'store']);
+    Route::get('/{id}', [ThongBaoController::class, 'show']);
     Route::put('/{id}', [ThongBaoController::class, 'update']);
     Route::delete('/{id}', [ThongBaoController::class, 'destroy']);
+});
+
+// Api tài liệu
+Route::prefix('api/tailieu')->group(function () {
+    Route::get('/', [TaiLieuController::class, 'index']);
+    Route::post('/', [TaiLieuController::class, 'store']);
+    Route::get('/{id}', [TaiLieuController::class, 'show']);
+    Route::put('/{id}', [TaiLieuController::class, 'update']);
+    Route::delete('/{id}', [TaiLieuController::class, 'destroy']);
 });
 
 // Api nhân viên
