@@ -2,20 +2,33 @@
 
 use App\Http\Controllers\NhanVienController;
 use App\Http\Controllers\TaiKhoanController;
+use App\Http\Controllers\ThongBaoController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('app');
 });
 
-Route::get('/employee', function () {
-    return view('Admin.pages.Employee.index');
-})->name('quanlynhanvien');
 
-Route::get('/notification', function () {
-    return view('Admin.pages.Notification.index');
-})->name('quanlythongbao');
+Route::prefix('admin')->group(function () {
+    Route::get('/employee', function () {
+        return view('Admin.pages.Employee.index');
+    })->name('quanlynhanvien');
 
+    Route::get('/notification', function () {
+        return view('Admin.pages.Notification.index');
+    })->name('quanlythongbao');
+});
+
+
+// Api thongbao
+Route::prefix('api/thongbao')->group(function () {
+    Route::get('/', [ThongBaoController::class, 'index']); 
+    Route::post('/', [ThongBaoController::class, 'store']); 
+    Route::get('/{id}', [ThongBaoController::class, 'show']); 
+    Route::put('/{id}', [ThongBaoController::class, 'update']);
+    Route::delete('/{id}', [ThongBaoController::class, 'destroy']);
+});
 
 // Api nhân viên
 Route::prefix('api/nhanvien')->group(function () {

@@ -2,17 +2,17 @@
 
 namespace Database\Seeders;
 
-use App\Models\NhanVien;
+use App\Models\ThongBao;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class NhanVienSeeder extends Seeder
+class ThongBaoSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        NhanVien::factory()->count(10)->create();
+        ThongBao::factory()->count(10)->create();
     }
 }
