@@ -13,7 +13,7 @@ return new class extends Migration
     {
         // Schema::dropIfExists('taikhoan');
         Schema::create('taikhoan', function (Blueprint $table) {
-            $table->integer('maTaiKhoan')->autoIncrement();
+            $table->integer('maTK')->autoIncrement();
             $table->string('tenTaiKhoan', 100)->unique();
             $table->string('matKhau');
             $table->enum('quyenHan', ['admin', 'user'])->default('user');

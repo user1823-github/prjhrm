@@ -1,10 +1,13 @@
 <?php
 
+use App\Http\Controllers\CaLamController;
+use App\Http\Controllers\ChiTietCaLamController;
 use App\Http\Controllers\HopThoaiController;
 use App\Http\Controllers\NhanVienController;
 use App\Http\Controllers\TaiKhoanController;
 use App\Http\Controllers\TaiLieuController;
 use App\Http\Controllers\ThongBaoController;
+use App\Models\ChiTietCaLam;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -25,6 +28,28 @@ Route::prefix('admin')->group(function () {
         return view('Admin.pages.Notification.index');
     })->name('quanlychamcong');
 });
+
+
+// Api nhân viên
+Route::prefix('api/nhanvien')->group(function () {
+    Route::get('/', [NhanVienController::class, 'index']); // Lấy danh sách nhân viên
+    Route::post('/', [NhanVienController::class, 'store']); // Thêm nhân viên
+    Route::get('/{id}', [NhanVienController::class, 'show']); // Lấy 1 nhân viên
+    Route::put('/{id}', [NhanVienController::class, 'update']); // Cập nhật nhân viên
+    Route::delete('/{id}', [NhanVienController::class, 'destroy']); // Xóa nhân viên
+});
+
+// Route::apiResource('nhanvien', NhanVienController::class);
+
+// Api tài khoản
+Route::prefix('api/taikhoan')->group(function () {
+    Route::get('/', [TaiKhoanController::class, 'index']);
+    Route::post('/', [TaiKhoanController::class, 'store']);
+    Route::get('/{id}', [TaiKhoanController::class, 'show']);
+    Route::put('/{id}', [TaiKhoanController::class, 'update']);
+    Route::delete('/{id}', [TaiKhoanController::class, 'destroy']);
+});
+
 
 
 // Api hộp thoại
@@ -54,22 +79,20 @@ Route::prefix('api/tailieu')->group(function () {
     Route::delete('/{id}', [TaiLieuController::class, 'destroy']);
 });
 
-// Api nhân viên
-Route::prefix('api/nhanvien')->group(function () {
-    Route::get('/', [NhanVienController::class, 'index']); // Lấy danh sách nhân viên
-    Route::post('/', [NhanVienController::class, 'store']); // Thêm nhân viên
-    Route::get('/{id}', [NhanVienController::class, 'show']); // Lấy 1 nhân viên
-    Route::put('/{id}', [NhanVienController::class, 'update']); // Cập nhật nhân viên
-    Route::delete('/{id}', [NhanVienController::class, 'destroy']); // Xóa nhân viên
+// Api Ca làm
+Route::prefix('api/calam')->group(function () {
+    Route::get('/', [CaLamController::class, 'index']);
+    Route::post('/', [CaLamController::class, 'store']);
+    Route::get('/{id}', [CaLamController::class, 'show']);
+    Route::put('/{id}', [CaLamController::class, 'update']);
+    Route::delete('/{id}', [CaLamController::class, 'destroy']);
 });
 
-// Route::apiResource('nhanvien', NhanVienController::class);
-
-// Api tài khoản
-Route::prefix('api/taikhoan')->group(function () {
-    Route::get('/', [TaiKhoanController::class, 'index']);
-    Route::post('/', [TaiKhoanController::class, 'store']);
-    Route::get('/{id}', [TaiKhoanController::class, 'show']);
-    Route::put('/{id}', [TaiKhoanController::class, 'update']);
-    Route::delete('/{id}', [TaiKhoanController::class, 'destroy']);
+// Api Chi tiết ca làm
+Route::prefix('api/chitietcalam')->group(function () {
+    Route::get('/', [ChiTietCaLamController::class, 'index']);
+    Route::post('/', [ChiTietCaLamController::class, 'store']);
+    Route::get('/{id}', [ChiTietCaLamController::class, 'show']);
+    Route::put('/{id}', [ChiTietCaLamController::class, 'update']);
+    Route::delete('/{id}', [ChiTietCaLamController::class, 'destroy']);
 });

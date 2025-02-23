@@ -25,7 +25,7 @@ class NhanVienFactory extends Factory
             'ngayVaoLam' => now()->toDateString(),
             'ngaySinh' => $this->faker->optional()->date(),
             // 'maTaiKhoan' => TaiKhoan::factory()
-            'maTaiKhoan' => TaiKhoan::inRandomOrder()->first()->maTaiKhoan, // Lấy tài khoản ngẫu nhiên
+            'maTK' => TaiKhoan::inRandomOrder()->first()->maTK, // Lấy tài khoản ngẫu nhiên
             // 'maTaiKhoan' => TaiKhoan::inRandomOrder()->first()?->maTaiKhoan ?? TaiKhoan::factory()->create()->maTaiKhoan
         ];
     }

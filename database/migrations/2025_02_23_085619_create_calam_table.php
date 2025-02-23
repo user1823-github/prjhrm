@@ -9,14 +9,13 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
+    public function up()
     {
-        Schema::create('tailieu', function (Blueprint $table) {
-            $table->integer('maTL')->autoIncrement(); 
-            $table->string('tieuDe'); // 
-            $table->string('url');
-            $table->dateTime('tgBatDau');
-            $table->dateTime('tgKetThuc');
+        Schema::create('calam', function (Blueprint $table) {
+            $table->integer('maCL')->autoIncrement(); // maCL (Mã ca làm - tự động tăng)
+            $table->string('tenCa');
+            $table->integer('gioCheckInSom');
+            $table->integer('gioCheckOutMuon');
             $table->timestamps();
         });
     }
@@ -26,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('tailieu');
+        Schema::dropIfExists('calam');
     }
 };

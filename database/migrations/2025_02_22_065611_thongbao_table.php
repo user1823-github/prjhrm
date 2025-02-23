@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('thongbao', function (Blueprint $table) {
             $table->integer('maTB')->autoIncrement(); 
             $table->string('tieuDe'); // 
-            $table->string('url')->nullable();
+            $table->string('url');
             $table->dateTime('tgBatDau');
             $table->dateTime('tgKetThuc');
             $table->timestamps();

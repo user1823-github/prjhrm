@@ -36,15 +36,15 @@
                 data.forEach(nhanVien => {
                     rows += `
                         <tr>
-                            <td>${nhanVien.maNhanVien}</td>
+                            <td>${nhanVien.maNV}</td>
                             <td>${nhanVien.hoTen}</td>
                             <td>${nhanVien.chucDanh}</td>
                             <td>${nhanVien.ngayVaoLam}</td>
                             <td>${nhanVien.soDienThoai}</td>
                             <td>${nhanVien.email}</td>
                             <td>
-                                <a href="/nhanvien/${nhanVien.maNhanVien}/edit" class="btn btn-warning">Sửa</a>
-                                <button class="btn btn-danger" onclick="deleteNhanVien(${nhanVien.maNhanVien})">Xóa</button>
+                                <a href="/nhanvien/${nhanVien.maNV}/edit" class="btn btn-warning">Sửa</a>
+                                <button class="btn btn-danger" onclick="deleteNhanVien(${nhanVien.maNV})">Xóa</button>
                             </td>
                         </tr>
                     `;

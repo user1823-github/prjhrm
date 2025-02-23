@@ -12,7 +12,7 @@ class TaiKhoan extends Model
     use HasFactory;
 
     protected $table = 'taikhoan'; // Tên bảng
-    protected $primaryKey = 'maTaiKhoan'; // Khóa chính
+    protected $primaryKey = 'maTK'; // Khóa chính
     public $timestamps = true;
 
     protected $fillable = [
@@ -28,6 +28,6 @@ class TaiKhoan extends Model
     public function nhanVien(): BelongsTo
     {
 
-        return $this->BelongsTo(NhanVien::class, 'maTaiKhoan', 'maTaiKhoan');
+        return $this->BelongsTo(NhanVien::class, 'maTK', 'maTK');
     }
 }

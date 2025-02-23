@@ -10,7 +10,7 @@ class NhanVien extends Model
     use HasFactory;
 
     protected $table = 'nhanvien';
-    protected $primaryKey = 'maNhanVien';
+    protected $primaryKey = 'maNV';
     public $timestamps = true;
 
     protected $fillable = [
@@ -21,12 +21,12 @@ class NhanVien extends Model
         'gioiTinh',
         'ngayVaoLam',
         'ngaySinh',
-        'maTaiKhoan'
+        'maTK'
     ];
 
     // Thiết lập quan hệ 1-1 với bảng TaiKhoan
     public function taiKhoan()
     {
-        return $this->belongsTo(TaiKhoan::class, 'maTaiKhoan', 'maTaiKhoan');
+        return $this->belongsTo(TaiKhoan::class, 'maTK', 'maTK');
     }
 }

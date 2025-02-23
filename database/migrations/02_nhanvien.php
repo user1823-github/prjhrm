@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::dropIfExists('nhanvien');
         Schema::create('nhanvien', function (Blueprint $table) {
-            $table->integer('maNhanVien')->autoIncrement();
+            $table->integer('maNV')->autoIncrement();
             $table->string('hoTen', 50)->nullable();
             $table->string('chucDanh')->nullable();
             $table->string('soDienThoai', 20)->unique()->nullable();
@@ -21,14 +21,13 @@ return new class extends Migration
             $table->enum('gioiTinh', ['Nam', 'Nữ', 'Khác']);
             $table->date('ngayVaoLam');
             $table->date('ngaySinh')->nullable();
-            
-            $table->integer('maTaiKhoan');  // Thêm cột khóa ngoại
 
-            $table->foreign('maTaiKhoan')->references('maTaiKhoan')->on('taikhoan')->onDelete('cascade');
-            
+            $table->integer('maTK');  // Thêm cột khóa ngoại
+
+            $table->foreign('maTK')->references('maTK')->on('taikhoan')->onDelete('cascade');
+
             $table->timestamps();
         });
-
     }
 
     /**
@@ -37,7 +36,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('nhanvien', function (Blueprint $table) {
-            $table->dropForeign(['maTaiKhoan']);
+            $table->dropForeign(['maTK']);
         });
         Schema::dropIfExists('nhanvien');
     }
