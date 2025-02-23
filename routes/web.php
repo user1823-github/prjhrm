@@ -20,6 +20,10 @@ Route::prefix('admin')->group(function () {
     Route::get('/notification', function () {
         return view('Admin.pages.Notification.index');
     })->name('quanlythongbao');
+
+    Route::get('/timekeeping', function () {
+        return view('Admin.pages.Notification.index');
+    })->name('quanlychamcong');
 });
 
 

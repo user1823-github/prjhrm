@@ -4,29 +4,26 @@
         <!-- Tabs -->
         <ul class="nav nav-tabs" id="notificationTabs">
             <li class="nav-item">
-                <a class="nav-link active" id="tab-messages" data-bs-toggle="tab" href="#messages">Hộp thoại</a>
+                <a class="nav-link active" id="tab-messages" data-bs-toggle="tab" href="#messages">📩 Hộp thoại</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" id="tab-alerts" data-bs-toggle="tab" href="#alerts">Thông báo</a>
+                <a class="nav-link" id="tab-alerts" data-bs-toggle="tab" href="#alerts">🔔 Thông báo</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" id="tab-documents" data-bs-toggle="tab" href="#documents">Tài liệu</a>
+                <a class="nav-link" id="tab-documents" data-bs-toggle="tab" href="#documents">📂 Tài liệu</a>
             </li>
         </ul>
 
         <!-- Nội dung của các tab -->
         <div class="tab-content mt-3">
             <div class="tab-pane fade show active" id="messages">
-                <h3>📩 Hộp thoại</h3>
-                <p>Nội dung hộp thoại...</p>
+                @include('Admin.pages.Notification.HopThoai.index')
             </div>
             <div class="tab-pane fade" id="alerts">
-                <h3>🔔 Thông báo</h3>
-                <p>Nội dung thông báo...</p>
+                @include('Admin.pages.Notification.ThongBao.index')
             </div>
             <div class="tab-pane fade" id="documents">
-                <h3>📂 Tài liệu</h3>
-                <p>Nội dung tài liệu...</p>
+                @include('Admin.pages.Notification.TaiLieu.index')
             </div>
         </div>
     </div>
