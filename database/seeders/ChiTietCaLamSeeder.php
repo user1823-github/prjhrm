@@ -23,7 +23,7 @@ class ChiTietCaLamSeeder extends Seeder
             'tienThuong' => 0,
             'maCL' => 1,
         ]);
-        
+
         ChiTietCaLam::create([
             'thuTrongTuan' => 3,
             'tgBatDau' => '08:00',
@@ -101,6 +101,5 @@ class ChiTietCaLamSeeder extends Seeder
             'tienThuong' => 0,
             'maCL' => 2,
         ]);
-        
     }
 }

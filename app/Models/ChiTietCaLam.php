@@ -15,10 +15,10 @@ class ChiTietCaLam extends Model
 
     protected $fillable = [
         'thuTrongCa',
-        'tgBatDau',
-        'tgKetThuc',
-        'tgBatDauNghi',
-        'tgKetThucNghi',
+        'tgBatDau' => 'H:i',
+        'tgKetThuc' => 'H:i',
+        'tgBatDauNghi' => 'H:i',
+        'tgKetThucNghi' => 'H:i',
         'heSoLuong',
         'tienThuong'
     ];

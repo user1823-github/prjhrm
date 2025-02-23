@@ -24,10 +24,19 @@ Route::prefix('admin')->group(function () {
         return view('Admin.pages.Notification.index');
     })->name('quanlythongbao');
 
-    Route::get('/timekeeping', function () {
-        return view('Admin.pages.Notification.index');
-    })->name('quanlychamcong');
+    Route::get('/workschedule', function () {
+        return view('Admin.pages.TimeKeeping.QLCaLam.index');
+    })->name('lichlamviec');
+
+    Route::get('/timesheet', function () {
+        return view('Admin.pages.TimeKeeping.QLChamCong.index');
+    })->name('bangchamcong');
+
+    Route::get('/leave', function () {
+        return view('Admin.pages.TimeKeeping.QLPhep.index');
+    })->name('donphep');
 });
+
 
 
 // Api nhân viên
