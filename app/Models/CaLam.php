@@ -18,4 +18,10 @@ class CaLam extends Model
         'gioCheckInSom',
         'gioCheckOutMuon'
     ];
+
+    // Một CaLam có nhiều ChiTietCaLam
+    public function chiTietCaLams()
+    {
+        return $this->hasMany(ChiTietCaLam::class, 'maCL', 'maCL');
+    }
 }

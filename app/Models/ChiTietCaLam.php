@@ -22,4 +22,10 @@ class ChiTietCaLam extends Model
         'heSoLuong',
         'tienThuong'
     ];
+
+    // Một ChiTietCaLam thuộc về một CaLam
+    public function caLam()
+    {
+        return $this->belongsTo(CaLam::class, 'maCL', 'maCL');
+    }
 }
