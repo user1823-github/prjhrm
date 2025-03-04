@@ -3,6 +3,7 @@
 use App\Http\Controllers\CaLamController;
 use App\Http\Controllers\ChiTietCaLamController;
 use App\Http\Controllers\HopThoaiController;
+use App\Http\Controllers\NgayLeController;
 use App\Http\Controllers\NhanVienController;
 use App\Http\Controllers\TaiKhoanController;
 use App\Http\Controllers\TaiLieuController;
@@ -104,4 +105,13 @@ Route::prefix('api/chitietcalam')->group(function () {
     Route::get('/{id}', [ChiTietCaLamController::class, 'show']);
     Route::put('/{id}', [ChiTietCaLamController::class, 'update']);
     Route::delete('/{id}', [ChiTietCaLamController::class, 'destroy']);
+});
+
+// Api Chi tiết ca làm
+Route::prefix('api/ngayle')->group(function () {
+    Route::get('/', [NgayLeController::class, 'index']);
+    Route::post('/', [NgayLeController::class, 'store']);
+    Route::get('/{id}', [NgayLeController::class, 'show']);
+    Route::put('/{id}', [NgayLeController::class, 'update']);
+    Route::delete('/{id}', [NgayLeController::class, 'destroy']);
 });
