@@ -30,7 +30,7 @@
             Nội dung mẫu thời khóa biểu
         </div>
         <div class="tab-pane fade" id="alerts">
-            {{-- @include('Admin.pages.TimeKeeping.QLCaLam.NgayLe.index') --}}
+            @include('Admin.pages.TimeKeeping.QLCaLam.NgayLe.index')
             Nội dung ngày lễ
         </div>
         <div class="tab-pane fade" id="documents">
