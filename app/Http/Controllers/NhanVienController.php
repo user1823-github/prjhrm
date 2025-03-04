@@ -61,6 +61,15 @@ class NhanVienController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $nhanVien = NhanVien::findOrFail($id);
+
+        // Xóa file icon nếu có
+        if ($nhanVien->icon && File::exists(public_path($nhanVien->icon))) {
+            File::delete(public_path($nhanVien->icon));
+        }
+
+        $nhanVien->delete();
+
+        return response()->json(null, 204);
     }
 }

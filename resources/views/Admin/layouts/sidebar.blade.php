@@ -12,9 +12,10 @@
 
 <body class="bg-gray-100">
 
-    <div class="sidebar">
+    <div class="">
         <!-- Sidebar (Menu bên trái) -->
-        <aside class="sidebar-admin text-white p-3">
+        {{-- <aside class="sidebar sidebar-admin text-white p-3"> --}}
+        <aside class="vh-100 sidebar-admin text-white p-3">
             <h2 class="fs-4 fw-bold mb-4 text-center">HRM System</h2>
             <ul class="nav flex-column">
                 {{-- <li class="nav-item"><a href="{{ route('dashboard') }}" class="nav-link text-white">Dashboard</a></li> --}}

@@ -11,7 +11,7 @@
 </head>
 <body class="bg-gray-100">
 
-    <div class="container-fluid d-flex">
+    <div class="container-fluid d-flex p-0 m-0">
         <!-- Sidebar -->
         @include('Admin.layouts.sidebar')
 
