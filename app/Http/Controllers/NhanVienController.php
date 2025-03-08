@@ -13,7 +13,7 @@ class NhanVienController extends Controller
      */
     public function index()
     {
-        $nhanvien = NhanVien::all();
+        $nhanvien = NhanVien::with('taiKhoan')->get();
         return response()->json($nhanvien, 200);
     }
 
@@ -22,7 +22,19 @@ class NhanVienController extends Controller
      */
     public function create()
     {
-        //
+        // Trả về dữ liệu mẫu cho một nhân viên mới (các trường có thể để trống hoặc null)
+        // return response()->json([
+        //     'nhanVien' => [
+        //         'hoTen'       => '',
+        //         'chucDanh'    => '',
+        //         'soDienThoai' => '',
+        //         'email'       => '',
+        //         'gioiTinh'    => '',
+        //         'ngayVaoLam'  => null,
+        //         'ngaySinh'    => null,
+        //         'maTK'        => null,
+        //     ]
+        // ], 200);
     }
 
     /**

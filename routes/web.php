@@ -115,3 +115,5 @@ Route::prefix('api/ngayle')->group(function () {
     Route::put('/{id}', [NgayLeController::class, 'update']);
     Route::delete('/{id}', [NgayLeController::class, 'destroy']);
 });
+
+

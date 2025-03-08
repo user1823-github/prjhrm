@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\NhanVien;
 use App\Models\TaiKhoan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -21,17 +22,36 @@ class TaiKhoanController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'matKhau' => 'required|string',
-            'quyenHan' => 'required|in:admin,user',
+            'tenTaiKhoan' => 'required|string|unique:taikhoan,tenTaiKhoan',
+            'matKhau'     => 'required|string',
         ]);
 
+        // Tạo tài khoản mới
         $taiKhoan = TaiKhoan::create([
-            'matKhau' => Hash::make($request->matKhau), // Mã hóa mật khẩu
-            'quyenHan' => $request->quyenHan,
+            'tenTaiKhoan' => $request->tenTaiKhoan,
+            'matKhau'     => Hash::make($request->matKhau)
         ]);
 
-        return response()->json($taiKhoan, 201);
+        // Tạo luôn bản ghi nhân viên với các trường còn lại để trống và gắn maTK từ tài khoản vừa tạo
+        $nhanVien = NhanVien::create([
+            'hoTen'       => '',
+            'chucDanh'    => '',
+            'soDienThoai' => '',
+            'email'       => '',
+            'gioiTinh'    => null,
+            'ngayVaoLam'  => null,
+            'ngaySinh'    => null,
+            'maTK'        => $taiKhoan->maTK,
+        ]);
+
+        // Trả về JSON chứa thông tin tài khoản và nhân viên mới tạo
+        return response()->json([
+            'taiKhoan' => $taiKhoan,
+            'nhanVien' => $nhanVien
+        ], 201);
     }
+
+
 
     // Lấy thông tin 1 tài khoản
     public function show($id)

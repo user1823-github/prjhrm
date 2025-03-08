@@ -18,8 +18,8 @@ return new class extends Migration
             $table->string('chucDanh')->nullable();
             $table->string('soDienThoai', 20)->unique()->nullable();
             $table->string('email', 50)->unique()->nullable();
-            $table->enum('gioiTinh', ['Nam', 'Nữ', 'Khác']);
-            $table->date('ngayVaoLam');
+            $table->enum('gioiTinh', ['Nam', 'Nữ', 'Khác'])->nullable();
+            $table->date('ngayVaoLam')->nullable();
             $table->date('ngaySinh')->nullable();
 
             $table->integer('maTK');  // Thêm cột khóa ngoại

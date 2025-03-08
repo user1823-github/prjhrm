@@ -14,8 +14,8 @@ return new class extends Migration
         // Schema::dropIfExists('taikhoan');
         Schema::create('taikhoan', function (Blueprint $table) {
             $table->integer('maTK')->autoIncrement();
-            $table->string('tenTaiKhoan', 100)->unique();
-            $table->string('matKhau');
+            $table->string('tenTaiKhoan', 50)->unique();
+            $table->string('matKhau', 100);
             $table->enum('quyenHan', ['admin', 'user'])->default('user');
             $table->timestamps();
         });

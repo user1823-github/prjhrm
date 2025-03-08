@@ -25,9 +25,9 @@ class TaiKhoan extends Model
         'matKhau', // Ẩn mật khẩu khi trả về JSON
     ];
 
-    public function nhanVien(): BelongsTo
+    public function nhanVien(): hasOne
     {
 
-        return $this->BelongsTo(NhanVien::class, 'maTK', 'maTK');
+        return $this->hasOne(NhanVien::class, 'maTK', 'maTK');
     }
 }

@@ -24,6 +24,8 @@ class NhanVien extends Model
         'maTK'
     ];
 
+
+    // protected $with = ['taiKhoan'];
     // Thiết lập quan hệ 1-1 với bảng TaiKhoan
     public function taiKhoan()
     {
