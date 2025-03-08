@@ -4,9 +4,13 @@
     <!-- Dữ liệu sẽ được đổ vào đây bằng AJAX -->
 </div>
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+{{-- @section('scripts')
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="{{ asset('js/hopthoai.js') }}"></script>
+@endsection --}}
 
-<script>
+
+{{-- <script>
     $(document).ready(function () {
         $.ajax({
             url: "http://127.0.0.1:8000/api/hopthoai", // API lấy danh sách hộp thoại
@@ -60,4 +64,4 @@
             });
         }
     }
-</script>
+</script> --}}

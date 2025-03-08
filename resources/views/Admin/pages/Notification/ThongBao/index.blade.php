@@ -17,9 +17,12 @@
     </tbody>
 </table>
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+{{-- @section('scripts')
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="{{ asset('js/thongbao.js') }}"></script>
+@endsection --}}
 
-<script>
+{{-- <script>
     $(document).ready(function () {
         $.ajax({
             url: "http://127.0.0.1:8000/api/thongbao",
@@ -68,5 +71,5 @@
             });
         }
     }
-</script>
+</script> --}}
 
