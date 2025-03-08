@@ -66,7 +66,27 @@ class NhanVienController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        // Tìm nhân viên theo id, nếu không tìm thấy sẽ ném Exception 404
+        $nhanVien = NhanVien::findOrFail($id);
+
+        // Lấy dữ liệu cập nhật (chỉ cho phép cập nhật các trường này)
+        $data = $request->only(['hoTen', 'chucDanh', 'ngayVaoLam', 'soDienThoai', 'email']);
+
+        // Nếu muốn, bạn có thể validate dữ liệu cập nhật, ví dụ:
+        // $validatedData = $request->validate([
+        //     'hoTen'       => 'sometimes|string|nullable',
+        //     'chucDanh'    => 'sometimes|string|nullable',
+        //     'ngayVaoLam'  => 'sometimes|date|nullable',
+        //     'soDienThoai' => 'sometimes|string|nullable',
+        //     'email'       => 'sometimes|email|nullable',
+        // ]);
+        // $nhanVien->update($validatedData);
+
+        // Cập nhật các trường theo dữ liệu nhận được
+        $nhanVien->update($data);
+
+        // Trả về JSON chứa thông tin nhân viên đã được cập nhật
+        return response()->json($nhanVien, 200);
     }
 
     /**
