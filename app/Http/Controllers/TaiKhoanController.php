@@ -34,10 +34,10 @@ class TaiKhoanController extends Controller
 
         // Tạo luôn bản ghi nhân viên với các trường còn lại để trống và gắn maTK từ tài khoản vừa tạo
         $nhanVien = NhanVien::create([
-            'hoTen'       => '',
-            'chucDanh'    => '',
-            'soDienThoai' => '',
-            'email'       => '',
+            'hoTen'       => null,
+            'chucDanh'    => null,
+            'soDienThoai' => null,
+            'email'       => null,
             'gioiTinh'    => null,
             'ngayVaoLam'  => null,
             'ngaySinh'    => null,
