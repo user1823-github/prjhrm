@@ -79,10 +79,6 @@ class NhanVienController extends Controller
             'trangThai'
         ]);
 
-        if (array_key_exists('trangThai', $data)) {
-            $data['trangThai'] = $data['trangThai'] === "1";
-        }
-
         // Cập nhật các trường theo dữ liệu nhận được
         $nhanVien->update($data);
 
