@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\NhanVien;
 use App\Models\TaiKhoan;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -39,8 +40,9 @@ class TaiKhoanController extends Controller
             'soDienThoai' => null,
             'email'       => null,
             'gioiTinh'    => null,
-            'ngayVaoLam'  => null,
+            'ngayVaoLam'  => Carbon::now()->toDateString(),
             'ngaySinh'    => null,
+            'trangThai'    => 1,
             'maTK'        => $taiKhoan->maTK,
         ]);
 

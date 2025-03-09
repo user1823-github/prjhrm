@@ -80,7 +80,6 @@ function loadEmployees() {
                         <td>${nhanVien.maNV}</td>
                         <td>${nhanVien.tai_khoan ? nhanVien.tai_khoan.tenTaiKhoan : ''}</td>
                         
-                        <!-- Các ô có thể chỉnh sửa -->
                         <td class="editable-cell" data-field="hoTen" data-id="${nhanVien.maNV}">
                             <span class="field-value">${nhanVien.hoTen}</span>
                             <i class="fa fa-pencil edit-icon" style="display:none; cursor:pointer;"></i>
@@ -101,8 +100,15 @@ function loadEmployees() {
                             <span class="field-value">${nhanVien.email}</span>
                             <i class="fa fa-pencil edit-icon" style="display:none; cursor:pointer;"></i>
                         </td>
+                        
+                        <!-- Cột Trạng thái -->
+                        <td class="editable-cell" data-field="trangThai" data-id="${nhanVien.maNV}">
+                            <select class="field-value">
+                                <option value="1" ${nhanVien.trangThai == 1 ? 'selected' : ''}>Hoạt động</option>
+                                <option value="0" ${nhanVien.trangThai == 0 ? 'selected' : ''}>Không hoạt động</option>
+                            </select>
+                        </td>
                         <td>
-                            <a href="/nhanvien/${nhanVien.maNV}/edit" class="btn btn-warning">Sửa</a>
                             <button class="btn btn-danger" onclick="deleteNhanVien(${nhanVien.maNV})">Xóa</button>
                         </td>
                     </tr>
@@ -116,6 +122,7 @@ function loadEmployees() {
         }
     });
 }
+
 
 // Hàm bind sự kiện cho các ô có class "editable-cell"
 function bindEditableCells() {
@@ -150,6 +157,7 @@ function bindEditableCells() {
             default: fieldDisplayName = fieldName;
         }
         $('#editFieldModalLabel').text(`Chỉnh sửa ${fieldDisplayName}`);
+        $('#editFieldModalLabelContent').text(`${fieldDisplayName}`);
 
         // Điền thông tin hiện tại vào modal
         $('#fieldValue').val(currentValue);

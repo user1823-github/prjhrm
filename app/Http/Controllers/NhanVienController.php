@@ -70,17 +70,18 @@ class NhanVienController extends Controller
         $nhanVien = NhanVien::findOrFail($id);
 
         // Lấy dữ liệu cập nhật (chỉ cho phép cập nhật các trường này)
-        $data = $request->only(['hoTen', 'chucDanh', 'ngayVaoLam', 'soDienThoai', 'email']);
+        $data = $request->only([
+            'hoTen',
+            'chucDanh',
+            'ngayVaoLam',
+            'soDienThoai',
+            'email',
+            'trangThai'
+        ]);
 
-        // Nếu muốn, bạn có thể validate dữ liệu cập nhật, ví dụ:
-        // $validatedData = $request->validate([
-        //     'hoTen'       => 'sometimes|string|nullable',
-        //     'chucDanh'    => 'sometimes|string|nullable',
-        //     'ngayVaoLam'  => 'sometimes|date|nullable',
-        //     'soDienThoai' => 'sometimes|string|nullable',
-        //     'email'       => 'sometimes|email|nullable',
-        // ]);
-        // $nhanVien->update($validatedData);
+        if (array_key_exists('trangThai', $data)) {
+            $data['trangThai'] = $data['trangThai'] === "1";
+        }
 
         // Cập nhật các trường theo dữ liệu nhận được
         $nhanVien->update($data);

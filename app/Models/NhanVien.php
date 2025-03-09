@@ -21,6 +21,7 @@ class NhanVien extends Model
         'gioiTinh',
         'ngayVaoLam',
         'ngaySinh',
+        'trangThai',
         'maTK'
     ];
 

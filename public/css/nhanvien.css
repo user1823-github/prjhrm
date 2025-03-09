@@ -1,0 +1,21 @@
+.editable-cell {
+    position: relative;
+    padding-right: 25px; /* Để dành chỗ cho icon */
+}
+
+.edit-icon {
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #333;
+    display: none; /* Mặc định ẩn */
+}
+
+.editable-cell:hover .edit-icon {
+    display: inline-block;
+}
+
+.editable-cell:hover .field-value {
+    text-decoration: underline;
+}

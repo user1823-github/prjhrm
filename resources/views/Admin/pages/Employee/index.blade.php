@@ -68,7 +68,7 @@
             </div>
             <div class="modal-body">
               <div class="mb-3">
-                <label for="fieldValue" class="form-label">Giá trị mới:</label>
+                <label for="fieldValue" class="form-label" id="editFieldModalLabelContent">Giá trị mới:</label>
                 <input type="text" id="fieldValue" name="fieldValue" class="form-control">
               </div>
               <!-- Lưu trữ ẩn record id và tên trường cần chỉnh sửa -->

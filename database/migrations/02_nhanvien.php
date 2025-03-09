@@ -21,7 +21,7 @@ return new class extends Migration
             $table->enum('gioiTinh', ['Nam', 'Nữ', 'Khác'])->nullable();
             $table->date('ngayVaoLam')->nullable();
             $table->date('ngaySinh')->nullable();
-
+            $table->boolean('trangThai');
             $table->integer('maTK');  // Thêm cột khóa ngoại
 
             $table->foreign('maTK')->references('maTK')->on('taikhoan')->onDelete('cascade');
