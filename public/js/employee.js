@@ -80,19 +80,50 @@ function generateEditableCells(nv) {
 }
 
 function bindEditableCells() {
+    // Định nghĩa tên cột ánh xạ từ data-field
+    const columnNames = {
+        hoTen: "Họ tên",
+        chucDanh: "Chức danh",
+        ngayVaoLam: "Ngày vào làm",
+        soDienThoai: "Điện Thoại",
+        email: "Email"
+    };
+
     $('.editable-cell').hover(
-        function() { if ($(this).data('field') !== 'trangThai') $(this).find('.edit-icon').show().siblings('.field-value').css("text-decoration", "underline"); },
-        function() { $(this).find('.edit-icon').hide().siblings('.field-value').css("text-decoration", "none"); }
+        function() { 
+            if ($(this).data('field') !== 'trangThai') {
+                $(this).find('.field-value').css("text-decoration", "underline");
+                $(this).find('.edit-icon').show();
+            }
+        },
+        function() { 
+            $(this).find('.field-value').css("text-decoration", "none");
+            $(this).find('.edit-icon').hide();
+        }
     );
-    $('.edit-icon').on('click', function() {
-        let cell = $(this).closest('.editable-cell');
-        $('#editFieldModalLabel').text(`Chỉnh sửa ${cell.data('field')}`);
+
+    // Khi click vào chữ hoặc icon, mở popup chỉnh sửa
+    $('.editable-cell').on('click', function() {
+        let cell = $(this);
+        let fieldName = cell.data('field');
+        let columnName = columnNames[fieldName] || fieldName; // Lấy tên tiếng Việt hoặc giữ nguyên nếu không có
+
+        // Cập nhật cả tiêu đề modal và nội dung label
+        $('#editFieldModalLabel').text(`Chỉnh sửa ${columnName}`);
+        $('#editFieldModalLabelContent').text(columnName);
+
+        // Điền thông tin hiện tại vào modal
         $('#fieldValue').val(cell.find('.field-value').text().trim());
-        $('#editFieldName').val(cell.data('field'));
+        $('#editFieldName').val(fieldName);
         $('#editRecordId').val(cell.data('id'));
+
+        // Hiển thị modal
         $('#editFieldModal').modal('show');
     });
 }
+
+
+
 
 $(document).on("click", ".change-status", function(e) {
     e.preventDefault();
