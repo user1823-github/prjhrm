@@ -17,7 +17,7 @@
                 <th>Ngày vào làm</th>
                 <th>Số điện thoại</th>
                 <th>Email</th>
-                <th>Hành động</th>
+                {{-- <th>Hành động</th> --}}
             </tr>
         </thead>
         <tbody id="nhanvien-table">
@@ -85,6 +85,7 @@
     </div>
   
 @endsection
+
 
 @section('scripts')
     <script src="{{ asset('js/employee.js') }}"></script>
