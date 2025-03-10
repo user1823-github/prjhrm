@@ -27,7 +27,7 @@ return new class extends Migration
 
             $table->foreign('maTK')->references('maTK')->on('taikhoan')->onDelete('cascade');
             $table->foreign('maLuong')->references('maLuong')->on('luong')->onDelete('cascade');
-
+            
             $table->timestamps();
         });
     }

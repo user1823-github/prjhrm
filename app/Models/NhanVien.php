@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class NhanVien extends Model
 {
@@ -23,7 +25,8 @@ class NhanVien extends Model
         'ngaySinh',
         'trangThai',
         'maTK',
-        'maLuong'
+        'maLuong',
+        'maTT'
     ];
 
 
@@ -37,5 +40,10 @@ class NhanVien extends Model
     public function luong()
     {
         return $this->belongsTo(Luong::class, 'maLuong', 'maLuong');
+    }
+
+    public function thanhToan(): HasMany
+    {
+        return $this->hasMany(ThanhToan::class, 'maTT', 'maTT');
     }
 }

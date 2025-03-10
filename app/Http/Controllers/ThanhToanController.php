@@ -2,47 +2,86 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ThanhToan;
 use Illuminate\Http\Request;
 
 class ThanhToanController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Lấy danh sách tất cả phương thức thanh toán.
      */
     public function index()
     {
-        //
+        return response()->json(ThanhToan::all(), 200);
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Thêm mới phương thức thanh toán.
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'tenDVhoacNH' => 'required|string|max:255',
+            'soDThoacSTK' => 'required|string|max:50',
+            'tenChuTaiKhoan' => 'required|string|max:255',
+            'hinhAnh' => 'nullable|string',
+        ]);
+
+        $thanhtoan = ThanhToan::create($request->all());
+
+        return response()->json(['message' => 'Thêm phương thức thanh toán thành công!', 'data' => $thanhtoan], 201);
     }
 
     /**
-     * Display the specified resource.
+     * Hiển thị thông tin chi tiết của một phương thức thanh toán.
      */
-    public function show(string $id)
+    public function show($id)
     {
-        //
+        $thanhtoan = ThanhToan::find($id);
+
+        if (!$thanhtoan) {
+            return response()->json(['message' => 'Không tìm thấy phương thức thanh toán!'], 404);
+        }
+
+        return response()->json($thanhtoan, 200);
     }
 
     /**
-     * Update the specified resource in storage.
+     * Cập nhật thông tin phương thức thanh toán.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
-        //
+        $thanhtoan = ThanhToan::find($id);
+
+        if (!$thanhtoan) {
+            return response()->json(['message' => 'Không tìm thấy phương thức thanh toán!'], 404);
+        }
+
+        $request->validate([
+            'tenDVhoacNH' => 'sometimes|required|string|max:255',
+            'soDThoacSTK' => 'sometimes|required|string|max:50',
+            'tenChuTaiKhoan' => 'sometimes|required|string|max:255',
+            'hinhAnh' => 'nullable|string',
+        ]);
+
+        $thanhtoan->update($request->all());
+
+        return response()->json(['message' => 'Cập nhật thành công!', 'data' => $thanhtoan], 200);
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Xóa phương thức thanh toán.
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
-        //
+        $thanhtoan = ThanhToan::find($id);
+
+        if (!$thanhtoan) {
+            return response()->json(['message' => 'Không tìm thấy phương thức thanh toán!'], 404);
+        }
+
+        $thanhtoan->delete();
+
+        return response()->json(['message' => 'Xóa thành công!'], 200);
     }
 }

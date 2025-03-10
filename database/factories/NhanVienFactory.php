@@ -5,6 +5,7 @@ namespace Database\Factories;
 use App\Models\Luong;
 use App\Models\NhanVien;
 use App\Models\TaiKhoan;
+use App\Models\ThanhToan;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -12,7 +13,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
  */
 class NhanVienFactory extends Factory
 {
-    
+
 
     protected $model = NhanVien::class;
     public function definition(): array
@@ -29,5 +30,13 @@ class NhanVienFactory extends Factory
             'maTK' => TaiKhoan::inRandomOrder()->first()->maTK, // Lấy tài khoản ngẫu nhiên
             'maLuong' => Luong::inRandomOrder()->first()->maLuong, // Lấy tài khoản ngẫu nhiên
         ];
+    }
+
+    public function configure()
+    {
+        return $this->afterCreating(function (NhanVien $nhanVien) {
+            // Mỗi nhân viên sẽ có từ 1 đến 3 phương thức thanh toán
+            ThanhToan::factory()->count(rand(1, 3))->create(['maNV' => $nhanVien->maNV]);
+        });
     }
 }

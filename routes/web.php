@@ -8,6 +8,7 @@ use App\Http\Controllers\NgayLeController;
 use App\Http\Controllers\NhanVienController;
 use App\Http\Controllers\TaiKhoanController;
 use App\Http\Controllers\TaiLieuController;
+use App\Http\Controllers\ThanhToanController;
 use App\Http\Controllers\ThongBaoController;
 use App\Models\ChiTietCaLam;
 use Illuminate\Support\Facades\Route;
@@ -57,6 +58,15 @@ Route::prefix('api/luong')->group(function () {
     Route::get('/{id}', [LuongController::class, 'show']); // Lấy 1 nhân viên
     Route::put('/{id}', [LuongController::class, 'update']); // Cập nhật nhân viên
     Route::delete('/{id}', [LuongController::class, 'destroy']); // Xóa nhân viên
+});
+
+// Api Thanh toán
+Route::prefix('api/thanhtoan')->group(function () {
+    Route::get('/', [ThanhToanController::class, 'index']); // Lấy danh sách nhân viên
+    Route::post('/', [ThanhToanController::class, 'store']); // Thêm nhân viên
+    Route::get('/{id}', [ThanhToanController::class, 'show']); // Lấy 1 nhân viên
+    Route::put('/{id}', [ThanhToanController::class, 'update']); // Cập nhật nhân viên
+    Route::delete('/{id}', [ThanhToanController::class, 'destroy']); // Xóa nhân viên
 });
 
 // Route::apiResource('nhanvien', NhanVienController::class);
