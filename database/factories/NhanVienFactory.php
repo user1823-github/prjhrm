@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Luong;
 use App\Models\NhanVien;
 use App\Models\TaiKhoan;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -25,9 +26,8 @@ class NhanVienFactory extends Factory
             'ngayVaoLam' => now()->toDateString(),
             'ngaySinh' => $this->faker->optional()->date(),
             'trangthai'   => $this->faker->boolean(), // true: Hoạt động, false: Không hoạt động
-            // 'maTaiKhoan' => TaiKhoan::factory()
             'maTK' => TaiKhoan::inRandomOrder()->first()->maTK, // Lấy tài khoản ngẫu nhiên
-            // 'maTaiKhoan' => TaiKhoan::inRandomOrder()->first()?->maTaiKhoan ?? TaiKhoan::factory()->create()->maTaiKhoan
+            'maLuong' => Luong::inRandomOrder()->first()->maLuong, // Lấy tài khoản ngẫu nhiên
         ];
     }
 }

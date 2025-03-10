@@ -22,7 +22,8 @@ class NhanVien extends Model
         'ngayVaoLam',
         'ngaySinh',
         'trangThai',
-        'maTK'
+        'maTK',
+        'maLuong'
     ];
 
 
@@ -31,5 +32,10 @@ class NhanVien extends Model
     public function taiKhoan()
     {
         return $this->belongsTo(TaiKhoan::class, 'maTK', 'maTK');
+    }
+
+    public function luong()
+    {
+        return $this->belongsTo(Luong::class, 'maLuong', 'maLuong');
     }
 }

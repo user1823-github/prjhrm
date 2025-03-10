@@ -3,6 +3,7 @@
 use App\Http\Controllers\CaLamController;
 use App\Http\Controllers\ChiTietCaLamController;
 use App\Http\Controllers\HopThoaiController;
+use App\Http\Controllers\LuongController;
 use App\Http\Controllers\NgayLeController;
 use App\Http\Controllers\NhanVienController;
 use App\Http\Controllers\TaiKhoanController;
@@ -47,6 +48,15 @@ Route::prefix('api/nhanvien')->group(function () {
     Route::get('/{id}', [NhanVienController::class, 'show']); // Lấy 1 nhân viên
     Route::put('/{id}', [NhanVienController::class, 'update']); // Cập nhật nhân viên
     Route::delete('/{id}', [NhanVienController::class, 'destroy']); // Xóa nhân viên
+});
+
+// Api Lương
+Route::prefix('api/luong')->group(function () {
+    Route::get('/', [LuongController::class, 'index']); // Lấy danh sách nhân viên
+    Route::post('/', [LuongController::class, 'store']); // Thêm nhân viên
+    Route::get('/{id}', [LuongController::class, 'show']); // Lấy 1 nhân viên
+    Route::put('/{id}', [LuongController::class, 'update']); // Cập nhật nhân viên
+    Route::delete('/{id}', [LuongController::class, 'destroy']); // Xóa nhân viên
 });
 
 // Route::apiResource('nhanvien', NhanVienController::class);
@@ -115,5 +125,3 @@ Route::prefix('api/ngayle')->group(function () {
     Route::put('/{id}', [NgayLeController::class, 'update']);
     Route::delete('/{id}', [NgayLeController::class, 'destroy']);
 });
-
-

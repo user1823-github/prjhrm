@@ -14,7 +14,6 @@ class TaiKhoanFactory extends Factory
 
     protected $model = TaiKhoan::class;
 
-    // protected $model = TaiKhoan::class;
     public function definition(): array
     {
         return [
