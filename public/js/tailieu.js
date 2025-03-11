@@ -10,11 +10,11 @@ $(document).ready(function () {
     $('#addTaiLieuForm').on('submit', function (e) {
         e.preventDefault(); // Ngăn trang reload
 
-        let thoigian = $('#thoigian').val().split(" - "); // Tách khoảng thời gian thành 2 phần
+        let thoigian = $('#taiLieuThoigian').val().split(" - "); // Tách khoảng thời gian thành 2 phần
 
         let formData = {
-            tieuDe: $('#tieuDe').val(),
-            url: $('#url').val(),
+            tieuDe: $('#taiLieuTieuDe').val(),
+            url: $('#taiLieuUrl').val(),
             tgBatDau: thoigian[0], // Thời gian bắt đầu
             tgKetThuc: thoigian[1]  // Thời gian kết thúc
         };
@@ -94,9 +94,9 @@ $(document).ready(function () {
             dataType: "json",
             success: function (taiLieu) {
                 $('#editTaiLieuId').val(taiLieu.maTL);
-                $('#editTieuDe').val(taiLieu.tieuDe);
-                $('#editUrl').val(taiLieu.url);
-                $('#editThoigian').val(`${taiLieu.tgBatDau} - ${taiLieu.tgKetThuc}`);
+                $('#editTaiLieuTieuDe').val(taiLieu.tieuDe);
+                $('#editTaiLieuUrl').val(taiLieu.url);
+                $('#editTaiLieuThoigian').val(`${taiLieu.tgBatDau} - ${taiLieu.tgKetThuc}`);
 
                 new bootstrap.Modal($('#editTaiLieuModal')).show();
             },
@@ -112,11 +112,11 @@ $(document).ready(function () {
         e.preventDefault();
 
         let id = $('#editTaiLieuId').val();
-        let thoigian = $('#editThoigian').val().split(" - ");
+        let thoigian = $('#editTaiLieuThoigian').val().split(" - ");
 
         let formData = {
-            tieuDe: $('#editTieuDe').val(),
-            url: $('#editUrl').val(),
+            tieuDe: $('#editTaiLieuTieuDe').val(),
+            url: $('#editTaiLieuUrl').val(),
             tgBatDau: thoigian[0],
             tgKetThuc: thoigian[1]
         };

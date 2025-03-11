@@ -58,8 +58,8 @@
 @section('scripts')
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="{{ asset('js/hopthoai.js') }}"></script>
-    <script src="{{ asset('js/thongbao.js') }}"></script>
     <script src="{{ asset('js/tailieu.js') }}"></script>
+    <script src="{{ asset('js/thongbao.js') }}"></script>
 
     {{-- tai lieu --}}
     <!-- Daterangepicker CSS -->

@@ -1,12 +1,11 @@
-
-
 <!-- Nút Thêm tài liệu -->
 <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#addTaiLieuModal">
     Thêm tài liệu
 </button>
+
 <!-- Bảng hiển thị tài liệu -->
 <table class="table table-hover">
-    <thead class="">
+    <thead>
         <tr>
             <th>#</th>
             <th>Tiêu đề</th>
@@ -32,17 +31,17 @@
                 </div>
                 <div class="modal-body">
                     <div class="mb-3">
-                        <label for="tieuDe" class="form-label"><span class="text-danger">*</span> Tiêu đề</label>
-                        <input type="text" class="form-control" id="tieuDe" required>
+                        <label for="taiLieuTieuDe" class="form-label"><span class="text-danger">*</span> Tiêu đề</label>
+                        <input type="text" class="form-control" id="taiLieuTieuDe" required>
                     </div>
                     <div class="mb-3">
-                        <label for="url" class="form-label"><span class="text-danger">*</span> URL</label>
-                        <input type="url" class="form-control" id="url" required>
+                        <label for="taiLieuUrl" class="form-label"><span class="text-danger">*</span> URL</label>
+                        <input type="url" class="form-control" id="taiLieuUrl" required>
                     </div>
                     <div class="mb-3">
-                        <label for="thoigian" class="form-label"><span class="text-danger">*</span> Thời gian</label>
+                        <label for="taiLieuThoigian" class="form-label"><span class="text-danger">*</span> Thời gian</label>
                         <div class="input-group">
-                            <input type="text" class="form-control thoigian-picker" id="thoigian" required>
+                            <input type="text" class="form-control thoigian-picker" id="taiLieuThoigian" required>
                             <span class="input-group-text"><i class="bi bi-calendar"></i></span>
                         </div>
                     </div>
@@ -56,7 +55,6 @@
     </div>
 </div>
 
-
 <!-- Modal Chỉnh sửa tài liệu -->
 <div class="modal fade" id="editTaiLieuModal" tabindex="-1" aria-labelledby="editTaiLieuModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -69,17 +67,17 @@
                 </div>
                 <div class="modal-body">
                     <div class="mb-3">
-                        <label for="editTieuDe" class="form-label">Tiêu đề</label>
-                        <input type="text" class="form-control" id="editTieuDe" required>
+                        <label for="editTaiLieuTieuDe" class="form-label">Tiêu đề</label>
+                        <input type="text" class="form-control" id="editTaiLieuTieuDe" required>
                     </div>
                     <div class="mb-3">
-                        <label for="editUrl" class="form-label">URL</label>
-                        <input type="url" class="form-control" id="editUrl" required>
+                        <label for="editTaiLieuUrl" class="form-label">URL</label>
+                        <input type="url" class="form-control" id="editTaiLieuUrl" required>
                     </div>
                     <div class="mb-3">
-                        <label for="editThoigian" class="form-label">Thời gian</label>
+                        <label for="editTaiLieuThoigian" class="form-label">Thời gian</label>
                         <div class="input-group">
-                            <input type="text" class="form-control thoigian-picker" id="editThoigian" required>
+                            <input type="text" class="form-control thoigian-picker" id="editTaiLieuThoigian" required>
                             <span class="input-group-text"><i class="bi bi-calendar"></i></span>
                         </div>
                     </div>
@@ -92,61 +90,3 @@
         </div>
     </div>
 </div>
- 
-
-
-{{-- @section('scripts')
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="{{ asset('js/tailieu.js') }}"></script>
-@endsection --}}
-
-{{-- <script>
-    $(document).ready(function () {
-        $.ajax({
-            url: "http://127.0.0.1:8000/api/tailieu",
-            type: "GET",
-            dataType: "json",
-            success: function (data) {
-                let rows = "";
-                data.forEach(taiLieu => {
-                    rows += `
-                        <tr>
-                            <td>${taiLieu.maTL}</td>
-                            <td>${taiLieu.tieuDe}</td>
-                            <td>${taiLieu.url}</td>
-                            <td>${taiLieu.tgBatDau}</td>
-                            <td>${taiLieu.tgKetThuc}</td>
-                            <td>
-                                <a href="/tailieu/${taiLieu.maTL}/edit" class="btn btn-warning">Sửa</a>
-                                <button class="btn btn-danger" onclick="deleteTaiLieu(${taiLieu.maTL})">Xóa</button>
-                            </td>
-                        </tr>
-                    `;
-                });
-                $("#tailieu_table").html(rows);
-            },
-            error: function () {
-                alert("Không thể lấy dữ liệu từ API!");
-            }
-        });
-    });
-
-    function deleteTaiLieu(id) {
-        if (confirm("Bạn có chắc muốn xóa tài liệu này không?")) {
-            $.ajax({
-                url: `http://127.0.0.1:8000/api/tailieu/${id}`,
-                type: "DELETE",
-                headers: {
-                    "X-CSRF-TOKEN": "{{ csrf_token() }}"
-                },
-                success: function () {
-                    alert("Xóa thành công!");
-                    location.reload();
-                },
-                error: function () {
-                    alert("Xóa thất bại!");
-                }
-            });
-        }
-    }
-</script> --}}
