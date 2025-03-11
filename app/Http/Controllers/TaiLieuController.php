@@ -20,16 +20,19 @@ class TaiLieuController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
+        $validated = $request->validate([
             'tieuDe' => 'required|string|max:255',
-            'URL' => 'nullable|string|max:255',
+            'url' => 'required|url',
             'tgBatDau' => 'required|date',
-            'tgKetThuc' => 'required|date|after_or_equal:tgBatDau',
+            'tgKetThuc' => 'required|date|after:tgBatDau',
         ]);
 
-        $TaiLieu = TaiLieu::create($request->all());
+        $taiLieu = TaiLieu::create($validated);
 
-        return response()->json($TaiLieu, 201);
+        return response()->json([
+            'message' => 'Tài liệu đã được thêm thành công!',
+            'data' => $taiLieu
+        ], 201);
     }
 
     /**

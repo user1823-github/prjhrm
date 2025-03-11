@@ -1,6 +1,11 @@
 @extends('app')
 
 @section('content')
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-daterangepicker/3.1/daterangepicker.min.css" />
+    
+    {{-- tai lieu --}}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+
         <!-- Tabs -->
         <ul class="nav nav-tabs" id="notificationTabs">
             <li class="nav-item">
@@ -55,6 +60,15 @@
     <script src="{{ asset('js/hopthoai.js') }}"></script>
     <script src="{{ asset('js/thongbao.js') }}"></script>
     <script src="{{ asset('js/tailieu.js') }}"></script>
+
+    {{-- tai lieu --}}
+    <!-- Daterangepicker CSS -->
+
+    <!-- Moment.js & Daterangepicker -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-daterangepicker/3.1/daterangepicker.min.js"></script>
+
+    
 @endsection
 
 {{-- @section('scripts')
