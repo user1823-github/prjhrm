@@ -25,6 +25,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <form id="addTaiLieuForm">
+                <input type="hidden" id="addTaiLieuId">
                 <div class="modal-header">
                     <h5 class="modal-title">Thêm tài liệu</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
@@ -41,7 +42,7 @@
                     <div class="mb-3">
                         <label for="thoigian" class="form-label"><span class="text-danger">*</span> Thời gian</label>
                         <div class="input-group">
-                            <input type="text" class="form-control" id="thoigian" required>
+                            <input type="text" class="form-control thoigian-picker" id="thoigian" required>
                             <span class="input-group-text"><i class="bi bi-calendar"></i></span>
                         </div>
                     </div>
@@ -54,6 +55,7 @@
         </div>
     </div>
 </div>
+
 
 <!-- Modal Chỉnh sửa tài liệu -->
 <div class="modal fade" id="editTaiLieuModal" tabindex="-1" aria-labelledby="editTaiLieuModalLabel" aria-hidden="true">
@@ -76,7 +78,10 @@
                     </div>
                     <div class="mb-3">
                         <label for="editThoigian" class="form-label">Thời gian</label>
-                        <input type="text" class="form-control thoigian-picker" id="editThoigian" required>
+                        <div class="input-group">
+                            <input type="text" class="form-control thoigian-picker" id="editThoigian" required>
+                            <span class="input-group-text"><i class="bi bi-calendar"></i></span>
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -87,7 +92,7 @@
         </div>
     </div>
 </div>
-
+ 
 
 
 {{-- @section('scripts')
@@ -145,4 +150,3 @@
         }
     }
 </script> --}}
-

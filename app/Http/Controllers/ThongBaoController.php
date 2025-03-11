@@ -20,16 +20,19 @@ class ThongBaoController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
+        $validated = $request->validate([
             'tieuDe' => 'required|string|max:255',
-            'URL' => 'nullable|string|max:255',
+            'url' => 'required|url',
             'tgBatDau' => 'required|date',
-            'tgKetThuc' => 'required|date|after_or_equal:tgBatDau',
+            'tgKetThuc' => 'required|date|after:tgBatDau',
         ]);
 
-        $thongBao = ThongBao::create($request->all());
+        $thongBao = ThongBao::create($validated);
 
-        return response()->json($thongBao, 201);
+        return response()->json([
+            'message' => 'Thông báo đã được thêm thành công!',
+            'data' => $thongBao
+        ], 201);
     }
 
     /**
