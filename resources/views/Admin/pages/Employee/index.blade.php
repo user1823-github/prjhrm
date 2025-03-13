@@ -15,6 +15,7 @@
                 <th>Họ tên</th>
                 <th>Chức danh</th>
                 <th>Ngày vào làm</th>
+                <th>Lương</th>
                 <th>Số điện thoại</th>
                 <th>Email</th>
                 {{-- <th>Hành động</th> --}}

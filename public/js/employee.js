@@ -71,7 +71,7 @@ function loadEmployees() {
 
 
 function generateEditableCells(nv) {
-    let fields = ["hoTen", "chucDanh", "ngayVaoLam", "soDienThoai", "email"];
+    let fields = ["hoTen", "chucDanh", "ngayVaoLam", "tienLuong", "soDienThoai", "email"];
     return fields.map(field => `
         <td class="editable-cell" data-field="${field}" data-id="${nv.maNV}">
             <span class="field-value">${nv[field]}</span>
@@ -85,6 +85,7 @@ function bindEditableCells() {
         hoTen: "Họ tên",
         chucDanh: "Chức danh",
         ngayVaoLam: "Ngày vào làm",
+        tienLuong: "Lương",
         soDienThoai: "Điện Thoại",
         email: "Email"
     };

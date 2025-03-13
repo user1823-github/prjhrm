@@ -74,6 +74,7 @@ class NhanVienController extends Controller
             'hoTen',
             'chucDanh',
             'ngayVaoLam',
+            'tienLuong',
             'soDienThoai',
             'email',
             'trangThai'
