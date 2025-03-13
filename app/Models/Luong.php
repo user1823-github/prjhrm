@@ -14,8 +14,7 @@ class Luong extends Model
     public $timestamps = true; // Bật timestamps (created_at, updated_at)
 
     protected $fillable = [
-        'kieuLuong',
-        'soTien'
+        'kieuLuong'
     ]; // Cho phép mass assignment
 
     public function nhanvien()

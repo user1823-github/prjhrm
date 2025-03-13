@@ -22,7 +22,6 @@ return new class extends Migration
                 'Lương tháng không trừ trễ',
                 'Lương tháng làm bao nhiêu tính bấy nhiêu',
             ]); // Kiểu lương cố định
-            $table->decimal('soTien', 15, 2); // Số tiền
             $table->timestamps();
         });
     }

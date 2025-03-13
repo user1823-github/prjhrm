@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Luong;
 use App\Models\NhanVien;
 use App\Models\TaiKhoan;
+use App\Models\ThanhToan;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -33,6 +35,9 @@ class TaiKhoanController extends Controller
             'matKhau'     => Hash::make($request->matKhau)
         ]);
 
+        // Lấy maLuong có sẵn (không tạo mới)
+        $maLuong = Luong::inRandomOrder()->first()->maLuong;
+
         // Tạo luôn bản ghi nhân viên với các trường còn lại để trống và gắn maTK từ tài khoản vừa tạo
         $nhanVien = NhanVien::create([
             'hoTen'       => null,
@@ -41,9 +46,11 @@ class TaiKhoanController extends Controller
             'email'       => null,
             'gioiTinh'    => null,
             'ngayVaoLam'  => Carbon::now()->toDateString(),
+            'tienLuong'   => 0,
             'ngaySinh'    => null,
             'trangThai'    => 1,
             'maTK'        => $taiKhoan->maTK,
+            'maLuong'        => $maLuong,
         ]);
 
         // Trả về JSON chứa thông tin tài khoản và nhân viên mới tạo

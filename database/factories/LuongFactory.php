@@ -22,7 +22,6 @@ class LuongFactory extends Factory
                 'Lương tháng không trừ trễ',
                 'Lương tháng làm bao nhiêu tính bấy nhiêu',
             ]),
-            'soTien' => $this->faker->randomFloat(2, 2000000, 50000000), // Random từ 1 triệu đến 50 triệu
         ];
     }
 }
