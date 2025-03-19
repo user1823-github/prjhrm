@@ -76,13 +76,13 @@
                     <div class="mb-3">
                         <label class="form-label">Chọn thứ làm việc (*)</label>
                         <div class="d-flex flex-wrap">
-                            <button type="button" class="btn btn-outline-primary me-1 mb-1 shift-day" data-day="2">Thứ 2</button>
-                            <button type="button" class="btn btn-outline-primary me-1 mb-1 shift-day" data-day="3">Thứ 3</button>
-                            <button type="button" class="btn btn-outline-primary me-1 mb-1 shift-day" data-day="4">Thứ 4</button>
-                            <button type="button" class="btn btn-outline-primary me-1 mb-1 shift-day" data-day="5">Thứ 5</button>
-                            <button type="button" class="btn btn-outline-primary me-1 mb-1 shift-day" data-day="6">Thứ 6</button>
-                            <button type="button" class="btn btn-outline-primary me-1 mb-1 shift-day" data-day="7">Thứ 7</button>
-                            <button type="button" class="btn btn-outline-primary me-1 mb-1 shift-day" data-day="8">Chủ nhật</button>
+                            <button type="button" class="btn btn-outline-primary me-1 mb-1 shift-day" data-day="1">Thứ 2</button>
+                            <button type="button" class="btn btn-outline-primary me-1 mb-1 shift-day" data-day="2">Thứ 3</button>
+                            <button type="button" class="btn btn-outline-primary me-1 mb-1 shift-day" data-day="3">Thứ 4</button>
+                            <button type="button" class="btn btn-outline-primary me-1 mb-1 shift-day" data-day="4">Thứ 5</button>
+                            <button type="button" class="btn btn-outline-primary me-1 mb-1 shift-day" data-day="5">Thứ 6</button>
+                            <button type="button" class="btn btn-outline-primary me-1 mb-1 shift-day" data-day="6">Thứ 7</button>
+                            <button type="button" class="btn btn-outline-primary me-1 mb-1 shift-day" data-day="7">Chủ nhật</button>
                         </div>
                     </div>
                     <div class="modal-footer">

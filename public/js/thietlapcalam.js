@@ -40,6 +40,55 @@ $(document).ready(function () {
         }
     });
 
+    // Hiển thị modal chỉnh sửa khi nhấn "Chỉnh sửa"
+    $(document).on("click", ".edit-shift", function () {
+        let shiftId = $(this).data("id");
+
+        $.ajax({
+            url: `/api/calam/${shiftId}`,
+            type: "GET",
+            success: function (data) {
+                $("#editShiftId").val(data.maCL);
+                $("#editShiftName").val(data.tenCa);
+                $("#editCheckInEarly").val(data.gioCheckInSom);
+                $("#editCheckOutLate").val(data.gioCheckOutMuon);
+
+                new bootstrap.Modal($('#editShiftModal')).show();
+            },
+            error: function (xhr) {
+                alert("Không thể tải dữ liệu ca làm: " + xhr.responseText);
+            }
+        });
+    });
+
+    // Xử lý submit form chỉnh sửa ca làm
+    $('#editShiftForm').on('submit', function (e) {
+        e.preventDefault();
+        
+        let shiftId = $("#editShiftId").val();
+        let shiftData = {
+            tenCa: $("#editShiftName").val(),
+            gioCheckInSom: parseInt($("#editCheckInEarly").val()),
+            gioCheckOutMuon: parseInt($("#editCheckOutLate").val())
+        };
+
+        $.ajax({
+            url: `/api/calam/${shiftId}`,
+            type: "PUT",
+            contentType: "application/json",
+            data: JSON.stringify(shiftData),
+            headers: { "X-CSRF-TOKEN": getCsrfToken() },
+            success: function () {
+                alert("Cập nhật thành công!");
+                $('#editShiftModal').modal('hide');
+                loadCaLam();
+            },
+            error: function (xhr) {
+                alert("Cập nhật thất bại: " + xhr.responseText);
+            }
+        });
+    });
+
     // Hàm reset form khi mở modal
     function resetForm() {
         $('#addShiftForm')[0].reset();
@@ -71,15 +120,13 @@ $(document).ready(function () {
             return parseInt($(this).data("day"));
         }).get();
 
-        console.log("Ngày làm việc đã chọn:", selectedDays);
-    
         let requests = selectedDays.map(day => {
             return $.ajax({
                 url: "/api/chitietcalam",
                 type: "POST",
                 contentType: "application/json",
                 data: JSON.stringify({
-                    thuTrongTuan: day,  //  Đảm bảo giá trị này có tồn tại
+                    thuTrongTuan: day,
                     tgBatDau: $("#startTime").val(),
                     tgKetThuc: $("#endTime").val(),
                     tgBatDauNghi: $("#breakStartTime").val() || null,
@@ -91,7 +138,7 @@ $(document).ready(function () {
                 headers: { "X-CSRF-TOKEN": getCsrfToken() }
             });
         });
-    
+
         $.when(...requests).done(function () {
             alert("Thêm ca làm và chi tiết thành công!");
             $('#addShiftModal').modal('hide');
@@ -99,21 +146,6 @@ $(document).ready(function () {
         }).fail(function (xhr) {
             alert("Thêm chi tiết ca làm thất bại: " + xhr.responseText);
         });
-    }
-    
-
-    // Lấy dữ liệu chi tiết ca làm
-    function getChiTietCaLamData(day, maCL) {
-        return {
-            thuTrongTuan: day,
-            tgBatDau: $("#startTime").val(),
-            tgKetThuc: $("#endTime").val(),
-            tgBatDauNghi: $("#breakStartTime").val() || null,
-            tgKetThucNghi: $("#breakEndTime").val() || null,
-            heSoLuong: parseFloat($("#salaryMultiplier").val()),
-            tienThuong: parseFloat($("#bonus").val()),
-            maCL: maCL
-        };
     }
 
     // Xóa ca làm
@@ -158,7 +190,7 @@ $(document).ready(function () {
                     <button class="btn btn-danger delete-shift" data-id="${ca.maCL}">Xóa</button>
                 </td>`;
 
-            for (let i = 2; i <= 8; i++) {
+            for (let i = 1; i <= 7; i++) {
                 let shift = groupedShifts[ca.maCL]?.find(s => s.thuTrongTuan == i);
                 row += shift ? `<td><button class="btn btn-primary btn-sm">${shift.tgBatDau.slice(0, 5)} - ${shift.tgKetThuc.slice(0, 5)}</button></td>`
                              : `<td><button class="btn btn-outline-secondary btn-sm">+</button></td>`;

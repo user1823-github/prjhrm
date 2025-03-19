@@ -57,8 +57,9 @@ class ChiTietCaLamController extends Controller
     }
 
     // Xóa chi tiết ca làm
-    public function destroy(ChiTietCaLam $chiTietCaLam)
+    public function destroy($id)
     {
+        $chiTietCaLam = ChiTietCaLam::find($id);
         $chiTietCaLam->delete();
         return response()->json(['message' => 'Xóa chi tiết ca làm thành công'], 204);
     }

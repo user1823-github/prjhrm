@@ -46,8 +46,9 @@ class CaLamController extends Controller
     }
 
     // Xóa ca làm
-    public function destroy(CaLam $caLam)
+    public function destroy(string $id)
     {
+        $caLam = CaLam::findOrFail($id);
         $caLam->delete();
         return response()->json(['message' => 'Xóa ca làm thành công'], 204);
     }
