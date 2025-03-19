@@ -22,6 +22,7 @@ return new class extends Migration
             $table->decimal('tienThuong', 10, 2)->default(0.0); // Tiền thưởng (VD: 500000)
 
             $table->integer('maCL');
+            
             $table->foreign('maCL')->references('maCL')->on('calam')->onDelete('cascade');
 
             $table->timestamps();

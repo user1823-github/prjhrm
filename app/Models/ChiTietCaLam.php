@@ -14,13 +14,14 @@ class ChiTietCaLam extends Model
     public $timestamps = true;
 
     protected $fillable = [
-        'thuTrongCa',
-        'tgBatDau' => 'H:i',
-        'tgKetThuc' => 'H:i',
-        'tgBatDauNghi' => 'H:i',
-        'tgKetThucNghi' => 'H:i',
+        'thuTrongTuan',
+        'tgBatDau',
+        'tgKetThuc',
+        'tgBatDauNghi',
+        'tgKetThucNghi',
         'heSoLuong',
-        'tienThuong'
+        'tienThuong',
+        'maCL'
     ];
 
     // Một ChiTietCaLam thuộc về một CaLam

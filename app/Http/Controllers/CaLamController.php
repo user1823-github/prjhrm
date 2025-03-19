@@ -16,13 +16,13 @@ class CaLamController extends Controller
     // Thêm ca làm mới
     public function store(Request $request)
     {
-        $request->validate([
+        $validated = $request->validate([
             'tenCa' => 'required|string|max:255',
-            'gioCheckInSom' => 'required|integer|min:1',
-            'gioCheckOutMuon' => 'required|integer|min:1',
+            'gioCheckInSom' => 'required|integer|min:0',
+            'gioCheckOutMuon' => 'required|integer|min:0',
         ]);
 
-        $caLam = CaLam::create($request->all());
+        $caLam = CaLam::create($validated);
         return response()->json($caLam, 201);
     }
 

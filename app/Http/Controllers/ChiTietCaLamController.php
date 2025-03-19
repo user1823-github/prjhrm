@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\ChiTietCaLam;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class ChiTietCaLamController extends Controller
 {
@@ -16,18 +17,18 @@ class ChiTietCaLamController extends Controller
     // Thêm chi tiết ca làm mới
     public function store(Request $request)
     {
-        $request->validate([
+        $validated = $request->validate([
             'thuTrongTuan' => 'required|integer|min:1|max:7',
             'tgBatDau' => 'required|date_format:H:i',
             'tgKetThuc' => 'required|date_format:H:i',
             'tgBatDauNghi' => 'nullable|date_format:H:i',
             'tgKetThucNghi' => 'nullable|date_format:H:i',
-            'heSoLuong' => 'numeric|min:1|max:50',
+            'heSoLuong' => 'required|numeric|min:1|max:50',
             'tienThuong' => 'numeric|min:0',
-            'maCL' => 'required|exists:calam,maCL' // Đảm bảo maCL tồn tại trong bảng calam
+            'maCL' => 'required|exists:calam,maCL'
         ]);
 
-        $chiTietCaLam = ChiTietCaLam::create($request->all());
+        $chiTietCaLam = ChiTietCaLam::create($validated);
         return response()->json($chiTietCaLam, 201);
     }
 
