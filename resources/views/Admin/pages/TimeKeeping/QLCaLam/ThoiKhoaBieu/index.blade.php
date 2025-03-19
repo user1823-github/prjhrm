@@ -1,7 +1,9 @@
-<div class="container mt-4">
+<link rel="stylesheet" href="{{ asset('css/thietlapcalam.css') }}">
+
+<div class="container">
     <!-- Nút thêm ca làm -->
     <div class="text-end mb-3">
-        <button class="btn btn-primary" id="addShiftBtn">+ Thêm ca làm việc mới</button>
+        <button class="btn btn-primary" id="addShiftBtn">+ Thêm ca làm</button>
     </div>
 
     <!-- Bảng thời gian làm việc -->

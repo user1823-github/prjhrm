@@ -1,7 +1,9 @@
 @extends('app')
 
 @section('content')
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+    
+    
     <!-- Tabs -->
     <ul class="nav nav-tabs" id="notificationTabs">
         <li class="nav-item">
@@ -25,7 +27,7 @@
     <div class="tab-content mt-3">
         <div class="tab-pane fade show active" id="messages">
             @include('Admin.pages.TimeKeeping.QLCaLam.ThoiKhoaBieu.index')
-            Nội dung mẫu thời khóa biểu
+            {{-- Nội dung mẫu thời khóa biểu --}}
         </div>
         <div class="tab-pane fade" id="alerts">
             @include('Admin.pages.TimeKeeping.QLCaLam.NgayLe.index')

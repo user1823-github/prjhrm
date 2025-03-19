@@ -1,6 +1,6 @@
-.editable-cell {
+/* .editable-cell {
     position: relative;
-    padding-right: 25px; /* Để dành chỗ cho icon */
+    padding-right: 25px;
 }
 
 .edit-icon {
@@ -9,7 +9,7 @@
     top: 50%;
     transform: translateY(-50%);
     color: #333;
-    display: none; /* Mặc định ẩn */
+    display: none;
 }
 
 .editable-cell:hover .edit-icon {
@@ -18,4 +18,4 @@
 
 .editable-cell:hover .field-value {
     text-decoration: underline;
-}
+} */
