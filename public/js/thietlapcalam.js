@@ -279,25 +279,29 @@ $(document).ready(function () {
             for (let i = 1; i <= 7; i++) {
                 let shifts = groupedShifts[ca.maCL]?.filter(s => s.thuTrongTuan == i) || [];
                 let shiftButtons = shifts.map(shift => `
-                    <button class="btn btn-primary btn-sm edit-timeframe-btn" 
-                        data-id="${shift.maCTCL}" 
-                        data-thu="${i}" 
-                        data-shift="${ca.maCL}">
-                        ${shift.tgBatDau.slice(0, 5)} - ${shift.tgKetThuc.slice(0, 5)}
-                    </button>
+                    <div class="my-2">
+                        <button class="btn btn-primary btn-sm edit-timeframe-btn" 
+                            data-id="${shift.maCTCL}" 
+                            data-thu="${i}" 
+                            data-shift="${ca.maCL}">
+                            ${shift.tgBatDau.slice(0, 5)} - ${shift.tgKetThuc.slice(0, 5)}
+                        </button>
+                    </div>
                 `).join("");
     
                 row += `<td>
                     ${shiftButtons}
-                    <button class="btn btn-outline-secondary btn-sm add-timeframe-btn" 
+                    <div class="my-2">
+                        <button class="btn btn-outline-secondary btn-sm add-timeframe-btn" 
                         data-thu="${i}" 
                         data-shift="${ca.maCL}">+</button>
+                    </div>
                 </td>`;
             }
     
             row += "</tr>";
             tableContent += row;
-        });
+    });
     
         $("#scheduleTable").html(tableContent);
     }
