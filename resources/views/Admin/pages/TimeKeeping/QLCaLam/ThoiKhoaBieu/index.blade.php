@@ -131,7 +131,7 @@
     </div>
 </div>
 
-<!-- Modal Chỉnh Sửa Khung Giờ -->
+<!-- Modal Chỉnh Sửa/Thêm Khung Giờ -->
 <div class="modal fade" id="editTimeFrameModal" tabindex="-1" aria-labelledby="editTimeFrameModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -141,6 +141,8 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
+                    <input type="hidden" id="selectedDay">
+                    <input type="hidden" id="editShiftId">
                     <input type="hidden" id="editTimeFrameId" name="editTimeFrameId"> <!-- Lưu ID của khung giờ -->
 
                     <!-- Thời gian làm việc -->
