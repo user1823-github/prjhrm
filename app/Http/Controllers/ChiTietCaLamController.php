@@ -33,27 +33,27 @@ class ChiTietCaLamController extends Controller
     }
 
     // Lấy thông tin một chi tiết ca làm theo ID
-    public function show(ChiTietCaLam $chiTietCaLam)
+    public function show(string $id)
     {
-        return response()->json($chiTietCaLam);
+        $chiTietCaLam = ChiTietCaLam::findOrFail($id);
+        return response()->json($chiTietCaLam, 200);
     }
 
     // Cập nhật chi tiết ca làm
-    public function update(Request $request, ChiTietCaLam $chiTietCaLam)
+    public function update(Request $request, string $id)
     {
-        $request->validate([
-            'thuTrongTuan' => 'integer|min:1|max:7',
-            'tgBatDau' => 'required|date_format:H:i',
-            'tgKetThuc' => 'required|date_format:H:i',
-            'tgBatDauNghi' => 'nullable|date_format:H:i',
-            'tgKetThucNghi' => 'nullable|date_format:H:i',
-            'heSoLuong' => 'numeric|min:1|max:50',
-            'tienThuong' => 'numeric|min:0',
-            'maCL' => 'required|exists:calam,maCL'
+        $chiTietCaLam = ChiTietCaLam::findOrFail($id);
+        $data = $request->only([
+            'tgBatDau',
+            'tgKetThuc',
+            'tgBatDauNghi',
+            'tgKetThucNghi',
+            'heSoLuong',
+            'tienThuong'
         ]);
 
-        $chiTietCaLam->update($request->all());
-        return response()->json($chiTietCaLam);
+        $chiTietCaLam->update($data);
+        return response()->json($chiTietCaLam, 200);
     }
 
     // Xóa chi tiết ca làm

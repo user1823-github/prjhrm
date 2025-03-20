@@ -45,7 +45,7 @@ $(document).ready(function () {
         }
     });
 
-    // Hiển thị modal chỉnh sửa khi nhấn "Chỉnh sửa"
+    // Hiển thị modal chỉnh sửa ca làm khi nhấn "Chỉnh sửa"
     $(document).on("click", ".edit-shift", function () {
         let shiftId = $(this).data("id");
 
@@ -93,6 +93,8 @@ $(document).ready(function () {
             }
         });
     });
+
+    
 
     // Hàm reset form khi mở modal
     function resetForm() {
@@ -177,11 +179,67 @@ $(document).ready(function () {
             });
     }
 
+    // Hiển thị modal chỉnh sửa chi tiết ca làm
+    $(document).on("click", ".edit-timeframe-btn", function () {
+        let timeFrameId = $(this).data("id");
+
+        $.ajax({
+            url: `/api/chitietcalam/${timeFrameId}`,
+            type: "GET",
+            success: function (data) {
+                $("#editTimeFrameId").val(timeFrameId);
+                $("#editStartTime").val(data.tgBatDau);
+                $("#editEndTime").val(data.tgKetThuc);
+                $("#editBreakStart").val(data.tgBatDauNghi || "");
+                $("#editBreakEnd").val(data.tgKetThucNghi || "");
+                $("#editSalaryFactor").val(data.heSoLuong);
+                $("#editBonus").val(data.tienThuong || 0);
+
+                new bootstrap.Modal($("#editTimeFrameModal")).show();
+            },
+            error: function (xhr) {
+                alert("Không thể tải dữ liệu khung giờ: " + xhr.responseText);
+            }
+        });
+    });
+
+    // Xử lý submit form chỉnh sửa chi tiết ca làm
+    $("#editTimeFrameForm").on("submit", function (e) {
+        e.preventDefault();
+        
+        let timeFrameId = $("#editTimeFrameId").val();
+        let timeFrameData = {
+            tgBatDau: $("#editStartTime").val(),
+            tgKetThuc: $("#editEndTime").val(),
+            tgBatDauNghi: $("#editBreakStart").val() || null,
+            tgKetThucNghi: $("#editBreakEnd").val() || null,
+            heSoLuong: parseFloat($("#editSalaryFactor").val()),
+            tienThuong: parseFloat($("#editBonus").val())
+        };
+
+        $.ajax({
+            url: `/api/chitietcalam/${timeFrameId}`,
+            type: "PUT",
+            contentType: "application/json",
+            data: JSON.stringify(timeFrameData),
+            headers: { "X-CSRF-TOKEN": getCsrfToken() },
+            success: function () {
+                alert("Cập nhật thành công!");
+                $("#editTimeFrameModal").modal("hide");
+                loadCaLam();
+            },
+            error: function (xhr) {
+                alert("Cập nhật thất bại: " + xhr.responseText);
+            }
+        });
+    });
+
+    
     // Hiển thị bảng danh sách ca làm
     function renderScheduleTable(caLamList, chiTietList) {
         let groupedShifts = groupChiTietCaLam(chiTietList);
         let tableContent = "";
-
+    
         caLamList.forEach(ca => {
             let row = `<tr>
                 <td>
@@ -191,17 +249,19 @@ $(document).ready(function () {
                     <button class="btn btn-warning edit-shift" data-id="${ca.maCL}">Chỉnh sửa</button>
                     <button class="btn btn-danger delete-shift" data-id="${ca.maCL}">Xóa</button>
                 </td>`;
-
+    
             for (let i = 1; i <= 7; i++) {
                 let shift = groupedShifts[ca.maCL]?.find(s => s.thuTrongTuan == i);
-                row += shift ? `<td><button class="btn btn-primary btn-sm">${shift.tgBatDau.slice(0, 5)} - ${shift.tgKetThuc.slice(0, 5)}</button></td>`
+                row += shift ? `<td><button class="btn btn-primary btn-sm edit-timeframe-btn" data-id="${shift.maCTCL}">${shift.tgBatDau.slice(0, 5)} - ${shift.tgKetThuc.slice(0, 5)}</button>
+                                    <button class="btn btn-outline-secondary btn-sm add-timeframe-btn">+</button>
+                                </td>`
                              : `<td><button class="btn btn-outline-secondary btn-sm">+</button></td>`;
             }
-
+    
             row += "</tr>";
             tableContent += row;
         });
-
+    
         $("#scheduleTable").html(tableContent);
     }
 

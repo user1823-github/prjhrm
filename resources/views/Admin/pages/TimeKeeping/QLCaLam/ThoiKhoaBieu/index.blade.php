@@ -61,7 +61,7 @@
                     <div class="mb-3">
                         <label class="form-label">Thời gian nghỉ (không bắt buộc)</label>
                         <div class="d-flex">
-                            <input type="time" class="form-control me-2" id="breakStartTime">
+                            <input type="time" class="form-control  me-2" id="breakStartTime">
                             <span class="align-self-center">→</span>
                             <input type="time" class="form-control ms-2" id="breakEndTime">
                         </div>
@@ -130,6 +130,60 @@
         </div>
     </div>
 </div>
+
+<!-- Modal Chỉnh Sửa Khung Giờ -->
+<div class="modal fade" id="editTimeFrameModal" tabindex="-1" aria-labelledby="editTimeFrameModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form id="editTimeFrameForm">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editTimeFrameModalLabel">Chỉnh sửa khung giờ</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" id="editTimeFrameId" name="editTimeFrameId"> <!-- Lưu ID của khung giờ -->
+
+                    <!-- Thời gian làm việc -->
+                    <div class="mb-3">
+                        <label class="form-label">Thời gian làm việc (*)</label>
+                        <div class="d-flex">
+                            <input type="time" class="form-control me-2" id="editStartTime" required>
+                            <span class="align-self-center">→</span>
+                            <input type="time" class="form-control ms-2" id="editEndTime" required>
+                        </div>
+                    </div>
+
+                    <!-- Thời gian nghỉ -->
+                    <div class="mb-3">
+                        <label class="form-label">Thời gian nghỉ (Tùy chọn)</label>
+                        <div class="d-flex">
+                            <input type="time" class="form-control me-2" id="editBreakStart">
+                            <span class="align-self-center">→</span>
+                            <input type="time" class="form-control ms-2" id="editBreakEnd">
+                        </div>
+                    </div>
+
+                    <!-- Hệ số lương -->
+                    <div class="mb-3">
+                        <label class="form-label">Hệ số lương (*)</label>
+                        <input type="number" class="form-control" id="editSalaryFactor" min="1" step="0.1" required>
+                    </div>
+
+                    <!-- Thưởng -->
+                    <div class="mb-3">
+                        <label class="form-label">Thưởng</label>
+                        <input type="number" class="form-control" id="editBonus" min="0">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" id="deleteTimeFrame">Xóa khung giờ</button>
+                    <button type="submit" class="btn btn-success">Cập nhật</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 
 @section('scripts')
     <script src="{{ asset('js/thietlapcalam.js') }}"></script>
