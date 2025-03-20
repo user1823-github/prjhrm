@@ -141,9 +141,10 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <input type="hidden" id="selectedDay">
+                    {{-- <input type="hidden" id="editTimeFrameId" name="editTimeFrameId"> <!-- Lưu ID của khung giờ --> --}}
+                    <input type="hidden" id="editTimeFrameId">
                     <input type="hidden" id="editShiftId">
-                    <input type="hidden" id="editTimeFrameId" name="editTimeFrameId"> <!-- Lưu ID của khung giờ -->
+                    <input type="hidden" id="editSelectedDay">  <!-- Thêm input ẩn này -->
 
                     <!-- Thời gian làm việc -->
                     <div class="mb-3">

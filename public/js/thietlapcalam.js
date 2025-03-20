@@ -175,71 +175,74 @@ $(document).ready(function () {
             });
     }
 
-    // Hiển thị modal chỉnh sửa chi tiết ca làm khi nhấn nút "Chỉnh sửa"
-    $(document).on("click", ".edit-timeframe-btn", function () {
-        let timeFrameId = $(this).data("id");
-
-        $.ajax({
-            url: `/api/chitietcalam/${timeFrameId}`,
-            type: "GET",
-            success: function (data) {
-                $("#editTimeFrameId").val(timeFrameId);
-                $("#editStartTime").val(data.tgBatDau);
-                $("#editEndTime").val(data.tgKetThuc);
-                $("#editBreakStart").val(data.tgBatDauNghi || "");
-                $("#editBreakEnd").val(data.tgKetThucNghi || "");
-                $("#editSalaryFactor").val(data.heSoLuong);
-                $("#editBonus").val(data.tienThuong || 0);
-
-                $("#editTimeFrameModalLabel").text("Chỉnh sửa khung giờ");
-                $("#deleteTimeFrame").show();
-                new bootstrap.Modal($("#editTimeFrameModal")).show();
-            },
-            error: function (xhr) {
-                alert("Không thể tải dữ liệu khung giờ: " + xhr.responseText);
-            }
-        });
-    });
-
-    // Hiển thị modal thêm mới khung giờ khi nhấn nút "+"
-    $(document).on("click", ".add-timeframe-btn", function () {
-        $("#editTimeFrameId").val("");
-        $("#editStartTime").val("");
-        $("#editEndTime").val("");
-        $("#editBreakStart").val("");
-        $("#editBreakEnd").val("");
-        $("#editSalaryFactor").val("1");
-        $("#editBonus").val("0");
-
-        $("#editTimeFrameModalLabel").text("Thêm khung giờ");
-        $("#deleteTimeFrame").hide();
-
-        new bootstrap.Modal($("#editTimeFrameModal")).show();
+    $(document).on("click", ".edit-timeframe-btn, .add-timeframe-btn", function () {
+        let thuTrongTuan = $(this).data("thu");  // Lấy thứ trong tuần
+        let shiftID = $(this).data("shift");  // Lấy mã ca làm
+        let timeFrameId = $(this).hasClass("edit-timeframe-btn") ? $(this).data("id") : "";
+    
+        // Gán dữ liệu vào modal (chú ý: sử dụng input ẩn)
+        $("#editTimeFrameId").val(timeFrameId);
+        $("#editShiftId").val(shiftID);
+        $("#editSelectedDay").val(thuTrongTuan); // Lưu giá trị đúng vào input ẩn
+    
+        if (timeFrameId) {
+            // Nếu là chỉnh sửa -> Lấy dữ liệu từ API
+            $.ajax({
+                url: `/api/chitietcalam/${timeFrameId}`,
+                type: "GET",
+                success: function (data) {
+                    $("#editStartTime").val(data.tgBatDau);
+                    $("#editEndTime").val(data.tgKetThuc);
+                    $("#editBreakStart").val(data.tgBatDauNghi || "");
+                    $("#editBreakEnd").val(data.tgKetThucNghi || "");
+                    $("#editSalaryFactor").val(data.heSoLuong);
+                    $("#editBonus").val(data.tienThuong || 0);
+                    $("#editTimeFrameModalLabel").text("Chỉnh sửa khung giờ");
+                    $("#deleteTimeFrame").show();
+                    new bootstrap.Modal($("#editTimeFrameModal")).show();
+                },
+                error: function (xhr) {
+                    alert("Không thể tải dữ liệu khung giờ: " + xhr.responseText);
+                }
+            });
+        } else {
+            // Nếu là thêm mới
+            $("#editStartTime, #editEndTime, #editBreakStart, #editBreakEnd").val("");
+            $("#editSalaryFactor").val("1");
+            $("#editBonus").val("0");
+            $("#editTimeFrameModalLabel").text("Thêm khung giờ");
+            $("#deleteTimeFrame").hide();
+            new bootstrap.Modal($("#editTimeFrameModal")).show();
+        }
     });
 
     // Tới đây
     // Xử lý submit form thêm / chỉnh sửa khung giờ
     $("#editTimeFrameForm").on("submit", function (e) {
         e.preventDefault();
-
+    
         let timeFrameId = $("#editTimeFrameId").val();
-        let shiftId = $(this).data("id"); // Lấy mã ca làm
-        // let thuTrongTuan = $("#selectedDay").val(); // Lấy thứ trong tuần đã lưu
-
+        let thuTrongTuan = $("#editSelectedDay").val();  // Lấy giá trị từ input ẩn
+        let shiftID = $("#editShiftId").val();  
+    
+        console.log("Thứ trong tuần:", thuTrongTuan);
+        console.log("Mã chi tiết ca làm:", timeFrameId);
+        console.log("Mã ca làm:", shiftID);
+    
         let timeFrameData = {
-            thuTrongTuan: 2,
+            thuTrongTuan: thuTrongTuan,
             tgBatDau: $("#editStartTime").val(),
             tgKetThuc: $("#editEndTime").val(),
             tgBatDauNghi: $("#editBreakStart").val() || null,
             tgKetThucNghi: $("#editBreakEnd").val() || null,
             heSoLuong: parseFloat($("#editSalaryFactor").val()),
             tienThuong: parseFloat($("#editBonus").val()),
-            maCL: 2
+            maCL: shiftID
         };
-
+    
         let requestType = timeFrameId ? "PUT" : "POST";
         let requestUrl = timeFrameId ? `/api/chitietcalam/${timeFrameId}` : "/api/chitietcalam";
-
+    
         $.ajax({
             url: requestUrl,
             type: requestType,
@@ -255,26 +258,6 @@ $(document).ready(function () {
                 alert("Lỗi: " + xhr.responseText);
             }
         });
-    });
-
-    // Xử lý nút xóa khung giờ
-    $("#deleteTimeFrame").on("click", function () {
-        let timeFrameId = $("#editTimeFrameId").val();
-        if (confirm("Bạn có chắc muốn xóa khung giờ này?")) {
-            $.ajax({
-                url: `/api/chitietcalam/${timeFrameId}`,
-                type: "DELETE",
-                headers: { "X-CSRF-TOKEN": getCsrfToken() },
-                success: function () {
-                    alert("Đã xóa khung giờ!");
-                    $("#editTimeFrameModal").modal("hide");
-                    loadCaLam();
-                },
-                error: function (xhr) {
-                    alert("Lỗi khi xóa: " + xhr.responseText);
-                }
-            });
-        }
     });
 
     // Hiển thị bảng danh sách ca làm
@@ -294,10 +277,23 @@ $(document).ready(function () {
     
             for (let i = 1; i <= 7; i++) {
                 let shift = groupedShifts[ca.maCL]?.find(s => s.thuTrongTuan == i);
-                row += shift ? `<td><button class="btn btn-primary btn-sm edit-timeframe-btn" data-id="${shift.maCTCL}">${shift.tgBatDau.slice(0, 5)} - ${shift.tgKetThuc.slice(0, 5)}</button>
-                                    <button class="btn btn-outline-secondary btn-sm add-timeframe-btn">+</button>
-                                </td>`
-                             : `<td><button class="btn btn-outline-secondary btn-sm add-timeframe-btn">+</button></td>`;
+                row += shift 
+                    ? `<td>
+                        <button class="btn btn-primary btn-sm edit-timeframe-btn" 
+                            data-id="${shift.maCTCL}" 
+                            data-thu="${i}" 
+                            data-shift="${ca.maCL}">
+                            ${shift.tgBatDau.slice(0, 5)} - ${shift.tgKetThuc.slice(0, 5)}
+                        </button>
+                        <button class="btn btn-outline-secondary btn-sm add-timeframe-btn" 
+                            data-thu="${i}" 
+                            data-shift="${ca.maCL}">+</button>
+                    </td>`
+                    : `<td>
+                        <button class="btn btn-outline-secondary btn-sm add-timeframe-btn" 
+                            data-thu="${i}" 
+                            data-shift="${ca.maCL}">+</button>
+                    </td>`;
             }
     
             row += "</tr>";
@@ -306,6 +302,26 @@ $(document).ready(function () {
     
         $("#scheduleTable").html(tableContent);
     }
+
+     // Xử lý nút xóa khung giờ
+     $("#deleteTimeFrame").on("click", function () {
+        let timeFrameId = $("#editTimeFrameId").val();
+        if (confirm("Bạn có chắc muốn xóa khung giờ này?")) {
+            $.ajax({
+                url: `/api/chitietcalam/${timeFrameId}`,
+                type: "DELETE",
+                headers: { "X-CSRF-TOKEN": getCsrfToken() },
+                success: function () {
+                    alert("Đã xóa khung giờ!");
+                    $("#editTimeFrameModal").modal("hide");
+                    loadCaLam();
+                },
+                error: function (xhr) {
+                    alert("Lỗi khi xóa: " + xhr.responseText);
+                }
+            });
+        }
+    });
 
     // Gom nhóm chi tiết ca làm theo mã ca
     function groupChiTietCaLam(chiTietList) {
