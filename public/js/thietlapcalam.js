@@ -222,12 +222,10 @@ $(document).ready(function () {
         e.preventDefault();
     
         let timeFrameId = $("#editTimeFrameId").val();
-        let thuTrongTuan = $("#editSelectedDay").val();  // Lấy giá trị từ input ẩn
+        let thuTrongTuan = $("#editSelectedDay").val();
         let shiftID = $("#editShiftId").val();  
     
-        console.log("Thứ trong tuần:", thuTrongTuan);
-        console.log("Mã chi tiết ca làm:", timeFrameId);
-        console.log("Mã ca làm:", shiftID);
+        console.log("Thêm/Sửa khung giờ:", { thuTrongTuan, timeFrameId, shiftID });
     
         let timeFrameData = {
             thuTrongTuan: thuTrongTuan,
@@ -251,7 +249,10 @@ $(document).ready(function () {
             headers: { "X-CSRF-TOKEN": getCsrfToken() },
             success: function () {
                 alert(timeFrameId ? "Cập nhật thành công!" : "Thêm khung giờ thành công!");
+    
                 $("#editTimeFrameModal").modal("hide");
+    
+                // 🔥 GỌI LẠI API LẤY DANH SÁCH CA LÀM SAU KHI THÊM
                 loadCaLam();
             },
             error: function (xhr) {
@@ -276,24 +277,22 @@ $(document).ready(function () {
                 </td>`;
     
             for (let i = 1; i <= 7; i++) {
-                let shift = groupedShifts[ca.maCL]?.find(s => s.thuTrongTuan == i);
-                row += shift 
-                    ? `<td>
-                        <button class="btn btn-primary btn-sm edit-timeframe-btn" 
-                            data-id="${shift.maCTCL}" 
-                            data-thu="${i}" 
-                            data-shift="${ca.maCL}">
-                            ${shift.tgBatDau.slice(0, 5)} - ${shift.tgKetThuc.slice(0, 5)}
-                        </button>
-                        <button class="btn btn-outline-secondary btn-sm add-timeframe-btn" 
-                            data-thu="${i}" 
-                            data-shift="${ca.maCL}">+</button>
-                    </td>`
-                    : `<td>
-                        <button class="btn btn-outline-secondary btn-sm add-timeframe-btn" 
-                            data-thu="${i}" 
-                            data-shift="${ca.maCL}">+</button>
-                    </td>`;
+                let shifts = groupedShifts[ca.maCL]?.filter(s => s.thuTrongTuan == i) || [];
+                let shiftButtons = shifts.map(shift => `
+                    <button class="btn btn-primary btn-sm edit-timeframe-btn" 
+                        data-id="${shift.maCTCL}" 
+                        data-thu="${i}" 
+                        data-shift="${ca.maCL}">
+                        ${shift.tgBatDau.slice(0, 5)} - ${shift.tgKetThuc.slice(0, 5)}
+                    </button>
+                `).join("");
+    
+                row += `<td>
+                    ${shiftButtons}
+                    <button class="btn btn-outline-secondary btn-sm add-timeframe-btn" 
+                        data-thu="${i}" 
+                        data-shift="${ca.maCL}">+</button>
+                </td>`;
             }
     
             row += "</tr>";
