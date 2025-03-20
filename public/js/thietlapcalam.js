@@ -1,4 +1,9 @@
 $(document).ready(function () {
+    // Lấy token CSRF
+    function getCsrfToken() {
+        return $('meta[name="csrf-token"]').attr("content");
+    }
+    
     loadCaLam(); // Tải danh sách ca làm khi trang load
 
     // Hiển thị modal khi nhấn nút "Thêm ca làm"
@@ -48,7 +53,7 @@ $(document).ready(function () {
             url: `/api/calam/${shiftId}`,
             type: "GET",
             success: function (data) {
-                $("#editShiftId").val(data.maCL);
+                $("#editShiftId").val(shiftId);
                 $("#editShiftName").val(data.tenCa);
                 $("#editCheckInEarly").val(data.gioCheckInSom);
                 $("#editCheckOutLate").val(data.gioCheckOutMuon);
@@ -104,10 +109,7 @@ $(document).ready(function () {
         };
     }
 
-    // Lấy token CSRF
-    function getCsrfToken() {
-        return $('meta[name="csrf-token"]').attr("content");
-    }
+    
 
     // Hiển thị thông báo
     function showAlert(title, message) {

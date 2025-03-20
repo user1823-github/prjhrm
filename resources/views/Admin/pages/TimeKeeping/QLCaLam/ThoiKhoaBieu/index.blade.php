@@ -101,33 +101,36 @@
 <div class="modal fade" id="editShiftModal" tabindex="-1" aria-labelledby="editShiftModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="editShiftModalLabel">Chỉnh sửa ca làm việc</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form id="editShiftForm">
-                    <input type="hidden" id="editShiftId"> <!-- Lưu ID của ca làm -->
-                    
-                    <div class="mb-3">
-                        <label for="editShiftName" class="form-label">Tên ca (*)</label>
-                        <input type="text" class="form-control" id="editShiftName" required>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Giờ Check-in sớm (*)</label>
-                        <input type="number" class="form-control" id="editCheckInEarly" min="0" max="5" required>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Giờ Check-out trễ (*)</label>
-                        <input type="number" class="form-control" id="editCheckOutLate" min="0" max="5" required>
-                    </div>
-
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
-                        <button type="submit" class="btn btn-success">Lưu thay đổi</button>
-                    </div>
-                </form>
-            </div>
+            <form id="editShiftForm">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editShiftModalLabel">Chỉnh sửa ca làm việc</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                        <input type="hidden" id="editShiftId" name="editShiftId"> <!-- Lưu ID của ca làm -->
+                        
+                        <div class="mb-3">
+                            <label for="editShiftName" class="form-label">Tên ca (*)</label>
+                            <input type="text" class="form-control" id="editShiftName" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Giờ Check-in sớm (*)</label>
+                            <input type="number" class="form-control" id="editCheckInEarly" min="0" max="5" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Giờ Check-out trễ (*)</label>
+                            <input type="number" class="form-control" id="editCheckOutLate" min="0" max="5" required>
+                        </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                    <button type="submit" class="btn btn-success">Lưu thay đổi</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
+
+@section('scripts')
+    <script src="{{ asset('js/thietlapcalam.js') }}"></script>
+@endsection

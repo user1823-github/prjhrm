@@ -27,22 +27,31 @@ class CaLamController extends Controller
     }
 
     // Lấy thông tin 1 ca làm theo ID
-    public function show(CaLam $caLam)
+    public function show(string $id)
     {
-        return response()->json($caLam);
+        $caLam = CaLam::findOrFail($id);
+        return response()->json($caLam, 200);
     }
 
     // Cập nhật ca làm
-    public function update(Request $request, CaLam $caLam)
+    public function update(Request $request, string $id)
     {
-        $request->validate([
-            'tenCa' => 'sometimes|required|string|max:255',
-            'gioCheckInSom' => 'sometimes|required|integer|min:1',
-            'gioCheckOutMuon' => 'sometimes|required|integer|min:1',
+        $caLam = CaLam::findOrFail($id);
+
+        // $request->validate([
+        //     'tenCa' => 'required|string|max:255',
+        //     'gioCheckInSom' => 'required|integer|min:1',
+        //     'gioCheckOutMuon' => 'required|integer|min:1',
+        // ]);
+
+        $data = $request->only([
+            'tenCa',
+            'gioCheckInSom',
+            'gioCheckOutMuon',
         ]);
 
-        $caLam->update($request->all());
-        return response()->json($caLam);
+        $caLam->update($data);
+        return response()->json($caLam, 200);
     }
 
     // Xóa ca làm
