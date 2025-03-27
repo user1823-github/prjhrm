@@ -3,6 +3,7 @@
 use App\Http\Controllers\CaLamController;
 use App\Http\Controllers\ChiTietCaLamController;
 use App\Http\Controllers\HopThoaiController;
+use App\Http\Controllers\LichLamViecController;
 use App\Http\Controllers\LuongController;
 use App\Http\Controllers\NgayLeController;
 use App\Http\Controllers\NhanVienController;
@@ -127,11 +128,20 @@ Route::prefix('api/chitietcalam')->group(function () {
     Route::delete('/{id}', [ChiTietCaLamController::class, 'destroy']);
 });
 
-// Api Chi tiết ca làm
+// Api Ngày lễ
 Route::prefix('api/ngayle')->group(function () {
     Route::get('/', [NgayLeController::class, 'index']);
     Route::post('/', [NgayLeController::class, 'store']);
     Route::get('/{id}', [NgayLeController::class, 'show']);
     Route::put('/{id}', [NgayLeController::class, 'update']);
     Route::delete('/{id}', [NgayLeController::class, 'destroy']);
+});
+
+// Api Lịch làm việc
+Route::prefix('api/lichlamviec')->group(function () {
+    Route::get('/', [LichLamViecController::class, 'index']);
+    Route::post('/', [LichLamViecController::class, 'store']);
+    Route::get('/{id}', [LichLamViecController::class, 'show']);
+    Route::put('/{id}', [LichLamViecController::class, 'update']);
+    Route::delete('/{id}', [LichLamViecController::class, 'destroy']);
 });
