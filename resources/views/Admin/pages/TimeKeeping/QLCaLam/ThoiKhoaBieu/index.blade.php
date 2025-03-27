@@ -188,6 +188,6 @@
 </div>
 
 
-@section('scripts')
+{{-- @section('scripts')
     <script src="{{ asset('js/thietlapcalam.js') }}"></script>
-@endsection
+@endsection --}}

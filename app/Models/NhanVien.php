@@ -47,4 +47,9 @@ class NhanVien extends Model
     {
         return $this->hasMany(ThanhToan::class, 'maTT', 'maTT');
     }
+
+    public function lichlamviec()
+    {
+        return $this->hasMany(LichLamViec::class, 'maNV', 'maNV');
+    }
 }
