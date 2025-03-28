@@ -8,19 +8,19 @@
         <li class="nav-item">
             <a class="nav-link active" id="tab-messages" data-bs-toggle="tab" href="#messages"
                 data-script="{{ asset('js/thietlapcalam.js') }}">
-                <i class="bi bi-calendar-check"></i> Mẫu thời khóa biểu
+                <img width="20" src="{{ asset('uploads/thoikhoabieu.png') }}" alt="Image"> Mẫu thời khóa biểu
             </a>
         </li>
         <li class="nav-item">
             <a class="nav-link" id="tab-alerts" data-bs-toggle="tab" href="#alerts"
                 data-script="{{ asset('js/ngayle.js') }}">
-                <i class="bi bi-calendar-event"></i> Ngày lễ
+                <img width="20" src="{{ asset('uploads/leave.png') }}" alt="Image"> Ngày lễ
             </a>
         </li>
         <li class="nav-item">
             <a class="nav-link" id="tab-documents" data-bs-toggle="tab" href="#documents"
                 data-script="{{ asset('js/lichlamviec.js') }}">
-                <i class="bi bi-clock-history"></i> Lịch làm việc
+                <img width="20" src="{{ asset('uploads/work-schedule.png') }}" alt="Image"> Lịch làm việc
             </a>
         </li>
     </ul>
