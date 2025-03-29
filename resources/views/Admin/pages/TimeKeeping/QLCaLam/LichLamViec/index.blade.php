@@ -1,6 +1,6 @@
 <link rel="stylesheet" href="{{ asset('css/lichlamviec.css') }}">
 
-<div class="container">
+<div class="container-fluid">
     <!-- Thanh công cụ -->
     <div class="d-flex justify-content-between align-items-center mb-4">
         <div class="d-flex gap-2">
@@ -24,51 +24,66 @@
     </div>
 </div>
 
-<!-- Modal Chỉnh Sửa/Thêm Khung Giờ -->
-<div class="modal fade" id="editTimeFrameModal" tabindex="-1" aria-labelledby="editTimeFrameModalLabel"
+<!-- Modal Form Thêm/Chỉnh sửa Lịch Làm Việc -->
+<div class="modal fade" id="scheduleAddShiftModal" tabindex="-1" aria-labelledby="scheduleAddShiftModalLabel"
     aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form id="editTimeFrameForm">
-                <div class="modal-header">
-                    <h5 class="modal-title">Chỉnh sửa khung giờ</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body">
-                    <input type="hidden" id="editShiftId">
-                    <input type="hidden" id="editSelectedDay">
-
-                    <!-- Thời gian làm việc -->
+            <div class="modal-header">
+                <h5 class="modal-title" id="scheduleAddShiftModalLabel">Thêm mới lịch làm việc</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="scheduleAddShiftForm">
+                    <div class="mb-3">
+                        <label for="scheduleShiftName" class="form-label">Tên ca (*)</label>
+                        <input type="text" class="form-control" id="scheduleShiftName" required>
+                    </div>
                     <div class="mb-3">
                         <label class="form-label">Thời gian làm việc (*)</label>
                         <div class="d-flex">
-                            <input type="time" class="form-control me-2" id="editStartTime" required>
+                            <input type="time" class="form-control me-2" id="scheduleStartTime" required>
                             <span class="align-self-center">→</span>
-                            <input type="time" class="form-control ms-2" id="editEndTime" required>
+                            <input type="time" class="form-control ms-2" id="scheduleEndTime" required>
                         </div>
                     </div>
-
-                    <!-- Hệ số lương -->
+                    <div class="mb-3">
+                        <label class="form-label">Thời gian nghỉ (không bắt buộc)</label>
+                        <div class="d-flex">
+                            <input type="time" class="form-control me-2" id="scheduleBreakStartTime">
+                            <span class="align-self-center">→</span>
+                            <input type="time" class="form-control ms-2" id="scheduleBreakEndTime">
+                        </div>
+                        <small class="text-muted">Bỏ trống nếu không có thời gian nghỉ.</small>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Thời gian Check-in sớm và muộn</label>
+                        <div class="d-flex">
+                            <input type="time" class="form-control" id="scheduleCheckInEarly" required>
+                            <span class="align-self-center">→</span>
+                            <input type="time" class="form-control" id="scheduleCheckOutLate" required>
+                        </div>
+                        <small class="text-muted">Bỏ trống nếu không có thời gian nghỉ.</small>
+                    </div>
                     <div class="mb-3">
                         <label class="form-label">Hệ số lương (*)</label>
-                        <input type="number" class="form-control" id="editSalaryFactor" min="1" step="0.1"
-                            required>
+                        <input type="number" class="form-control" id="scheduleSalaryMultiplier" value="1.0"
+                            step="0.01" required>
                     </div>
-
-                    <!-- Thưởng -->
                     <div class="mb-3">
                         <label class="form-label">Thưởng</label>
-                        <input type="number" class="form-control" id="editBonus" min="0">
+                        <input type="number" class="form-control" id="scheduleBonus" min="0" step="0.01">
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" id="deleteTimeFrame">Xóa</button>
-                    <button type="submit" class="btn btn-success">Cập nhật</button>
-                </div>
-            </form>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                        <button type="submit" id="scheduleAddShiftSubmit" class="btn btn-success">Thêm</button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 </div>
+
 
 {{-- @section('scripts')
     <script src="{{ asset('js/lichlamviec.js') }}"></script>

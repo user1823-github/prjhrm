@@ -44,11 +44,13 @@
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Giờ Check-in sớm (*)</label>
-                        <input type="number" class="form-control" id="checkInEarly" min="0" max="5" value="0" required>
+                        <input type="number" class="form-control" id="checkInEarly" min="0" max="5"
+                            value="0" required>
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Giờ Check-out trễ (*)</label>
-                        <input type="number" class="form-control" id="checkOutLate" min="0" max="5" value="0" required>
+                        <input type="number" class="form-control" id="checkOutLate" min="0" max="5"
+                            value="0" required>
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Thời gian làm việc (*)</label>
@@ -69,7 +71,8 @@
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Hệ số lương (*)</label>
-                        <input type="number" class="form-control" id="salaryMultiplier" value="1.0" step="0.1" required>
+                        <input type="number" class="form-control" id="salaryMultiplier" value="1.0" step="0.1"
+                            required>
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Thưởng</label>
@@ -78,13 +81,20 @@
                     <div class="mb-3">
                         <label class="form-label">Chọn thứ làm việc (*)</label>
                         <div class="d-flex flex-wrap">
-                            <button type="button" class="btn btn-outline-primary me-1 mb-1 shift-day" data-day="1">Thứ 2</button>
-                            <button type="button" class="btn btn-outline-primary me-1 mb-1 shift-day" data-day="2">Thứ 3</button>
-                            <button type="button" class="btn btn-outline-primary me-1 mb-1 shift-day" data-day="3">Thứ 4</button>
-                            <button type="button" class="btn btn-outline-primary me-1 mb-1 shift-day" data-day="4">Thứ 5</button>
-                            <button type="button" class="btn btn-outline-primary me-1 mb-1 shift-day" data-day="5">Thứ 6</button>
-                            <button type="button" class="btn btn-outline-primary me-1 mb-1 shift-day" data-day="6">Thứ 7</button>
-                            <button type="button" class="btn btn-outline-primary me-1 mb-1 shift-day" data-day="7">Chủ nhật</button>
+                            <button type="button" class="btn btn-outline-primary me-1 mb-1 shift-day"
+                                data-day="1">Thứ 2</button>
+                            <button type="button" class="btn btn-outline-primary me-1 mb-1 shift-day"
+                                data-day="2">Thứ 3</button>
+                            <button type="button" class="btn btn-outline-primary me-1 mb-1 shift-day"
+                                data-day="3">Thứ 4</button>
+                            <button type="button" class="btn btn-outline-primary me-1 mb-1 shift-day"
+                                data-day="4">Thứ 5</button>
+                            <button type="button" class="btn btn-outline-primary me-1 mb-1 shift-day"
+                                data-day="5">Thứ 6</button>
+                            <button type="button" class="btn btn-outline-primary me-1 mb-1 shift-day"
+                                data-day="6">Thứ 7</button>
+                            <button type="button" class="btn btn-outline-primary me-1 mb-1 shift-day"
+                                data-day="7">Chủ nhật</button>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -98,7 +108,8 @@
 </div>
 
 <!-- Modal Chỉnh Sửa Ca Làm -->
-<div class="modal fade" id="editShiftModal" tabindex="-1" aria-labelledby="editShiftModalLabel" aria-hidden="true">
+<div class="modal fade" id="editShiftModal" tabindex="-1" aria-labelledby="editShiftModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <form id="editShiftForm">
@@ -107,20 +118,22 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                        <input type="hidden" id="editShiftId" name="editShiftId"> <!-- Lưu ID của ca làm -->
-                        
-                        <div class="mb-3">
-                            <label for="editShiftName" class="form-label">Tên ca (*)</label>
-                            <input type="text" class="form-control" id="editShiftName" required>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Giờ Check-in sớm (*)</label>
-                            <input type="number" class="form-control" id="editCheckInEarly" min="0" max="5" required>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Giờ Check-out trễ (*)</label>
-                            <input type="number" class="form-control" id="editCheckOutLate" min="0" max="5" required>
-                        </div>
+                    <input type="hidden" id="editShiftId" name="editShiftId"> <!-- Lưu ID của ca làm -->
+
+                    <div class="mb-3">
+                        <label for="editShiftName" class="form-label">Tên ca (*)</label>
+                        <input type="text" class="form-control" id="editShiftName" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Giờ Check-in sớm (*)</label>
+                        <input type="number" class="form-control" id="editCheckInEarly" min="0"
+                            max="5" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Giờ Check-out trễ (*)</label>
+                        <input type="number" class="form-control" id="editCheckOutLate" min="0"
+                            max="5" required>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
@@ -132,7 +145,8 @@
 </div>
 
 <!-- Modal Chỉnh Sửa/Thêm Khung Giờ -->
-<div class="modal fade" id="editTimeFrameModal" tabindex="-1" aria-labelledby="editTimeFrameModalLabel" aria-hidden="true">
+<div class="modal fade" id="editTimeFrameModal" tabindex="-1" aria-labelledby="editTimeFrameModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <form id="editTimeFrameForm">
@@ -144,7 +158,7 @@
                     {{-- <input type="hidden" id="editTimeFrameId" name="editTimeFrameId"> <!-- Lưu ID của khung giờ --> --}}
                     <input type="hidden" id="editTimeFrameId">
                     <input type="hidden" id="editShiftId">
-                    <input type="hidden" id="editSelectedDay">  <!-- Thêm input ẩn này -->
+                    <input type="hidden" id="editSelectedDay"> <!-- Thêm input ẩn này -->
 
                     <!-- Thời gian làm việc -->
                     <div class="mb-3">
@@ -169,7 +183,8 @@
                     <!-- Hệ số lương -->
                     <div class="mb-3">
                         <label class="form-label">Hệ số lương (*)</label>
-                        <input type="number" class="form-control" id="editSalaryFactor" min="1" step="0.1" required>
+                        <input type="number" class="form-control" id="editSalaryFactor" min="1"
+                            step="0.01" required>
                     </div>
 
                     <!-- Thưởng -->

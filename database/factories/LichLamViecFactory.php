@@ -22,17 +22,33 @@ class LichLamViecFactory extends Factory
         return [
             'tenCa' => $this->faker->randomElement(['Ca Sáng', 'Ca Chiều', 'Ca Đêm']),
             'ngayLamViec' => $this->faker->date(),
-            'tgBatDau' => $this->faker->time(),
-            'tgKetThuc' => $this->faker->time(),
-            'tgBatDauNghi' => $this->faker->optional()->time(),
-            'tgKetThucNghi' => $this->faker->optional()->time(),
-            'tgCheckInSom' => $this->faker->numberBetween(1, 5),
-            'tgCheckOutMuon' => $this->faker->numberBetween(1, 5),
+            'tgBatDau' => $this->faker->time('H:i'),
+            'tgKetThuc' => $this->faker->time('H:i'),
+            'tgBatDauNghi' => $this->faker->time('H:i'),
+            'tgKetThucNghi' => $this->faker->time('H:i'),
+            'tgCheckInSom' => $this->faker->time('H:i'),
+            'tgCheckOutMuon' => $this->faker->time('H:i'),
             'heSoLuong' => $this->faker->randomFloat(2, 1, 3),
             'tienThuong' => $this->faker->randomFloat(2, 100, 1000),
             'maNV' => NhanVien::inRandomOrder()->first()->maNV,
-            'maNL' => NgayLe::inRandomOrder()->first()->maNL,
-            'maCTCL' => ChiTietCaLam::inRandomOrder()->first()->maCTCL
+            // 'maNL' => NgayLe::inRandomOrder()->first()->maNL,
+            // 'maCTCL' => ChiTietCaLam::inRandomOrder()->first()->maCTCL
         ];
+
+        // return [
+        //     'tenCa' => $this->faker->randomElement(['Ca Sáng', 'Ca Chiều', 'Ca Đêm']),
+        //     'ngayLamViec' => $this->faker->date(),
+        //     'tgBatDau' => $this->faker->time('H:i'),
+        //     'tgKetThuc' => $this->faker->time('H:i'),
+        //     'tgBatDauNghi' => $this->faker->optional()->time('H:i'),
+        //     'tgKetThucNghi' => $this->faker->optional()->time('H:i'),
+        //     'tgCheckInSom' => $this->faker->optional()->time('H:i'),
+        //     'tgCheckOutMuon' => $this->faker->optional()->time('H:i'),
+        //     'heSoLuong' => $this->faker->randomFloat(2, 1, 3),
+        //     'tienThuong' => $this->faker->randomFloat(2, 100, 1000),
+        //     'maNV' => NhanVien::inRandomOrder()->first()->maNV,
+        //     'maNL' => NgayLe::inRandomOrder()->first()->maNL,
+        //     'maCTCL' => ChiTietCaLam::inRandomOrder()->first()->maCTCL
+        // ];
     }
 }

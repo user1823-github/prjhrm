@@ -19,19 +19,19 @@ return new class extends Migration
             $table->time('tgKetThuc'); // Giờ kết thúc làm việc
             $table->time('tgBatDauNghi')->nullable(); // Giờ bắt đầu nghỉ
             $table->time('tgKetThucNghi')->nullable(); // Giờ kết thúc nghỉ
-            $table->integer('tgCheckInSom')->default(0); // Số phút check-in sớm tối đa
-            $table->integer('tgCheckOutMuon')->default(0); // Số phút check-out muộn tối đa
+            $table->time('tgCheckInSom')->nullable(); // Số phút check-in sớm tối đa
+            $table->time('tgCheckOutMuon')->nullable(); // Số phút check-out muộn tối đa
             $table->decimal('heSoLuong', 5, 2)->default(1.0); // Hệ số lương
             $table->decimal('tienThuong', 10, 2)->default(0.00); // Tiền thưởng
 
             // $table->integer('maTK')->unique();  // Thêm cột khóa ngoại
             $table->integer('maNV');
-            $table->integer('maNL');
-            $table->integer('maCTCL');
+            // $table->integer('maNL');
+            // $table->integer('maCTCL');
 
             $table->foreign('maNV')->references('maNV')->on('nhanvien')->onDelete('cascade');
-            $table->foreign('maNL')->references('maNL')->on('ngayle')->onDelete('cascade');
-            $table->foreign('maCTCL')->references('maCTCL')->on('chitietcalam')->onDelete('cascade');
+            // $table->foreign('maNL')->references('maNL')->on('ngayle')->onDelete('cascade');
+            // $table->foreign('maCTCL')->references('maCTCL')->on('chitietcalam')->onDelete('cascade');
 
             $table->timestamps(); // created_at & updated_at
         });
@@ -44,8 +44,8 @@ return new class extends Migration
     {
         Schema::table('lichlamviec', function (Blueprint $table) {
             $table->dropForeign(['maNV']);
-            $table->dropForeign(['maNL']);
-            $table->dropForeign(['maCTCL']);
+            // $table->dropForeign(['maNL']);
+            // $table->dropForeign(['maCTCL']);
         });
         Schema::dropIfExists('lichlamviec');
     }

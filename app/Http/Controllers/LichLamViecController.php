@@ -9,55 +9,6 @@ use Illuminate\Support\Carbon;
 
 class LichLamViecController extends Controller
 {
-    // public function index(Request $request)
-    // {
-    //     $month = $request->input('month', Carbon::now()->format('Y-m'));
-
-    //     // 🗓 Lấy danh sách ngày trong tháng
-    //     $dates = collect();
-    //     $startOfMonth = Carbon::parse($month . '-01');
-    //     $endOfMonth = $startOfMonth->copy()->endOfMonth();
-    //     for ($date = $startOfMonth; $date->lte($endOfMonth); $date->addDay()) {
-    //         $dates->push([
-    //             'day' => $date->format('d'),
-    //             'weekday' => $date->translatedFormat('D'),
-    //             'full_date' => $date->toDateString(),
-    //         ]);
-    //     }
-
-
-
-    //     $employees = NhanVien::with(['lichlamviec' => function ($query) use ($month) {
-    //         $query->whereBetween('ngayLamViec', [
-    //             Carbon::parse($month . '-01')->startOfMonth(),
-    //             Carbon::parse($month . '-01')->endOfMonth()
-    //         ]);
-    //     }])->get();
-
-    //     // 📌 Format dữ liệu
-    //     $employeeData = $employees->map(function ($nv) use ($dates) {
-    //         return [
-    //             'id' => $nv->maNV,
-    //             'name' => $nv->hoTen,
-    //             'avatar' => $nv->avatar ?? asset('images/default-avatar.png'),
-    //             'shifts' => $dates->map(function ($date) use ($nv) {
-    //                 $shift = $nv->lichLamViec->where('ngayLamViec', $date['full_date'])->first();
-    //                 return $shift ? [
-    //                     'id' => $shift->maLLV,
-    //                     'date' => $shift->ngayLamViec,
-    //                     'time' => "{$shift->tgBatDau} - {$shift->tgKetThuc}",
-    //                     'details' => "Lương: {$shift->heSoLuong} | Thưởng: {$shift->tienThuong}"
-    //                 ] : null;
-    //             })
-    //         ];
-    //     });
-
-    //     return response()->json([
-    //         'dates' => $dates,
-    //         'employees' => $employeeData
-    //     ]);
-    // }
-
     public function index(Request $request)
     {
         $month = $request->input('month', Carbon::now()->format('Y-m'));
@@ -84,11 +35,13 @@ class LichLamViecController extends Controller
         $request->validate([
             'tenCa' => 'required|string|max:50',
             'ngayLamViec' => 'required|date',
-            'tgBatDau' => 'required',
-            'tgKetThuc' => 'required',
-            'tgCheckInSom' => 'integer|min:0',
-            'tgCheckOutMuon' => 'integer|min:0',
-            'heSoLuong' => 'numeric|min:0',
+            'tgBatDau' => 'required|date_format:H:i',
+            'tgKetThuc' => 'required|date_format:H:i',
+            'tgBatDauNghi' => 'nullable|date_format:H:i',
+            'tgKetThucNghi' => 'nullable|date_format:H:i',
+            'tgCheckInSom' => 'nullable|date_format:H:i',
+            'tgCheckOutMuon' => 'nullable|date_format:H:i',
+            'heSoLuong' => 'numeric|min:1',
             'tienThuong' => 'numeric|min:0',
         ]);
 
@@ -104,8 +57,21 @@ class LichLamViecController extends Controller
     public function update(Request $request, $id)
     {
         $lichLamViec = LichLamViec::findOrFail($id);
-        $lichLamViec->update($request->all());
-        return response()->json($lichLamViec);
+        $data = $request->validate([
+            'tenCa' => 'required|string|max:50',
+            'ngayLamViec' => 'required|date',
+            'tgBatDau' => 'required|date_format:H:i',
+            'tgKetThuc' => 'required|date_format:H:i',
+            'tgBatDauNghi' => 'nullable|date_format:H:i',
+            'tgKetThucNghi' => 'nullable|date_format:H:i',
+            'tgCheckInSom' => 'nullable|date_format:H:i',
+            'tgCheckOutMuon' => 'nullable|date_format:H:i',
+            'heSoLuong' => 'numeric|min:1',
+            'tienThuong' => 'numeric|min:0',
+        ]);
+
+        $lichLamViec->update($data);
+        return response()->json($lichLamViec, 200);
     }
 
     public function destroy($id)

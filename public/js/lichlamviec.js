@@ -1,71 +1,64 @@
 $(document).ready(function () {
-    // Lấy token CSRF từ meta tag
     function getCsrfToken() {
         return $('meta[name="csrf-token"]').attr("content");
     }
 
-    // Gọi API để tải dữ liệu lịch làm việc
     function loadLichLamViec() {
-        const selectedMonth = $("#monthPicker").val(); // Lấy tháng được chọn
+        const selectedMonth = $("#monthPicker").val();
         $.ajax({
             url: "/api/lichlamviec",
             method: "GET",
-            data: { month: selectedMonth }, // Gửi tháng lên API
+            data: { month: selectedMonth },
             headers: { "X-CSRF-TOKEN": getCsrfToken() },
             success: function (response) {
                 renderLichLamViec(response, selectedMonth);
-            },
-            error: function (xhr) {
-                console.error("Lỗi khi tải lịch làm việc:", xhr.responseText);
             }
         });
     }
 
-    // Hiển thị dữ liệu lên bảng lịch làm việc
     function renderLichLamViec(data, month) {
         const scheduleHeader = $("#scheduleHeader");
         const scheduleBody = $("#scheduleBody");
-
+    
         scheduleHeader.empty();
         scheduleBody.empty();
-
-        // 🚨 Kiểm tra dữ liệu API trước khi xử lý
-        if (!Array.isArray(data) || data.length === 0) {
-            console.error("Dữ liệu API không hợp lệ hoặc rỗng:", data);
-            return;
-        }
-
-        // 🔥 Lấy danh sách ngày trong tháng được chọn
+    
         let dates = getAllDaysInMonth(month);
-
-        // 📝 Tạo header với danh sách ngày
         let headerRow = `<tr><th>Nhân viên</th>`;
-        dates.forEach(date => {
-            headerRow += `<th>${formatDate(date)}</th>`;
-        });
+        dates.forEach(date => headerRow += `<th>${formatDate(date)}</th>`);
         headerRow += `</tr>`;
         scheduleHeader.append(headerRow);
-
-        // 🌟 Nhóm dữ liệu theo nhân viên
+    
         const groupedByEmployee = groupBy(data, 'maNV');
-
-        // 🏆 Hiển thị dữ liệu theo nhân viên
+    
         Object.values(groupedByEmployee).forEach(employeeData => {
-            let employee = employeeData[0].nhanvien; // Lấy thông tin nhân viên
+            let employee = employeeData[0].nhanvien;
             let row = `<tr><td class="d-flex align-items-center">
-                <img src="http://127.0.0.1:8000/images/default-avatar.png" class="rounded-circle me-2" width="40" height="40" alt="Avatar">
+                <img src="/images/default-avatar.png" class="rounded-circle me-2" width="40" height="40" alt="Avatar">
                 ${employee.hoTen}
             </td>`;
-
+    
             dates.forEach(date => {
                 let shift = employeeData.find(item => item.ngayLamViec === date);
                 row += `<td class="text-center">`;
                 if (shift) {
+                    let startTime = shift.tgBatDau ? shift.tgBatDau.slice(0, 5) : "";
+                    let endTime = shift.tgKetThuc ? shift.tgKetThuc.slice(0, 5) : "";
+    
                     row += `<button class="schedule-box edit-shift" 
                                 data-id="${shift.maLLV}" 
                                 data-employee="${shift.maNV}" 
-                                data-date="${shift.ngayLamViec}">
-                                ${shift.tenCa} <br> ${shift.tgBatDau} - ${shift.tgKetThuc}
+                                data-date="${shift.ngayLamViec}"
+                                data-shift-name="${shift.tenCa || ''}"
+                                data-checkin-early="${shift.tgCheckInSom || ''}"
+                                data-checkout-late="${shift.tgCheckOutMuon || ''}"
+                                data-start-time="${startTime}"
+                                data-end-time="${endTime}"
+                                data-break-start="${shift.tgBatDauNghi || ''}"
+                                data-break-end="${shift.tgKetThucNghi || ''}"
+                                data-salary-multiplier="${shift.heSoLuong || 1.0}"
+                                data-bonus="${shift.tienThuong || 0}">
+                                ${startTime} - ${endTime}
                             </button>`;
                 } else {
                     row += `<button class="btn btn-outline-secondary add-shift" 
@@ -74,34 +67,28 @@ $(document).ready(function () {
                 }
                 row += `</td>`;
             });
-
+    
             row += `</tr>`;
             scheduleBody.append(row);
         });
     }
+    
 
-    // 🛠 Hàm lấy tất cả ngày trong tháng (YYYY-MM → [YYYY-MM-01, ..., YYYY-MM-31])
     function getAllDaysInMonth(month) {
         let dates = [];
         let yearMonth = month.split("-");
-        let year = parseInt(yearMonth[0]);
-        let monthNumber = parseInt(yearMonth[1]);
-
-        let daysInMonth = new Date(year, monthNumber, 0).getDate();
+        let daysInMonth = new Date(yearMonth[0], yearMonth[1], 0).getDate();
         for (let day = 1; day <= daysInMonth; day++) {
-            let formattedDay = day.toString().padStart(2, "0");
-            dates.push(`${month}-${formattedDay}`);
+            dates.push(`${month}-${String(day).padStart(2, "0")}`);
         }
         return dates;
     }
 
-    // 🛠 Hàm định dạng ngày (YYYY-MM-DD → DD/MM/YYYY)
     function formatDate(dateStr) {
         let date = new Date(dateStr);
         return date.toLocaleDateString("vi-VN");
     }
 
-    // 🛠 Hàm nhóm mảng theo key
     function groupBy(array, key) {
         return array.reduce((result, item) => {
             (result[item[key]] = result[item[key]] || []).push(item);
@@ -109,191 +96,74 @@ $(document).ready(function () {
         }, {});
     }
 
-    // Khi người dùng thay đổi tháng, tải lại dữ liệu
+    $(document).on("click", ".add-shift, .edit-shift", function () {
+        let shiftId = $(this).hasClass("edit-shift") ? $(this).data("id") : "";
+        let employeeId = $(this).data("employee");
+        let date = $(this).data("date");
+
+        $("#scheduleAddShiftForm")[0].reset();
+        $("#scheduleAddShiftForm").data({ id: shiftId, employee: employeeId, date });
+
+        if (shiftId) {
+            $("#scheduleAddShiftModalLabel").text("Cập nhật lịch làm việc");
+            $("#scheduleAddShiftSubmit").text("Cập nhật").removeClass("btn-success").addClass("btn-primary");
+
+            // Điền dữ liệu vào form
+            $("#scheduleShiftName").val($(this).data("shift-name") || '');
+            $("#scheduleCheckInEarly").val($(this).data("checkin-early") || '');
+            $("#scheduleCheckOutLate").val($(this).data("checkout-late") || '');
+            $("#scheduleStartTime").val($(this).data("start-time") || '');
+            $("#scheduleEndTime").val($(this).data("end-time") || '');
+            $("#scheduleBreakStartTime").val($(this).data("break-start") || '');
+            $("#scheduleBreakEndTime").val($(this).data("break-end") || '');
+            $("#scheduleSalaryMultiplier").val($(this).data("salary-multiplier") || 1.0);
+            $("#scheduleBonus").val($(this).data("bonus") || 0);
+        } else {
+            $("#scheduleAddShiftModalLabel").text("Thêm mới lịch làm việc");
+            $("#scheduleAddShiftSubmit").text("Thêm").removeClass("btn-primary").addClass("btn-success");
+        }
+
+        $("#scheduleAddShiftModal").modal("show");
+    });
+
     $("#monthPicker").on("change", loadLichLamViec);
-
-    // Khi trang load lần đầu
     loadLichLamViec();
+
+
+    $(document).on("submit", "#scheduleAddShiftForm", function (e) {
+        e.preventDefault();
+    
+        let shiftId = $(this).data("id");
+        let employeeId = $(this).data("employee");
+        let date = $(this).data("date");
+    
+        let requestData = {
+            tenCa: $("#scheduleShiftName").val(),
+            ngayLamViec: date,
+            tgBatDau: $("#scheduleStartTime").val(),
+            tgKetThuc: $("#scheduleEndTime").val(),
+            tgCheckInSom: $("#scheduleCheckInEarly").val() ,
+            tgCheckOutMuon: $("#scheduleCheckOutLate").val(),
+            heSoLuong: parseFloat($("#scheduleSalaryMultiplier").val()),
+            tienThuong: parseFloat($("#scheduleBonus").val()),
+        };
+    
+        let url = `/api/lichlamviec/${shiftId}`;
+        let method = shiftId ? "PUT" : "POST";
+    
+        $.ajax({
+            url: url,
+            method: method,
+            data: requestData,
+            headers: { "X-CSRF-TOKEN": getCsrfToken() },
+            success: function (response) {
+                $("#scheduleAddShiftModal").modal("hide");
+                loadLichLamViec();
+                alert("Cập nhật thành công!");
+            },
+            error: function (xhr) {
+                alert("Lỗi cập nhật: " + (xhr.responseJSON.message || "Vui lòng kiểm tra lại dữ liệu"));
+            }
+        });
+    });
 });
-
-
-// $(document).ready(function () {
-//     // Lấy token CSRF từ meta tag
-//     function getCsrfToken() {
-//         return $('meta[name="csrf-token"]').attr("content");
-//     }
-
-//     // Gọi API để tải dữ liệu lịch làm việc
-//     function loadLichLamViec() {
-//         const selectedMonth = $("#monthPicker").val(); // Lấy tháng được chọn
-//         $.ajax({
-//             url: "/api/lichlamviec",
-//             method: "GET",
-//             data: { month: selectedMonth }, // Gửi tháng lên API
-//             headers: { "X-CSRF-TOKEN": getCsrfToken() },
-//             success: function (response) {
-//                 renderLichLamViec(response);
-//             },
-//             error: function (xhr) {
-//                 console.error("Lỗi khi tải lịch làm việc:", xhr.responseText);
-//             }
-//         });
-//     }
-
-//     // Hiển thị dữ liệu lên bảng lịch làm việc
-//     function renderLichLamViec(data) {
-//         const scheduleHeader = $("#scheduleHeader");
-//         const scheduleBody = $("#scheduleBody");
-
-//         scheduleHeader.empty();
-//         scheduleBody.empty();
-
-//         // 🚨 Kiểm tra dữ liệu API trước khi xử lý
-//         if (!Array.isArray(data) || data.length === 0) {
-//             console.error("Dữ liệu API không hợp lệ hoặc rỗng:", data);
-//             return;
-//         }
-
-//         // Lấy danh sách ngày từ dữ liệu
-//         let dates = [...new Set(data.map(item => item.ngayLamViec))].sort();
-
-//         // 📝 Tạo header với danh sách ngày
-//         let headerRow = `<tr><th>Nhân viên</th>`;
-//         dates.forEach(date => {
-//             headerRow += `<th>${formatDate(date)}</th>`;
-//         });
-//         headerRow += `</tr>`;
-//         scheduleHeader.append(headerRow);
-
-//         // 🌟 Nhóm dữ liệu theo nhân viên
-//         const groupedByEmployee = groupBy(data, 'maNV');
-
-//         // 🏆 Hiển thị dữ liệu theo nhân viên
-//         Object.values(groupedByEmployee).forEach(employeeData => {
-//             let employee = employeeData[0].nhanvien; // Lấy thông tin nhân viên
-//             let row = `<tr><td class="d-flex align-items-center">
-//                 <img src="http://127.0.0.1:8000/images/default-avatar.png" class="rounded-circle me-2" width="40" height="40" alt="Avatar">
-//                 ${employee.hoTen}
-//             </td>`;
-
-//             dates.forEach(date => {
-//                 let shift = employeeData.find(item => item.ngayLamViec === date);
-//                 row += `<td class="text-center">`;
-//                 if (shift) {
-//                     row += `<button class="schedule-box edit-shift" 
-//                                 data-id="${shift.maLLV}" 
-//                                 data-employee="${shift.maNV}" 
-//                                 data-date="${shift.ngayLamViec}">
-//                                 ${shift.tenCa} <br> ${shift.tgBatDau} - ${shift.tgKetThuc}
-//                             </button>`;
-//                 } else {
-//                     row += `<button class="btn btn-outline-secondary add-shift" 
-//                                 data-employee="${employee.maNV}" 
-//                                 data-date="${date}">+</button>`;
-//                 }
-//                 row += `</td>`;
-//             });
-
-//             row += `</tr>`;
-//             scheduleBody.append(row);
-//         });
-//     }
-
-//     // 🛠 Hàm định dạng ngày (YYYY-MM-DD → DD/MM/YYYY)
-//     function formatDate(dateStr) {
-//         let date = new Date(dateStr);
-//         return date.toLocaleDateString("vi-VN");
-//     }
-
-//     // 🛠 Hàm nhóm mảng theo key
-//     function groupBy(array, key) {
-//         return array.reduce((result, item) => {
-//             (result[item[key]] = result[item[key]] || []).push(item);
-//             return result;
-//         }, {});
-//     }
-
-//     // Khi người dùng thay đổi tháng, tải lại dữ liệu
-//     $("#monthPicker").on("change", loadLichLamViec);
-
-//     // Khi trang load lần đầu
-//     loadLichLamViec();
-// });
-
-
-
-// $(document).ready(function () {
-//     // Lấy token CSRF từ meta tag
-//     function getCsrfToken() {
-//         return $('meta[name="csrf-token"]').attr("content");
-//     }
-
-//     // Gọi API để tải dữ liệu lịch làm việc
-//     function loadLichLamViec() {
-//         const selectedMonth = $("#monthPicker").val(); // Lấy tháng được chọn
-//         $.ajax({
-//             url: "/api/lichlamviec",
-//             method: "GET",
-//             data: { month: selectedMonth },  // Gửi tháng lên API
-//             headers: { "X-CSRF-TOKEN": getCsrfToken() },
-//             success: function (response) {
-//                 renderLichLamViec(response);
-//             },
-//             error: function (xhr) {
-//                 console.error("Lỗi khi tải lịch làm việc:", xhr.responseText);
-//             }
-//         });
-//     }
-
-//     // Hiển thị dữ liệu lên bảng lịch làm việc
-//     function renderLichLamViec(data) {
-//         const scheduleHeader = $("#scheduleHeader");
-//         const scheduleBody = $("#scheduleBody");
-    
-//         scheduleHeader.empty();
-//         scheduleBody.empty();
-    
-//         // 🚨 Kiểm tra dữ liệu API trước khi xử lý
-//         if (!data || !Array.isArray(data.dates) || !Array.isArray(data.employees)) {
-//             console.error("Dữ liệu API không hợp lệ:", data);
-//             return;
-//         }
-    
-//         let headerRow = `<tr><th>Nhân viên</th>`;
-//         data.dates.forEach(date => {
-//             headerRow += `<th>${date.day}<br>${date.weekday}</th>`;
-//         });
-//         headerRow += `</tr>`;
-//         scheduleHeader.append(headerRow);
-    
-//         data.employees.forEach(employee => {
-//             let row = `<tr><td class="d-flex align-items-center">
-//                 <img src="${employee.avatar}" class="rounded-circle me-2" width="40" height="40" alt="Avatar">
-//                 ${employee.name}
-//             </td>`;
-    
-//             employee.shifts.forEach(shift => {
-//                 row += `<td class="text-center">`;
-//                 if (shift) {
-//                     row += `<button class="schedule-box edit-shift" data-id="${shift.id}" 
-//                                 data-employee="${employee.id}" data-date="${shift.date}">
-//                                 ${shift.time}<br><span>${shift.details}</span>
-//                             </button>`;
-//                 } else {
-//                     row += `<button class="btn btn-outline-secondary add-shift" 
-//                                 data-employee="${employee.id}" data-date="">+</button>`;
-//                 }
-//                 row += `</td>`;
-//             });
-    
-//             row += `</tr>`;
-//             scheduleBody.append(row);
-//         });
-//     }
-
-//     // Khi người dùng thay đổi tháng, tải lại dữ liệu
-//     $("#monthPicker").on("change", loadLichLamViec);
-
-//     // Khi trang load lần đầu
-//     loadLichLamViec();
-// });

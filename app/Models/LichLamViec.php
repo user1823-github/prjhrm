@@ -25,8 +25,8 @@ class LichLamViec extends Model
         'heSoLuong',
         'tienThuong',
         'maNV',
-        'maNL',
-        'maCTCL',
+        // 'maNL',
+        // 'maCTCL',
     ];
 
     public function nhanvien()
@@ -34,13 +34,13 @@ class LichLamViec extends Model
         return $this->belongsTo(NhanVien::class, 'maNV', 'maNV');
     }
 
-    public function ngayle()
-    {
-        return $this->belongsTo(NgayLe::class, 'maNL', 'maNL');
-    }
+    // public function ngayle()
+    // {
+    //     return $this->belongsTo(NgayLe::class, 'maNL', 'maNL');
+    // }
 
-    public function chitietcalam()
-    {
-        return $this->hasOne(ChiTietCaLam::class, 'maCTCL', 'maCTCL');
-    }
+    // public function chitietcalam()
+    // {
+    //     return $this->hasOne(ChiTietCaLam::class, 'maCTCL', 'maCTCL');
+    // }
 }
