@@ -17,51 +17,38 @@ $(document).ready(function () {
     }
 
     function renderLichLamViec(data, month) {
-        const scheduleHeader = $("#scheduleHeader");
-        const scheduleBody = $("#scheduleBody");
-
-        scheduleHeader.empty();
-        scheduleBody.empty();
-
+        let groupedShifts = groupBy(data, "maNV");
         let dates = getAllDaysInMonth(month);
+        let tableContent = "";
 
-        // Thêm class "fixed-column" để cột nhân viên cố định khi cuộn ngang
-        let headerRow = `<tr><th class="fixed-column-x fixed-column employee-name-cell">Nhân viên</th>`;
+        // Tạo tiêu đề cột ngày
+        let headerRow = `<tr>
+            <th class="fixed-column-x fixed-column employee-name-cell">Nhân viên</th>`;
         dates.forEach((date) => {
-            headerRow += `<th class="date-header"  data-date="${date}">${formatDate(
+            headerRow += `<th class="date-header" data-date="${date}">${formatDate(
                 date
             )}</th>`;
         });
         headerRow += `</tr>`;
-        scheduleHeader.append(headerRow);
+        $("#scheduleHeader").html(headerRow);
 
-        const groupedByEmployee = groupBy(data, "maNV");
-
-        Object.values(groupedByEmployee).forEach((employeeData) => {
+        // Duyệt từng nhân viên
+        Object.values(groupedShifts).forEach((employeeData) => {
             let employee = employeeData[0].nhanvien;
+            let row = `<tr>
+                <td class="fixed-column employee-name-cell align-middle">
+                    <img src="/images/default-avatar.png" class="rounded-circle me-2" width="40" height="40" alt="Avatar">
+                    ${employee.hoTen}
+                </td>`;
 
-            // Đảm bảo cột nhân viên có class "fixed-column"
-            let row = `<tr><td class="fixed-column employee-name-cell align-middle">
-                <img src="/images/default-avatar.png" class="rounded-circle me-2" width="40" height="40" alt="Avatar">
-                ${employee.hoTen}
-            </td>`;
-
+            // Duyệt từng ngày trong tháng
             dates.forEach((date) => {
-                let shift = employeeData.find(
+                let shifts = employeeData.filter(
                     (item) => item.ngayLamViec === date
                 );
-
-                row += `<td align="center" class=" text-center">`;
-
-                if (shift) {
-                    let startTime = shift.tgBatDau
-                        ? shift.tgBatDau.slice(0, 5)
-                        : "";
-                    let endTime = shift.tgKetThuc
-                        ? shift.tgKetThuc.slice(0, 5)
-                        : "";
-
-                    row += `
+                let shiftButtons = shifts
+                    .map(
+                        (shift) => `
                     <div class="my-1">
                         <button class="schedule-box edit-shift mx-auto" 
                             data-id="${shift.maLLV}" 
@@ -70,34 +57,45 @@ $(document).ready(function () {
                             data-shift-name="${shift.tenCa || ""}"
                             data-checkin-early="${shift.tgCheckInSom || ""}"
                             data-checkout-late="${shift.tgCheckOutMuon || ""}"
-                            data-start-time="${startTime}"
-                            data-end-time="${endTime}"
+                            data-start-time="${
+                                shift.tgBatDau ? shift.tgBatDau.slice(0, 5) : ""
+                            }"
+                            data-end-time="${
+                                shift.tgKetThuc
+                                    ? shift.tgKetThuc.slice(0, 5)
+                                    : ""
+                            }"
                             data-break-start="${shift.tgBatDauNghi || ""}"
                             data-break-end="${shift.tgKetThucNghi || ""}"
                             data-salary-multiplier="${shift.heSoLuong || 1.0}"
                             data-bonus="${shift.tienThuong || 0}">
-                                ${startTime} - ${endTime}
+                            ${
+                                shift.tgBatDau ? shift.tgBatDau.slice(0, 5) : ""
+                            } - ${
+                            shift.tgKetThuc ? shift.tgKetThuc.slice(0, 5) : ""
+                        }
                         </button> 
                     </div>
-                    `;
-                }
+                `
+                    )
+                    .join("");
 
-                // Luôn hiển thị nút "Thêm Ca" ở dưới
-                row += `
-                <div class="my-1">
-                    <button class="btn btn-outline-secondary add-shift" 
-                        data-employee="${employee.maNV}" 
-                        data-date="${date}">+
-                    </button> 
-                </div>
-                `;
-
-                row += `</td>`;
+                row += `<td align="center" class="text-center">
+                    ${shiftButtons}
+                    <div class="my-1">
+                        <button class="btn btn-outline-secondary add-shift" 
+                            data-employee="${employee.maNV}" 
+                            data-date="${date}">+
+                        </button> 
+                    </div>
+                </td>`;
             });
 
             row += `</tr>`;
-            scheduleBody.append(row);
+            tableContent += row;
         });
+
+        $("#scheduleBody").html(tableContent);
     }
 
     function getAllDaysInMonth(month) {
