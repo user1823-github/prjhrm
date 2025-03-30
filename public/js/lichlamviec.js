@@ -5,19 +5,29 @@ $(document).ready(function () {
 
     function loadLichLamViec() {
         const selectedMonth = $("#monthPicker").val();
-        $.ajax({
-            url: "/api/lichlamviec",
-            method: "GET",
-            data: { month: selectedMonth },
-            headers: { "X-CSRF-TOKEN": getCsrfToken() },
-            success: function (response) {
-                renderLichLamViec(response, selectedMonth);
-            },
+
+        // Gọi cả 2 API: 1 cái lấy danh sách nhân viên, 1 cái lấy lịch làm việc
+        $.when(
+            $.ajax({
+                url: "/api/lichlamviec",
+                method: "GET",
+                data: { month: selectedMonth },
+                headers: { "X-CSRF-TOKEN": getCsrfToken() },
+            }),
+            $.ajax({
+                url: "/api/nhanvien", // API này phải trả về danh sách nhân viên
+                method: "GET",
+                headers: { "X-CSRF-TOKEN": getCsrfToken() },
+            })
+        ).done(function (shiftsResponse, employeesResponse) {
+            let shiftsData = shiftsResponse[0]; // Dữ liệu lịch làm việc
+            let employeesData = employeesResponse[0]; // Danh sách nhân viên
+
+            renderLichLamViec(shiftsData, employeesData, selectedMonth);
         });
     }
 
-    function renderLichLamViec(data, month) {
-        let groupedShifts = groupBy(data, "maNV");
+    function renderLichLamViec(shiftsData, employeesData, month) {
         let dates = getAllDaysInMonth(month);
         let tableContent = "";
 
@@ -32,9 +42,8 @@ $(document).ready(function () {
         headerRow += `</tr>`;
         $("#scheduleHeader").html(headerRow);
 
-        // Duyệt từng nhân viên
-        Object.values(groupedShifts).forEach((employeeData) => {
-            let employee = employeeData[0].nhanvien;
+        // Duyệt qua từng nhân viên trong danh sách
+        employeesData.forEach((employee) => {
             let row = `<tr>
                 <td class="fixed-column employee-name-cell align-middle">
                     <img src="/images/default-avatar.png" class="rounded-circle me-2" width="40" height="40" alt="Avatar">
@@ -43,10 +52,13 @@ $(document).ready(function () {
 
             // Duyệt từng ngày trong tháng
             dates.forEach((date) => {
-                let shifts = employeeData.filter(
-                    (item) => item.ngayLamViec === date
+                let shiftsForDate = shiftsData.filter(
+                    (shift) =>
+                        shift.maNV === employee.maNV &&
+                        shift.ngayLamViec === date
                 );
-                let shiftButtons = shifts
+
+                let shiftButtons = shiftsForDate
                     .map(
                         (shift) => `
                     <div class="my-1">
@@ -55,8 +67,6 @@ $(document).ready(function () {
                             data-employee="${shift.maNV}" 
                             data-date="${shift.ngayLamViec}"
                             data-shift-name="${shift.tenCa || ""}"
-                            data-checkin-early="${shift.tgCheckInSom || ""}"
-                            data-checkout-late="${shift.tgCheckOutMuon || ""}"
                             data-start-time="${
                                 shift.tgBatDau ? shift.tgBatDau.slice(0, 5) : ""
                             }"
@@ -64,11 +74,7 @@ $(document).ready(function () {
                                 shift.tgKetThuc
                                     ? shift.tgKetThuc.slice(0, 5)
                                     : ""
-                            }"
-                            data-break-start="${shift.tgBatDauNghi || ""}"
-                            data-break-end="${shift.tgKetThucNghi || ""}"
-                            data-salary-multiplier="${shift.heSoLuong || 1.0}"
-                            data-bonus="${shift.tienThuong || 0}">
+                            }">
                             ${
                                 shift.tgBatDau ? shift.tgBatDau.slice(0, 5) : ""
                             } - ${
