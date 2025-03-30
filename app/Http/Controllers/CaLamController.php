@@ -13,6 +13,18 @@ class CaLamController extends Controller
         return response()->json(CaLam::all());
     }
 
+    // Lấy chi tiết của một ca làm theo maCL
+    public function getChiTietCaLam($maCL)
+    {
+        $caLam = CaLam::with('chiTietCaLams')->find($maCL);
+
+        if (!$caLam) {
+            return response()->json(['message' => 'Ca làm không tồn tại'], 404);
+        }
+
+        return response()->json($caLam, 200);
+    }
+
     // Thêm ca làm mới
     public function store(Request $request)
     {

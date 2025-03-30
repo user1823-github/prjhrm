@@ -8,7 +8,7 @@
 
     <!-- Bảng thời gian làm việc -->
     <div class="table-responsive">
-        <table class="table table-bordered text-center">
+        <table class="table table-hover table-bordered text-center">
             <thead class="table-light">
                 <tr class="alert alert-warning">
                     <th>Ca</th>

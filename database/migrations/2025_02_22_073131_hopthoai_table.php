@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('hopthoai', function (Blueprint $table) {
-            $table->id('maHT'); // Khóa chính tự động tăng
+            $table->integer('maHT')->autoIncrement(); // Khóa chính tự động tăng
             $table->string('tieuDe'); // Tiêu đề hộp thoại
             $table->text('noiDung'); // Nội dung
             $table->string('url')->nullable(); // URL liên kết (nếu có)

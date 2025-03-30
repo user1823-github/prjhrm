@@ -16,86 +16,6 @@ $(document).ready(function () {
         });
     }
 
-    // function renderLichLamViec(data, month) {
-    //     const scheduleHeader = $("#scheduleHeader");
-    //     const scheduleBody = $("#scheduleBody");
-
-    //     scheduleHeader.empty();
-    //     scheduleBody.empty();
-
-    //     let dates = getAllDaysInMonth(month);
-    //     let headerRow = `<tr><th class="fixed-column">Nhân viên</th>`;
-    //     dates.forEach((date) => {
-    //         headerRow += `<th class="date-header" data-date="${date}">${formatDate(
-    //             date
-    //         )}</th>`;
-    //     });
-
-    //     headerRow += `</tr>`;
-    //     scheduleHeader.append(headerRow);
-
-    //     const groupedByEmployee = groupBy(data, "maNV");
-
-    //     Object.values(groupedByEmployee).forEach((employeeData) => {
-    //         let employee = employeeData[0].nhanvien;
-    //         let row = `<tr><td  class="fixed-column employee-name-cell align-middle">
-    //             <img src="/images/default-avatar.png" class="rounded-circle me-2" width="40" height="40" alt="Avatar">
-    //             ${employee.hoTen}
-    //         </td>`;
-
-    //         dates.forEach((date) => {
-    //             let shift = employeeData.find(
-    //                 (item) => item.ngayLamViec === date
-    //             );
-    //             // row += `<td align="center" class="text-center">`;
-    //             row += `<td align="center" class="text-center">`;
-    //             if (shift) {
-    //                 let startTime = shift.tgBatDau
-    //                     ? shift.tgBatDau.slice(0, 5)
-    //                     : "";
-    //                 let endTime = shift.tgKetThuc
-    //                     ? shift.tgKetThuc.slice(0, 5)
-    //                     : "";
-
-    //                 row += `
-    //                 <div class="my-1">
-    //                     <button class="schedule-box edit-shift mx-auto"
-    //                         data-id="${shift.maLLV}"
-    //                         data-employee="${shift.maNV}"
-    //                         data-date="${shift.ngayLamViec}"
-    //                         data-shift-name="${shift.tenCa || ""}"
-    //                         data-checkin-early="${shift.tgCheckInSom || ""}"
-    //                         data-checkout-late="${shift.tgCheckOutMuon || ""}"
-    //                         data-start-time="${startTime}"
-    //                         data-end-time="${endTime}"
-    //                         data-break-start="${shift.tgBatDauNghi || ""}"
-    //                         data-break-end="${shift.tgKetThucNghi || ""}"
-    //                         data-salary-multiplier="${shift.heSoLuong || 1.0}"
-    //                         data-bonus="${shift.tienThuong || 0}">
-    //                                 ${startTime} - ${endTime}
-    //                     </button>
-    //                 </div>
-    //                 <div class="my-1">
-    //                     <button class="btn btn-outline-secondary add-shift"
-    //                         data-employee="${employee.maNV}"
-    //                         data-date="${date}">+
-    //                     </button>
-    //                 </div>
-    //                         `;
-    //             } else {
-    //                 row += `<button class="btn btn-outline-secondary add-shift"
-    //                             data-employee="${employee.maNV}"
-
-    //                             data-date="${date}">+</button>`;
-    //             }
-    //             row += `</td>`;
-    //         });
-
-    //         row += `</tr>`;
-    //         scheduleBody.append(row);
-    //     });
-    // }
-
     function renderLichLamViec(data, month) {
         const scheduleHeader = $("#scheduleHeader");
         const scheduleBody = $("#scheduleBody");
@@ -220,6 +140,7 @@ $(document).ready(function () {
         let shiftId = $(this).hasClass("edit-shift") ? $(this).data("id") : "";
         let employeeId = $(this).data("employee");
         let date = $(this).data("date");
+        console.log(employeeId);
 
         $("#scheduleAddShiftForm")[0].reset();
         $("#scheduleAddShiftForm").data({
@@ -254,7 +175,6 @@ $(document).ready(function () {
                 .removeClass("btn-primary")
                 .addClass("btn-success");
         }
-
         $("#scheduleAddShiftModal").modal("show");
     });
 
@@ -286,23 +206,29 @@ $(document).ready(function () {
             tienThuong: parseFloat($("#scheduleBonus").val()) || 0,
         };
 
-        let url = `/api/lichlamviec/${shiftId}`;
+        console.log("Dữ liệu gửi đi:", requestData); // Debug dữ liệu gửi đi
+
+        let url = `/api/lichlamviec/${shiftId ? shiftId : ""}`;
         let method = shiftId ? "PUT" : "POST";
 
         $.ajax({
             url: url,
             method: method,
-            data: requestData,
             headers: { "X-CSRF-TOKEN": getCsrfToken() },
+            contentType: "application/json",
+            dataType: "json",
+            data: JSON.stringify(requestData),
             success: function (response) {
+                console.log("Phản hồi từ server:", response);
                 $("#scheduleAddShiftModal").modal("hide");
                 loadLichLamViec();
                 alert("Cập nhật thành công!");
             },
             error: function (xhr) {
+                console.error("Lỗi cập nhật:", xhr.responseJSON);
                 alert(
                     "Lỗi cập nhật: " +
-                        (xhr.responseJSON.message ||
+                        (xhr.responseJSON?.message ||
                             "Vui lòng kiểm tra lại dữ liệu")
                 );
             },
@@ -345,51 +271,6 @@ $(document).ready(function () {
         }
     });
 
-    // $("#btnToday")
-    //     .off("click")
-    //     .on("click", function () {
-    //         let today = new Date();
-    //         let year = today.getFullYear();
-    //         let month = String(today.getMonth() + 1).padStart(2, "0");
-    //         let day = String(today.getDate()).padStart(2, "0");
-    //         let todayStr = `${year}-${month}-${day}`; // Định dạng YYYY-MM-DD
-
-    //         let todayCell = $(`#scheduleHeader th[data-date="${todayStr}"]`);
-    //         if (todayCell.length === 0) {
-    //             alert("Không tìm thấy lịch ngày hôm nay!");
-    //             return;
-    //         }
-
-    //         let columnIndex = todayCell.index();
-    //         if (columnIndex > 0) {
-    //             let tableContainer = $(".table-responsive");
-    //             let targetOffset = $(
-    //                 `#scheduleBody td:nth-child(${columnIndex + 1})`
-    //             ).position().left;
-
-    //             // Cuộn từ từ (chậm hơn)
-    //             tableContainer.animate(
-    //                 { scrollLeft: targetOffset },
-    //                 1200,
-    //                 "swing"
-    //             );
-
-    //             // Highlight cả cột (header + body)
-    //             todayCell.addClass("highlight");
-    //             $(`#scheduleBody td:nth-child(${columnIndex + 1})`).addClass(
-    //                 "highlight"
-    //             );
-
-    //             // Xóa highlight sau 3 giây
-    //             setTimeout(() => {
-    //                 todayCell.removeClass("highlight");
-    //                 $(
-    //                     `#scheduleBody td:nth-child(${columnIndex + 1})`
-    //                 ).removeClass("highlight");
-    //             }, 3000);
-    //         }
-    //     });
-
     $("#btnToday")
         .off("click")
         .on("click", function () {
@@ -405,18 +286,180 @@ $(document).ready(function () {
                 return;
             }
 
-            let columnIndex = todayCell.index();
-            if (columnIndex > 0) {
-                let tableContainer = $(".table-responsive");
-                let targetOffset = $(
-                    `#scheduleBody td:nth-child(${columnIndex + 1})`
-                ).position().left;
+            let tableContainer = $(".table-responsive");
+            let tableScrollLeft = tableContainer.scrollLeft();
+            let tableOffsetLeft = tableContainer.offset().left;
+            let todayOffsetLeft = todayCell.offset().left;
+            let containerWidth = tableContainer.width();
+            let cellWidth = todayCell.outerWidth();
 
-                tableContainer.animate({ scrollLeft: targetOffset }, 500);
+            // Tính toán vị trí cuộn mục tiêu
+            let targetScroll =
+                todayOffsetLeft -
+                tableOffsetLeft -
+                containerWidth / 2 +
+                cellWidth / 2;
 
-                // Highlight ngày hôm nay
-                todayCell.addClass("highlight");
-                setTimeout(() => todayCell.removeClass("highlight"), 3000);
+            // Kiểm tra xem ngày hiện tại đã hiển thị trong khu vực cuộn chưa
+            let isTodayInView =
+                targetScroll >= tableScrollLeft &&
+                targetScroll <= tableScrollLeft + containerWidth;
+
+            // Nếu ngày hiện tại không có trong vùng nhìn thấy, cuộn đến ngày đó
+            if (!isTodayInView) {
+                tableContainer
+                    .stop(true, true)
+                    .animate({ scrollLeft: targetScroll }, 500);
             }
+
+            // Highlight ngày hôm nay
+            todayCell.addClass("highlight");
+            setTimeout(() => todayCell.removeClass("highlight"), 3000);
         });
+
+    function loadNhanVien() {
+        $.ajax({
+            url: "/api/nhanvien",
+            method: "GET",
+            headers: { "X-CSRF-TOKEN": getCsrfToken() },
+            success: function (response) {
+                let employeeSelect = $("#employee");
+                employeeSelect
+                    .empty()
+                    .append('<option value="">Chọn nhân viên</option>');
+                response.forEach((employee) => {
+                    employeeSelect.append(
+                        `<option value="${employee.maNV}">${employee.maNV} - ${employee.hoTen}</option>`
+                    );
+                });
+            },
+            error: function () {
+                alert("Lỗi khi tải danh sách nhân viên!");
+            },
+        });
+    }
+
+    function loadCaLamViec() {
+        $.ajax({
+            url: "/api/calam",
+            method: "GET",
+            headers: { "X-CSRF-TOKEN": getCsrfToken() },
+            success: function (response) {
+                let shiftSelect = $("#shift");
+                shiftSelect
+                    .empty()
+                    .append('<option value="">Chọn ca làm việc</option>');
+                response.forEach((shift) => {
+                    shiftSelect.append(
+                        `<option value="${shift.maCL}">${shift.tenCa}</option>`
+                    );
+                });
+            },
+            error: function () {
+                alert("Lỗi khi tải danh sách ca làm việc!");
+            },
+        });
+    }
+
+    // Gọi khi trang tải
+    loadNhanVien();
+    loadCaLamViec();
+
+    $(document).on("submit", "#assignShiftForm", function (e) {
+        e.preventDefault();
+
+        let employeeId = $("#employee").val();
+        let shiftId = $("#shift option:selected").val(); // Đảm bảo lấy đúng giá trị shift
+
+        console.log("Shift ID được chọn:", shiftId);
+        console.log("Employee ID được chọn:", employeeId);
+
+        if (!employeeId || !shiftId) {
+            alert("Vui lòng chọn nhân viên và ca làm việc.");
+            return;
+        }
+
+        // Lấy danh sách chi tiết ca làm từ API
+        $.ajax({
+            url: `/api/calam/${shiftId}/chitiet`,
+            method: "GET",
+            headers: { "X-CSRF-TOKEN": getCsrfToken() },
+            success: function (shiftDetails) {
+                console.log("Chi tiết ca làm việc nhận được:", shiftDetails);
+
+                if (
+                    !shiftDetails ||
+                    !shiftDetails.chi_tiet_ca_lams ||
+                    shiftDetails.chi_tiet_ca_lams.length === 0
+                ) {
+                    alert("Không có chi tiết ca làm việc nào cho ca này.");
+                    return;
+                }
+
+                let requests = [];
+
+                shiftDetails.chi_tiet_ca_lams.forEach((detail) => {
+                    let ngayLamViec = getUpcomingDateByWeekday(
+                        detail.thuTrongTuan
+                    );
+
+                    let requestData = {
+                        maNV: employeeId,
+                        tenCa: shiftDetails.tenCa, // Lấy từ API thay vì lấy từ UI
+                        ngayLamViec: ngayLamViec,
+                        tgBatDau: detail.tgBatDau,
+                        tgKetThuc: detail.tgKetThuc,
+                        tgBatDauNghi: detail.tgBatDauNghi || null,
+                        tgKetThucNghi: detail.tgKetThucNghi || null,
+                        tgCheckInSom: shiftDetails.gioCheckInSom || null,
+                        tgCheckOutMuon: shiftDetails.gioCheckOutMuon || null,
+                        heSoLuong: parseFloat(detail.heSoLuong) || 1.0,
+                        tienThuong: parseFloat(detail.tienThuong) || 0.0,
+                    };
+
+                    console.log("Dữ liệu gửi đi:", requestData);
+
+                    requests.push(
+                        $.ajax({
+                            url: "/api/lichlamviec",
+                            method: "POST",
+                            data: requestData,
+                            headers: { "X-CSRF-TOKEN": getCsrfToken() },
+                        })
+                    );
+                });
+
+                // Chờ tất cả request hoàn tất
+                Promise.all(requests)
+                    .then(() => {
+                        alert("Gán ca thành công!");
+                        $("#assignShiftModal").modal("hide");
+                        loadLichLamViec();
+                    })
+                    .catch((err) => {
+                        console.error("Lỗi khi gán ca làm việc:", err);
+                        alert("Lỗi khi gán ca làm việc. Vui lòng thử lại.");
+                    });
+            },
+            error: function (xhr) {
+                console.error("Lỗi khi tải chi tiết ca làm:", xhr.responseText);
+                alert("Lỗi khi tải chi tiết ca làm việc!");
+            },
+        });
+    });
+
+    // Hàm lấy ngày làm việc sắp tới dựa vào thứ
+    function getUpcomingDateByWeekday(weekday) {
+        let today = new Date();
+        let todayWeekday = today.getDay(); // 0: Chủ nhật, 1: Thứ 2, ..., 6: Thứ 7
+        let daysToAdd = (weekday - todayWeekday + 7) % 7;
+        if (daysToAdd === 0) daysToAdd = 7; // Nếu trùng thứ hiện tại, lấy tuần sau
+        today.setDate(today.getDate() + daysToAdd);
+
+        let year = today.getFullYear();
+        let month = String(today.getMonth() + 1).padStart(2, "0");
+        let day = String(today.getDate()).padStart(2, "0");
+
+        return `${year}-${month}-${day}`;
+    }
 });

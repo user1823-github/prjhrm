@@ -63,6 +63,7 @@
     border: 2px solid transparent;
     border-radius: 8px;
     background: #f8f9fa;
+    border: 1px solid rgb(214, 210, 210);
     text-align: center;
     cursor: pointer;
     transition: all 0.3s ease;

@@ -112,6 +112,7 @@ Route::prefix('api/tailieu')->group(function () {
 // Api Ca làm
 Route::prefix('api/calam')->group(function () {
     Route::get('/', [CaLamController::class, 'index']);
+    Route::get('/{maCL}/chitiet', [CaLamController::class, 'getChiTietCaLam']); // Lấy chi tiết ca làm theo maCL
     Route::post('/', [CaLamController::class, 'store']);
     Route::get('/{id}', [CaLamController::class, 'show']);
     Route::put('/{id}', [CaLamController::class, 'update']);
