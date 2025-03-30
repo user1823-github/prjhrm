@@ -181,7 +181,6 @@ $(document).ready(function () {
 
     $(document).on("submit", "#scheduleAddShiftForm", function (e) {
         e.preventDefault();
-
         let shiftId = $(this).data("id");
         let employeeId = $(this).data("employee");
         let date = $(this).data("date");
@@ -363,8 +362,27 @@ $(document).ready(function () {
     loadNhanVien();
     loadCaLamViec();
 
+    function subtractHours(timeStr, hours) {
+        if (!timeStr || hours === null || hours === undefined) return null;
+        let [hour, minute] = timeStr.split(":").map(Number);
+        let date = new Date();
+        date.setHours(hour - hours, minute, 0);
+        return date.toTimeString().slice(0, 5); // Trả về định dạng "HH:mm"
+    }
+
+    function addHours(timeStr, hours) {
+        if (!timeStr || hours === null || hours === undefined) return null;
+        let [hour, minute] = timeStr.split(":").map(Number);
+        let date = new Date();
+        date.setHours(hour + hours, minute, 0);
+        return date.toTimeString().slice(0, 5); // Trả về định dạng "HH:mm"
+    }
+
     $(document).on("submit", "#assignShiftForm", function (e) {
         e.preventDefault();
+
+        let selectedMonth = $("#monthPicker").val(); // Lấy giá trị tháng từ input
+        console.log("Tháng được chọn:", selectedMonth);
 
         let employeeId = $("#employee").val();
         let shiftId = $("#shift option:selected").val(); // Đảm bảo lấy đúng giá trị shift
@@ -396,35 +414,49 @@ $(document).ready(function () {
 
                 let requests = [];
 
+                function formatTime(value) {
+                    if (!value) return null; // Nếu value là null, undefined, hoặc falsy, trả về null
+                    return String(value).slice(0, 5); // Ép kiểu về chuỗi trước khi cắt
+                }
+
                 shiftDetails.chi_tiet_ca_lams.forEach((detail) => {
-                    let ngayLamViec = getUpcomingDateByWeekday(
-                        detail.thuTrongTuan
+                    let workingDates = getAllDatesByWeekdayInMonth(
+                        detail.thuTrongTuan,
+                        selectedMonth
                     );
 
-                    let requestData = {
-                        maNV: employeeId,
-                        tenCa: shiftDetails.tenCa, // Lấy từ API thay vì lấy từ UI
-                        ngayLamViec: ngayLamViec,
-                        tgBatDau: detail.tgBatDau,
-                        tgKetThuc: detail.tgKetThuc,
-                        tgBatDauNghi: detail.tgBatDauNghi || null,
-                        tgKetThucNghi: detail.tgKetThucNghi || null,
-                        tgCheckInSom: shiftDetails.gioCheckInSom || null,
-                        tgCheckOutMuon: shiftDetails.gioCheckOutMuon || null,
-                        heSoLuong: parseFloat(detail.heSoLuong) || 1.0,
-                        tienThuong: parseFloat(detail.tienThuong) || 0.0,
-                    };
+                    workingDates.forEach((ngayLamViec) => {
+                        let requestData = {
+                            maNV: employeeId,
+                            tenCa: shiftDetails.tenCa,
+                            ngayLamViec: ngayLamViec,
+                            tgBatDau: formatTime(detail.tgBatDau),
+                            tgKetThuc: formatTime(detail.tgKetThuc),
+                            tgBatDauNghi:
+                                formatTime(detail.tgBatDauNghi) || null,
+                            tgKetThucNghi:
+                                formatTime(detail.tgKetThucNghi) || null,
+                            tgCheckInSom: subtractHours(
+                                formatTime(detail.tgBatDau),
+                                shiftDetails.gioCheckInSom
+                            ),
+                            tgCheckOutMuon: addHours(
+                                formatTime(detail.tgKetThuc),
+                                shiftDetails.gioCheckOutMuon
+                            ),
+                            heSoLuong: parseFloat(detail.heSoLuong) || 1.0,
+                            tienThuong: parseFloat(detail.tienThuong) || 0.0,
+                        };
 
-                    console.log("Dữ liệu gửi đi:", requestData);
-
-                    requests.push(
-                        $.ajax({
-                            url: "/api/lichlamviec",
-                            method: "POST",
-                            data: requestData,
-                            headers: { "X-CSRF-TOKEN": getCsrfToken() },
-                        })
-                    );
+                        requests.push(
+                            $.ajax({
+                                url: "/api/lichlamviec",
+                                method: "POST",
+                                data: requestData,
+                                headers: { "X-CSRF-TOKEN": getCsrfToken() },
+                            })
+                        );
+                    });
                 });
 
                 // Chờ tất cả request hoàn tất
@@ -445,6 +477,26 @@ $(document).ready(function () {
             },
         });
     });
+
+    function getAllDatesByWeekdayInMonth(weekday, month) {
+        let yearMonth = month.split("-");
+        let year = parseInt(yearMonth[0]);
+        let monthIndex = parseInt(yearMonth[1]) - 1;
+        let dates = [];
+
+        let firstDay = new Date(year, monthIndex, 1);
+        let lastDay = new Date(year, monthIndex + 1, 0);
+
+        for (let d = firstDay; d <= lastDay; d.setDate(d.getDate() + 1)) {
+            if (d.getDay() === weekday) {
+                let day = String(d.getDate()).padStart(2, "0");
+                let formattedDate = `${year}-${yearMonth[1]}-${day}`;
+                dates.push(formattedDate);
+            }
+        }
+
+        return dates;
+    }
 
     // Hàm lấy ngày làm việc sắp tới dựa vào thứ
     function getUpcomingDateByWeekday(weekday) {
