@@ -76,6 +76,8 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                        <button type="button" id="scheduleDeleteShift" class="btn btn-danger"
+                            style="display: none;">Xóa</button>
                         <button type="submit" id="scheduleAddShiftSubmit" class="btn btn-success">Thêm</button>
                     </div>
                 </form>

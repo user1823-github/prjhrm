@@ -33,6 +33,7 @@ class LichLamViecController extends Controller
     public function store(Request $request)
     {
         $request->validate([
+            'maNV' => 'required|exists:nhanvien,maNV',
             'tenCa' => 'required|string|max:50',
             'ngayLamViec' => 'required|date',
             'tgBatDau' => 'required|date_format:H:i',
@@ -74,9 +75,15 @@ class LichLamViecController extends Controller
         return response()->json($lichLamViec, 200);
     }
 
+    // public function destroy(string $id)
+    // {
+    //     LichLamViec::destroy($id);
+    //     return response()->json(['message' => 'Xóa lịch làm việc thành công']);
+    // }
     public function destroy($id)
     {
-        LichLamViec::destroy($id);
-        return response()->json(['message' => 'Xóa thành công']);
+        $lichLamViec = LichLamViec::findOrFail($id);
+        $lichLamViec->delete();
+        return response()->json(['message' => 'Xóa lịch làm việc thành công']);
     }
 }

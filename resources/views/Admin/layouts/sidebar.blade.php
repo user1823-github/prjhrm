@@ -5,23 +5,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HRM System</title>
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/app.css') }}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
-<link rel="stylesheet" type="text/css" href="{{ asset('css/app.css') }}">
 
 <body class="bg-gray-100">
     <div class="d-flex">
+        <!-- Sidebar -->
         <div class="sidebar">
             <div class="fs-4 fw-bold mb-4">HRM System</div>
             <ul class="nav flex-column">
-                {{-- <li class="nav-item"><a href="{{ route('dashboard') }}" class="nav-link text-white">Dashboard</a></li> --}}
                 <li class="nav-item mb-2 rounded-2">
-                    <a href="{{ route('quanlynhanvien') }}" class="nav-link d-flex align-items-center text-white">
+                    <a href="{{ route('quanlynhanvien') }}"
+                        class="nav-link load-page d-flex align-items-center text-white"
+                        data-url="{{ route('quanlynhanvien') }}">
                         <img width="20" src="{{ asset('uploads/employee.png') }}" alt="Image">
                         Nhân viên
                     </a>
                 </li>
                 <li class="nav-item mb-2">
-                    <a href="{{ route('quanlythongbao') }}" class="nav-link d-flex align-items-center text-white">
+                    <a href="{{ route('quanlythongbao') }}"
+                        class="nav-link load-page d-flex align-items-center text-white"
+                        data-url="{{ route('quanlythongbao') }}">
                         <img width="20" src="{{ asset('uploads/bell.png') }}" alt="Image">
                         Thông báo
                     </a>
@@ -41,22 +46,25 @@
                         <ul class="nav flex-column submenu">
                             <li class="nav-item mb-2">
                                 <a href="{{ route('lichlamviec') }}"
-                                    class="nav-link d-flex align-items-center text-white">
+                                    class="nav-link load-page d-flex align-items-center text-white"
+                                    data-url="{{ route('lichlamviec') }}">
                                     <img width="20" src="{{ asset('uploads/calendar.png') }}" alt="Image">
                                     Thiết lập ca làm
                                 </a>
                             </li>
                             <li class="nav-item mb-2">
                                 <a href="{{ route('bangchamcong') }}"
-                                    class="nav-link d-flex align-items-center text-white">
+                                    class="nav-link load-page d-flex align-items-center text-white"
+                                    data-url="{{ route('bangchamcong') }}">
                                     <img width="20" src="{{ asset('uploads/hourglass.png') }}" alt="Image">
                                     Bảng chấm công
                                 </a>
                             </li>
                             <li class="nav-item mb-2">
-                                <a href="" class="nav-link d-flex align-items-center text-white">
-                                    <img src="https://storage.googleapis.com/a1aa/image/3XKwSNIwg_bacmSTGvg9YjQoR_R_GgD-h5zBJZYcszw.jpg"
-                                        alt="Notification icon" width="20" height="20">
+                                <a href="{{ route('donphep') }}"
+                                    class="nav-link load-page d-flex align-items-center text-white"
+                                    data-url="{{ route('donphep') }}">
+                                    <img width="20" src="{{ asset('uploads/leave.png') }}" alt="Image">
                                     Đơn phép
                                 </a>
                             </li>
@@ -64,33 +72,17 @@
                     </div>
                 </li>
                 <li class="nav-item mb-2">
-                    <a href="" class="nav-link d-flex align-items-center text-white">
+                    <a href="" class="nav-link load-page d-flex align-items-center text-white" data-url="">
                         <img width="20" src="{{ asset('uploads/salary.png') }}" alt="Image">
                         Tiền lương
                     </a>
                 </li>
             </ul>
-            <div class="mt-4">
-                <div class="nav-item mb-2">
-                    <a class="nav-link d-flex align-items-center" data-bs-toggle="collapse" href="#languageMenu"
-                        role="button" aria-expanded="false" aria-controls="languageMenu">
-                        <i class="fas fa-globe"></i>
-                        <span class="ms-2">Ngôn ngữ</span>
-                        <i class="fas fa-chevron-down ms-auto"></i>
-                    </a>
-                </div>
-                <div class="nav-item">
-                    <a href="#" class="nav-link d-flex align-items-center">
-                        <i class="fas fa-sign-out-alt"></i>
-                        <span class="ms-2">Đăng xuất</span>
-                    </a>
-                </div>
-            </div>
         </div>
     </div>
-</body>
-
+ 
 </html>
+
 
 {{-- <link rel="stylesheet" type="text/js" href="{{ asset('js/app.js') }}"> --}}
 {{-- <script>

@@ -18,7 +18,6 @@ Route::get('/', function () {
     return view('app');
 });
 
-
 Route::prefix('admin')->group(function () {
     Route::get('/employee', function () {
         return view('Admin.pages.Employee.index');
