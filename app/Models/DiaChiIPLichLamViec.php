@@ -10,7 +10,8 @@ class DiaChiIPLichLamViec extends Model
     use HasFactory;
 
     protected $table = 'diachiip_lichlamviec';
-    protected $primaryKey = 'maDCIPLLV'; // nếu dùng auto-increment id
+    protected $primaryKey = null;
+    public $incrementing = false;
 
     public $timestamps = true;
 

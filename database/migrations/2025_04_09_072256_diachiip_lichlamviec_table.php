@@ -12,28 +12,26 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('diachiip_lichlamviec', function (Blueprint $table) {
-            $table->integer('maDCIPLLV')->autoIncrement(); // Tạo id riêng cho bảng nếu cần truy xuất hoặc log
-            $table->boolean('trangThai')->default(true);
             $table->integer('maDCIP');
             $table->integer('maLLV');
+            $table->boolean('trangThai')->default(true);
+            $table->timestamps();
 
-            
             // Foreign key với cascade
             $table->foreign('maDCIP')
-            ->references('maDCIP')
-            ->on('diachiip')
-            ->onDelete('cascade')
-            ->onUpdate('cascade');
-            
+                ->references('maDCIP')
+                ->on('diachiip')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
+
             $table->foreign('maLLV')
-            ->references('maLLV')
-            ->on('lichlamviec')
-            ->onDelete('cascade')
-            ->onUpdate('cascade');
-            
+                ->references('maLLV')
+                ->on('lichlamviec')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
+
             // Tránh trùng quan hệ (mỗi IP chỉ gắn 1 lần với 1 LLV)
-            $table->unique(['maDCIP', 'maLLV']);
-            $table->timestamps();
+            $table->primary(['maDCIP', 'maLLV']);
         });
     }
 
