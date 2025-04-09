@@ -11,7 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        //
+        Schema::create('diachiip', function (Blueprint $table) {
+            $table->integer('maDCIP')->autoIncrement(); // Primary key
+            $table->string('tenThietBi');
+            $table->ipAddress('diaChiIP'); // Kiểu IP
+            $table->boolean('trangThai')->default(true);
+            $table->timestamps();
+        });
     }
 
     /**
@@ -19,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('diachiip');
     }
 };

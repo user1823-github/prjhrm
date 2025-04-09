@@ -16,11 +16,17 @@ class DiaChiIP extends Model
     protected $fillable = [
         'tenThietBi',
         'diaChiIP',
-        'maLLV',
+        'trangThai',
+        // ❌ Không cần 'maLLV' vì quan hệ này thông qua bảng trung gian
     ];
 
-    public function lichLamViec()
+    public function lichLamViecs()
     {
-        return $this->belongsTo(LichLamViec::class, 'maLLV', 'maLLV');
+        return $this->belongsToMany(
+            LichLamViec::class,
+            'diachiip_lichlamviec', // Tên bảng trung gian
+            'maDCIP',               // Khóa ngoại ở bảng trung gian trỏ tới DiaChiIP
+            'maLLV'                 // Khóa ngoại ở bảng trung gian trỏ tới LichLamViec
+        );
     }
 }

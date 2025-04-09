@@ -29,7 +29,11 @@ return new class extends Migration
             // $table->integer('maNL');
             // $table->integer('maCTCL');
 
-            $table->foreign('maNV')->references('maNV')->on('nhanvien')->onDelete('cascade');
+            $table->foreign('maNV')
+                ->references('maNV')
+                ->on('nhanvien')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
             // $table->foreign('maNL')->references('maNL')->on('ngayle')->onDelete('cascade');
             // $table->foreign('maCTCL')->references('maCTCL')->on('chitietcalam')->onDelete('cascade');
 

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class LichLamViec extends Model
@@ -39,6 +40,16 @@ class LichLamViec extends Model
     {
         // hasOne(TargetModel::class, foreignKey, localKey)
         return $this->hasOne(BangCong::class, 'maLLV', 'maLLV');
+    }
+
+    public function diaChiIPs(): BelongsToMany
+    {
+        return $this->belongsToMany(
+            DiaChiIP::class,
+            'diachiip_lichlamviec', // Tên bảng trung gian
+            'maLLV',                // FK trỏ tới bảng này (LichLamViec)
+            'maDCIP'                // FK trỏ tới bảng DiaChiIP
+        );
     }
 
     // public function ngayle()
