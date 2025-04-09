@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class LichLamViec extends Model
 {
@@ -32,6 +33,12 @@ class LichLamViec extends Model
     public function nhanvien()
     {
         return $this->belongsTo(NhanVien::class, 'maNV', 'maNV');
+    }
+
+    public function bangCong(): HasOne
+    {
+        // hasOne(TargetModel::class, foreignKey, localKey)
+        return $this->hasOne(BangCong::class, 'maLLV', 'maLLV');
     }
 
     // public function ngayle()
