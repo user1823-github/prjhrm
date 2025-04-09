@@ -17,7 +17,7 @@ class DiaDiemFactory extends Factory
     public function definition(): array
     {
         return [
-            'tenDiaDiem' => $this->faker->company . ' - ' . $this->faker->city,
+            'tenDiaDiem' => $this->faker->citySuffix . ' ' . $this->faker->lastName,
             'viDo' => $this->faker->latitude(8, 23),   // Trong khoảng của Việt Nam
             'kinhDo' => $this->faker->longitude(102, 110),
             'banKinh' => $this->faker->numberBetween(50, 1000), // mét
