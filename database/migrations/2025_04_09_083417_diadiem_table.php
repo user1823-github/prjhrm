@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('tenDiaDiem');
             $table->decimal('viDo', 10, 7);
             $table->decimal('kinhDo', 10, 7);
-            $table->int('banKinh'); // Bán kính (tùy đơn vị bạn chọn)
+            $table->integer('banKinh'); // Bán kính (tùy đơn vị bạn chọn)
             $table->boolean('trangThai')->default(true);
             $table->timestamps();
         });
