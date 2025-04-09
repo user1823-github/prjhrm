@@ -19,7 +19,7 @@ class DiaChiIPFactory extends Factory
         return [
             'tenThietBi' => 'Wifi ' . $this->faker->randomElement(['Văn phòng', 'Bảo vệ', 'Sân banh', 'Công ty 01']) . ' - ' . $this->faker->word(),
             'diaChiIP' => $this->faker->ipv4(),
-            'trangThai' => $this->faker->boolean(60),
+            'trangThai' => $this->faker->boolean(80),
         ];
     }
 }

@@ -15,14 +15,19 @@ class DiaDiem extends Model
 
     protected $fillable = [
         'tenDiaDiem',
-        'viDO',
+        'viDo',
         'kinhDo',
         'banKinh',
-        'banKinh',
+        'trangThai',
     ];
 
-    public function lichLamViec()
+    public function lichLamViecs()
     {
-        return $this->belongsTo(LichLamViec::class, 'maLLV', 'maLLV');
+        return $this->belongsToMany(
+            LichLamViec::class,
+            'diadiem_lichlamviec',
+            'maDD',              
+            'maLLV'              
+        );
     }
 }

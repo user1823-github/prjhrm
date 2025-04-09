@@ -17,7 +17,6 @@ class DiaChiIP extends Model
         'tenThietBi',
         'diaChiIP',
         'trangThai',
-        // ❌ Không cần 'maLLV' vì quan hệ này thông qua bảng trung gian
     ];
 
     public function lichLamViecs()
