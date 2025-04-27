@@ -18,7 +18,8 @@ class ThanhToan extends Model
         'tenDVhoacNH',
         'soDThoacSTK',
         'tenChuTaiKhoan',
-        'hinhAnh'
+        'hinhAnh',
+        'maNV'
     ];
 
     

@@ -2,8 +2,8 @@
 
 namespace Database\Factories;
 
-use App\Models\Luong;
 use App\Models\NhanVien;
+use App\Models\PhieuLuong;
 use App\Models\TaiKhoan;
 use App\Models\ThanhToan;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -25,11 +25,10 @@ class NhanVienFactory extends Factory
             'email' => $this->faker->unique()->safeEmail(),
             'gioiTinh' => $this->faker->randomElement(['Nam', 'Nữ', 'Khác']),
             'ngayVaoLam' => now()->toDateString(),
-            'tienLuong' => $this->faker->randomFloat(2, 2000000, 50000000), // Random từ 1 triệu đến 50 triệu
             'ngaySinh' => $this->faker->optional()->date(),
             'trangthai'   => $this->faker->boolean(), // true: Hoạt động, false: Không hoạt động
             'maTK' => TaiKhoan::inRandomOrder()->first()->maTK, // Lấy tài khoản ngẫu nhiên
-            'maLuong' => Luong::inRandomOrder()->first()->maLuong, // Lấy tài khoản ngẫu nhiên
+            
         ];
     }
 

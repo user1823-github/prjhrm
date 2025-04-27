@@ -13,6 +13,15 @@ return new class extends Migration
     {
         Schema::create('phieuluong', function (Blueprint $table) {
             $table->integer('maPL')->autoIncrement();
+            $table->enum('kieuLuong', [
+                'Lương giờ có trừ trễ',
+                'Lương giờ không trừ trễ',
+                'Lương giờ làm bao nhiêu tính bấy nhiêu',
+                'Lương tháng có trừ trễ',
+                'Lương tháng không trừ trễ',
+                'Lương tháng làm bao nhiêu tính bấy nhiêu'
+            ]);
+            $table->boolean('trangThaiTT')->default(0); // 0: Chưa thanh toán, 1: Đã thanh toán
             $table->decimal('luongCoBan', 15, 2)->default(0);
             $table->decimal('luongGio', 15, 2)->default(0);
             $table->integer('gioLam')->default(0);

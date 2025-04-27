@@ -14,6 +14,8 @@ class PhieuLuong extends Model
     public $timestamps = true;
 
     protected $fillable = [
+        'kieuLuong',
+        'trangThaiTT',
         'luongCoBan', // lấy cột tienLuong trong bảng Nhân viên inser vào cột này
         //    Thêm 1 cột kiểu lương ở đây khi ra giao diện
         'luongGio',
@@ -24,6 +26,7 @@ class PhieuLuong extends Model
         'luongOT',
         'luongHeSo',
         'luongThuong',
+        'tongCong',
         'maNV'
     ];
 

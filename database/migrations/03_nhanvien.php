@@ -20,15 +20,12 @@ return new class extends Migration
             $table->string('email', 50)->unique()->nullable();
             $table->enum('gioiTinh', ['Nam', 'Nữ', 'Khác'])->nullable();
             $table->date('ngayVaoLam')->nullable();
-            $table->decimal('tienLuong', 15, 2)->nullable(); // Số tiền
             $table->date('ngaySinh')->nullable();
             $table->boolean('trangThai');
 
             $table->integer('maTK')->unique();  // Thêm cột khóa ngoại
-            $table->integer('maLuong');  // Thêm cột khóa ngoại
 
             $table->foreign('maTK')->references('maTK')->on('taikhoan')->onDelete('cascade');
-            $table->foreign('maLuong')->references('maLuong')->on('luong')->onDelete('cascade');
 
             $table->timestamps();
         });
@@ -41,7 +38,6 @@ return new class extends Migration
     {
         Schema::table('nhanvien', function (Blueprint $table) {
             $table->dropForeign(['maTK']);
-            $table->dropForeign(['maLuong']);
         });
         Schema::dropIfExists('nhanvien');
     }

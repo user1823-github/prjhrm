@@ -26,8 +26,6 @@ class NhanVien extends Model
         'ngaySinh',
         'trangThai',
         'maTK',
-        'maLuong',
-        'maTT'
     ];
 
 
@@ -36,11 +34,6 @@ class NhanVien extends Model
     public function taiKhoan()
     {
         return $this->belongsTo(TaiKhoan::class, 'maTK', 'maTK');
-    }
-
-    public function luong()
-    {
-        return $this->belongsTo(Luong::class, 'maLuong', 'maLuong');
     }
 
     public function thanhToan(): HasMany
@@ -65,9 +58,9 @@ class NhanVien extends Model
         return $this->hasMany(DonPhep::class, 'maDP', 'maDP');
     }
 
-    public function phieuLuong(): HasMany
+    public function phieuLuong(): hasOne
     {
 
-        return $this->hasMany(PhieuLuong::class, 'maPL', 'maPL');
+        return $this->hasOne(PhieuLuong::class, 'maPL', 'maPL');
     }
 }

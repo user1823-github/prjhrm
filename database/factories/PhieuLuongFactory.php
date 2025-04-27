@@ -29,6 +29,15 @@ class PhieuLuongFactory extends Factory
         $luongTinhHeSo = $tongCongCoHeSo - $luongCoBan;
 
         return [
+            'kieuLuong' => $this->faker->randomElement([
+                'Lương giờ có trừ trễ',
+                'Lương giờ không trừ trễ',
+                'Lương giờ làm bao nhiêu tính bấy nhiêu',
+                'Lương tháng có trừ trễ',
+                'Lương tháng không trừ trễ',
+                'Lương tháng làm bao nhiêu tính bấy nhiêu',
+            ]),
+            'trangThaiTT' => rand(0, 1), // 0: Chưa thanh toán, 1: Đã thanh toán
             'luongCoBan' => $luongCoBan,
             'luongGio' => $luongGio,
             'gioLam' => $gioLam,
