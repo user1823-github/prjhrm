@@ -41,7 +41,7 @@ class LichLamViecSeeder extends Seeder
             // Với mỗi lịch làm việc, tạo bảng công tương ứng
             $lich->bangCong()->create([
                 'tgCheckIn' => now()->setTime(rand(7, 8), rand(0, 59))->format('H:i:s'),
-                'tgCheckout' => now()->setTime(rand(11, 12), rand(0, 59))->format('H:i:s'),
+                'tgCheckOut' => now()->setTime(rand(11, 12), rand(0, 59))->format('H:i:s'),
             ]);
         });
     }

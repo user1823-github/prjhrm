@@ -52,4 +52,22 @@ class NhanVien extends Model
     {
         return $this->hasMany(LichLamViec::class, 'maNV', 'maNV');
     }
+
+    public function ngayPhep(): hasOne
+    {
+
+        return $this->hasOne(NgayPhep::class, 'maNP', 'maNP');
+    }
+
+    public function donPhep(): HasMany
+    {
+
+        return $this->hasMany(DonPhep::class, 'maDP', 'maDP');
+    }
+
+    public function phieuLuong(): HasMany
+    {
+
+        return $this->hasMany(PhieuLuong::class, 'maPL', 'maPL');
+    }
 }

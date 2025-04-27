@@ -15,7 +15,7 @@ class BangCong extends Model
 
     protected $fillable = [
         'tgCheckIn',
-        'tgCheckout',
+        'tgCheckOut',
         'maLLV'
     ];
 

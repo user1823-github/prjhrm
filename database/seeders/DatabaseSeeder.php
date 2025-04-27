@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use App\Models\NgayPhep;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -27,5 +29,6 @@ class DatabaseSeeder extends Seeder
         $this->call(LichLamViecSeeder::class);
         $this->call(DiaChiIPLichLamViecSeeder::class);
         $this->call(DiaDiemLichLamViecSeeder::class);
+        $this->call(DonPhepSeeder::class);
     }
 }
