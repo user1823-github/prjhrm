@@ -21,17 +21,17 @@ return new class extends Migration
                 'Lương tháng không trừ trễ',
                 'Lương tháng làm bao nhiêu tính bấy nhiêu'
             ]);
-            $table->boolean('trangThaiTT')->default(0); // 0: Chưa thanh toán, 1: Đã thanh toán
+            // $table->boolean('trangThaiTT')->default(0); // 0: Chưa thanh toán, 1: Đã thanh toán
             $table->decimal('luongCoBan', 15, 2)->default(0);
-            $table->decimal('luongGio', 15, 2)->default(0);
-            $table->integer('gioLam')->default(0);
-            $table->integer('caLam')->default(0);
-            $table->integer('gioOT')->default(0);
-            $table->integer('caOT')->default(0);
-            $table->decimal('luongOT', 15, 2)->default(0);
-            $table->decimal('luongHeSo', 15, 2)->default(1);
-            $table->decimal('luongThuong', 15, 2)->nullable()->default(0);
-            $table->decimal('tongCong', 15, 2)->default(0);
+            // $table->decimal('luongGio', 15, 2)->default(0);
+            // $table->integer('gioLam')->default(0);
+            // $table->integer('caLam')->default(0);
+            // $table->integer('gioOT')->default(0);
+            // $table->integer('caOT')->default(0);
+            // $table->decimal('luongOT', 15, 2)->default(0);
+            // $table->decimal('luongHeSo', 15, 2)->default(1);
+            // $table->decimal('luongThuong', 15, 2)->nullable()->default(0);
+            // $table->decimal('tongCong', 15, 2)->default(0);
             $table->integer('maNV');
 
             $table->foreign('maNV')

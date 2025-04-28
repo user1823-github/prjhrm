@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class DiaChiIP extends Model
 {
@@ -19,7 +20,7 @@ class DiaChiIP extends Model
         'trangThai',
     ];
 
-    public function lichLamViecs()
+    public function lichLamViecs(): BelongsToMany
     {
         return $this->belongsToMany(
             LichLamViec::class,

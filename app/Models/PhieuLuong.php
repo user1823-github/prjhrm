@@ -15,18 +15,18 @@ class PhieuLuong extends Model
 
     protected $fillable = [
         'kieuLuong',
-        'trangThaiTT',
+        // 'trangThaiTT',
         'luongCoBan', // lấy cột tienLuong trong bảng Nhân viên inser vào cột này
         //    Thêm 1 cột kiểu lương ở đây khi ra giao diện
-        'luongGio',
-        'gioLam',
-        'caLam',
-        'gioOT',
-        'caOT',
-        'luongOT',
-        'luongHeSo',
-        'luongThuong',
-        'tongCong',
+        // 'luongGio',
+        // 'gioLam',
+        // 'caLam',
+        // 'gioOT',
+        // 'caOT',
+        // 'luongOT',
+        // 'luongHeSo',
+        // 'luongThuong',
+        // 'tongCong',
         'maNV'
     ];
 

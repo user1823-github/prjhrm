@@ -5,6 +5,7 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 use App\Models\NgayPhep;
+use App\Models\NhanVienCaLam;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -15,11 +16,11 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         $this->call(NgayLeSeeder::class);
-        $this->call(CaLamSeeder::class);
-        $this->call(ChiTietCaLamSeeder::class);
         $this->call(HopThoaiSeeder::class);
         $this->call(ThongBaoSeeder::class);
         $this->call(TaiLieuSeeder::class);
+        $this->call(CaLamSeeder::class);
+        $this->call(ChiTietCaLamSeeder::class);
         // $this->call(TaiKhoanSeeder::class);
         $this->call(NhanVienSeeder::class);
         $this->call(ThanhToanSeeder::class);
@@ -28,6 +29,7 @@ class DatabaseSeeder extends Seeder
         $this->call(LichLamViecSeeder::class);
         $this->call(DiaChiIPLichLamViecSeeder::class);
         $this->call(DiaDiemLichLamViecSeeder::class);
+        $this->call(NhanVienCaLamSeeder::class);
         $this->call(DonPhepSeeder::class);
     }
 }

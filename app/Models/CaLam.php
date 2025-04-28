@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class CaLam extends Model
 {
@@ -23,5 +24,15 @@ class CaLam extends Model
     public function chiTietCaLams()
     {
         return $this->hasMany(ChiTietCaLam::class, 'maCL', 'maCL');
+    }
+
+    public function nhanViens(): BelongsToMany
+    {
+        return $this->belongsToMany(
+            NhanVien::class,
+            'nhanvien_calam', // Tên bảng trung gian
+            'maCL',           // Khóa ngoại ở bảng trung gian trỏ tới NhanVien
+            'maNV'            // Khóa ngoại ở bảng trung gian trỏ tới CaLam
+        );
     }
 }

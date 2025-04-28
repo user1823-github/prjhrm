@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
@@ -56,6 +57,16 @@ class NhanVien extends Model
     {
 
         return $this->hasMany(DonPhep::class, 'maDP', 'maDP');
+    }
+
+    public function caLams(): BelongsToMany
+    {
+        return $this->belongsToMany(
+            CaLam::class,
+            'nhanvien_calam', // Tên bảng trung gian
+            'maNV',           // Khóa ngoại ở bảng trung gian trỏ tới NhanVien
+            'maCL'            // Khóa ngoại ở bảng trung gian trỏ tới CaLam
+        );
     }
 
     public function phieuLuong(): hasOne
