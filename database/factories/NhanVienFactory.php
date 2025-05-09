@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\CaLam;
 use App\Models\NhanVien;
 use App\Models\PhieuLuong;
 use App\Models\TaiKhoan;
@@ -28,7 +29,8 @@ class NhanVienFactory extends Factory
             'ngaySinh' => $this->faker->optional()->date(),
             'trangthai'   => $this->faker->boolean(), // true: Hoạt động, false: Không hoạt động
             'maTK' => TaiKhoan::inRandomOrder()->first()->maTK, // Lấy tài khoản ngẫu nhiên
-            
+            'maCL' => CaLam::inRandomOrder()->first()->maCL, // Lấy tài khoản ngẫu nhiên
+
         ];
     }
 

@@ -18,6 +18,7 @@ class ThanhToanFactory extends Factory
             'tenDVhoacNH' => $this->faker->randomElement(['Momo', 'Vietcombank', 'Techcombank', 'BIDV', 'ZaloPay']),
             'soDThoacSTK' => $this->faker->numerify('##########'), // Random số điện thoại hoặc số tài khoản
             'tenChuTaiKhoan' => $this->faker->name(),
+            'loaiTaiKhoan' => $this->faker->randomElement(['NH', 'VDT']),
             'hinhAnh' => $this->faker->imageUrl(200, 200, 'finance', true, 'QR Code'), // Random ảnh QR
             'maNV' => NhanVien::inRandomOrder()->first()->maNV,
         ];

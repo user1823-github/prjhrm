@@ -37,12 +37,13 @@ class LichLamViecSeeder extends Seeder
         // LichLamViec::factory(10)->create();
 
         // Tạo 10 lịch làm việc
-        LichLamViec::factory(10)->create()->each(function ($lich) {
-            // Với mỗi lịch làm việc, tạo bảng công tương ứng
-            $lich->bangCong()->create([
-                'tgCheckIn' => now()->setTime(rand(7, 8), rand(0, 59))->format('H:i:s'),
-                'tgCheckOut' => now()->setTime(rand(11, 12), rand(0, 59))->format('H:i:s'),
-            ]);
-        });
+        // LichLamViec::factory(10)->create()->each(function ($lich) {
+        //     // Với mỗi lịch làm việc, tạo bảng công tương ứng
+        //     $lich->bangCong()->create([
+        //         'tgCheckIn' => now()->setTime(rand(7, 8), rand(0, 59))->format('H:i:s'),
+        //         'tgCheckOut' => now()->setTime(rand(11, 12), rand(0, 59))->format('H:i:s'),
+        //     ]);
+        // });
+        LichLamViec::factory()->count(10)->create();
     }
 }

@@ -24,8 +24,18 @@ return new class extends Migration
             $table->boolean('trangThai');
 
             $table->integer('maTK')->unique();  // Thêm cột khóa ngoại
+            $table->integer('maCL')->nullable();  // Thêm cột khóa ngoại
 
-            $table->foreign('maTK')->references('maTK')->on('taikhoan')->onDelete('cascade');
+            $table->foreign('maTK')
+                ->references('maTK')
+                ->on('taikhoan')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
+            $table->foreign('maCL')
+                ->references('maCL')
+                ->on('calam')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
 
             $table->timestamps();
         });
@@ -38,6 +48,7 @@ return new class extends Migration
     {
         Schema::table('nhanvien', function (Blueprint $table) {
             $table->dropForeign(['maTK']);
+            $table->dropForeign(['maCL']);
         });
         Schema::dropIfExists('nhanvien');
     }

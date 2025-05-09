@@ -27,6 +27,7 @@ class NhanVien extends Model
         'ngaySinh',
         'trangThai',
         'maTK',
+        'maCL',
     ];
 
 
@@ -35,6 +36,11 @@ class NhanVien extends Model
     public function taiKhoan()
     {
         return $this->belongsTo(TaiKhoan::class, 'maTK', 'maTK');
+    }
+
+    public function caLam()
+    {
+        return $this->belongsTo(CaLam::class, 'maCL', 'maCL');
     }
 
     public function thanhToan(): HasMany
@@ -57,16 +63,6 @@ class NhanVien extends Model
     {
 
         return $this->hasMany(DonPhep::class, 'maDP', 'maDP');
-    }
-
-    public function caLams(): BelongsToMany
-    {
-        return $this->belongsToMany(
-            CaLam::class,
-            'nhanvien_calam', // Tên bảng trung gian
-            'maNV',           // Khóa ngoại ở bảng trung gian trỏ tới NhanVien
-            'maCL'            // Khóa ngoại ở bảng trung gian trỏ tới CaLam
-        );
     }
 
     public function phieuLuong(): hasOne

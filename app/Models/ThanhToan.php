@@ -18,11 +18,12 @@ class ThanhToan extends Model
         'tenDVhoacNH',
         'soDThoacSTK',
         'tenChuTaiKhoan',
+        'loaiTaiKhoan',
         'hinhAnh',
         'maNV'
     ];
 
-    
+
 
     public function nhanVien()
     {

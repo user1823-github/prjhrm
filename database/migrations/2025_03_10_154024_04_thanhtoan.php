@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('tenDVhoacNH'); // Tên dịch vụ hoặc ngân hàng
             $table->string('soDThoacSTK'); // Số điện thoại hoặc số tài khoản
             $table->string('tenChuTaiKhoan'); // Tên chủ tài khoản
+            $table->string('loaiTaiKhoan'); // Loại tài khoản (Ngân hàng, ví điện tử, ...)
             $table->string('hinhAnh')->nullable(); // Hình ảnh (đường dẫn)
             $table->integer('maNV');
             
