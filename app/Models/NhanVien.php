@@ -65,9 +65,25 @@ class NhanVien extends Model
         return $this->hasMany(DonPhep::class, 'maDP', 'maDP');
     }
 
+    public function nguonTien(): HasMany
+    {
+        return $this->hasMany(NguonTien::class, 'maNT', 'maNT');
+    }
+
     public function phieuLuong(): hasOne
     {
 
         return $this->hasOne(PhieuLuong::class, 'maPL', 'maPL');
+    }
+
+    public function vanTay(): hasOne
+    {
+
+        return $this->hasOne(VanTay::class, 'maVT', 'maVT');
+    }
+
+    public function vantayChallenges()
+    {
+        return $this->hasMany(VanTayChallenge::class, 'maNV', 'maNV');
     }
 }

@@ -91,6 +91,7 @@ class ChiTietCaLamSeeder extends Seeder
             'maCL' => 2,
         ]);
 
+
         ChiTietCaLam::create([
             'thuTrongTuan' => 4,
             'tgBatDau' => '08:00',
@@ -100,6 +101,74 @@ class ChiTietCaLamSeeder extends Seeder
             'heSoLuong' => 1,
             'tienThuong' => 0,
             'maCL' => 2,
+        ]);
+
+        // Overtime
+        ChiTietCaLam::create([
+            'thuTrongTuan' => 3,
+            'tgBatDau' => '08:00',
+            'tgKetThuc' => '17:00',
+            'tgBatDauNghi' => '12:00',
+            'tgKetThucNghi' => '13:00',
+            'heSoLuong' => 1,
+            'tienThuong' => 0,
+            'maCL' => 3,
+        ]);
+
+        ChiTietCaLam::create([
+            'thuTrongTuan' => 5,
+            'tgBatDau' => '08:00',
+            'tgKetThuc' => '12:00',
+            // 'tgBatDauNghi' => '12:00',
+            // 'tgKetThucNghi' => '13:00',
+            'heSoLuong' => 1,
+            'tienThuong' => 0,
+            'maCL' => 3,
+        ]);
+
+        ChiTietCaLam::create([
+            'thuTrongTuan' => 7,
+            'tgBatDau' => '08:00',
+            'tgKetThuc' => '17:00',
+            'tgBatDauNghi' => '12:00',
+            'tgKetThucNghi' => '13:00',
+            'heSoLuong' => 1,
+            'tienThuong' => 0,
+            'maCL' => 3,
+        ]);
+
+        // 4
+        ChiTietCaLam::create([
+            'thuTrongTuan' => 2,
+            'tgBatDau' => '13:00',
+            'tgKetThuc' => '17:00',
+            // 'tgBatDauNghi' => '12:00',
+            // 'tgKetThucNghi' => '13:00',
+            'heSoLuong' => 1,
+            'tienThuong' => 0,
+            'maCL' => 4,
+        ]);
+
+        ChiTietCaLam::create([
+            'thuTrongTuan' => 4,
+            'tgBatDau' => '08:00',
+            'tgKetThuc' => '12:00',
+            // 'tgBatDauNghi' => '12:00',
+            // 'tgKetThucNghi' => '13:00',
+            'heSoLuong' => 1,
+            'tienThuong' => 0,
+            'maCL' => 4,
+        ]);
+
+        ChiTietCaLam::create([
+            'thuTrongTuan' => 6,
+            'tgBatDau' => '08:00',
+            'tgKetThuc' => '17:00',
+            'tgBatDauNghi' => '12:00',
+            'tgKetThucNghi' => '13:00',
+            'heSoLuong' => 1,
+            'tienThuong' => 0,
+            'maCL' => 4,
         ]);
     }
 }

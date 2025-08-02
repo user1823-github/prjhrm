@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('donphep', function (Blueprint $table) {
             $table->integer('maDP')->autoIncrement();
+            $table->dateTime('ngayTao');
             $table->enum('loaiNghiPhep', [
                 'Nghỉ phép năm',
                 'Nghỉ không lương',
@@ -31,7 +32,8 @@ return new class extends Migration
                 'Đã duyệt',
                 'Từ chối',
             ])->default('Chờ duyệt');
-            $table->string('nguoiDuyet')->nullable();
+            $table->string('nhanXet')->nullable();
+            $table->float('truPhep')->nullable();
             $table->integer('maNV');
 
             $table->foreign('maNV')

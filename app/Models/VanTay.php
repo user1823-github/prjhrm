@@ -5,25 +5,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class DonPhep extends Model
+class VanTay extends Model
 {
     use HasFactory;
 
-    protected $table = 'donphep';
-    protected $primaryKey = 'maDP';
+    protected $table = 'vantay';
+    protected $primaryKey = 'maVT';
     public $timestamps = true;
 
     protected $fillable = [
-        'ngayTao',
-        'loaiNghiPhep',
-        'lyDo',
-        'ngayNghi',
-        'batDauNghi',
-        'ketThucNghi',
-        'hinhAnh',
-        'trangThai',
-        'nhanXet',
-        'truPhep',
+        'credentialID',
+        'authenticatorAttachment',
         'maNV',
     ];
 

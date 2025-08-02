@@ -34,7 +34,7 @@ return new class extends Migration
             $table->foreign('maCL')
                 ->references('maCL')
                 ->on('calam')
-                ->onDelete('cascade')
+                ->onDelete('set null')
                 ->onUpdate('cascade');
 
             $table->timestamps();

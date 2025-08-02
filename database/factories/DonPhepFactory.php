@@ -21,6 +21,7 @@ class DonPhepFactory extends Factory
         $end = (clone $start)->modify('+' . rand(1, 3) . ' days');
 
         return [
+            'ngayTao' => now()->toDateTimeString(), // Ví dụ: "2025-07-17 14:32:11"
             'loaiNghiPhep' => $this->faker->randomElement(['Nghỉ phép năm', 'Nghỉ không lương', 'Nghỉ có lương', 'Nghỉ đột xuất', 'Nghỉ phép ốm', 'Nghỉ thai sản']),
             'lyDo' => $this->faker->sentence(),
             'ngayNghi' => $this->faker->date(),
@@ -28,7 +29,8 @@ class DonPhepFactory extends Factory
             'ketThucNghi' => $end->format('H:i'),
             'hinhAnh' => $this->faker->imageUrl(640, 480, 'documents', true),
             'trangThai' => $this->faker->randomElement(['Chờ duyệt', 'Đã duyệt', 'Từ chối']),
-            'nguoiDuyet' => NhanVien::inRandomOrder()->first()->hoTen,
+            // 'nhanXet' => NhanVien::inRandomOrder()->first()->hoTen,
+            // 'truPhep' => NhanVien::inRandomOrder()->first()->hoTen,
             'maNV' => NhanVien::inRandomOrder()->first()->maNV,
         ];
     }

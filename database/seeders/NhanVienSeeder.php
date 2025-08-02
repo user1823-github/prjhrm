@@ -22,7 +22,7 @@ class NhanVienSeeder extends Seeder
         // Thêm 3 tài khoản cố định
         $customAccounts = [
             ['tenTaiKhoan' => 'admin', 'matKhau' => bcrypt('123'), 'quyenHan' => 'admin'],
-            ['tenTaiKhoan' => '123', 'matKhau' => bcrypt('123'), 'quyenHan' => 'user'],
+            ['tenTaiKhoan' => '11111', 'matKhau' => bcrypt('123'), 'quyenHan' => 'user'],
             ['tenTaiKhoan' => 'test1', 'matKhau' => bcrypt('123'), 'quyenHan' => 'user'],
         ];
 

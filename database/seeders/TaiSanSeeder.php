@@ -2,17 +2,17 @@
 
 namespace Database\Seeders;
 
-use App\Models\CaLam;
+use App\Models\TaiSan;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class CaLamSeeder extends Seeder
+class TaiSanSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        CaLam::factory()->count(4)->create();
+        TaiSan::factory()->count(15)->create();
     }
 }

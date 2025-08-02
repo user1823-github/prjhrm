@@ -8,6 +8,7 @@ use App\Models\PhieuLuong;
 use App\Models\TaiKhoan;
 use App\Models\ThanhToan;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Faker\Factory as FakerFactory;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\NhanVien>
@@ -15,23 +16,47 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 class NhanVienFactory extends Factory
 {
 
-
     protected $model = NhanVien::class;
     public function definition(): array
     {
+        $faker = FakerFactory::create('vi_VN');
+
         return [
-            'hoTen' => $this->faker->name(),
-            'chucDanh' => $this->faker->jobTitle(),
-            'soDienThoai' => $this->faker->unique()->phoneNumber(),
-            'email' => $this->faker->unique()->safeEmail(),
-            'gioiTinh' => $this->faker->randomElement(['Nam', 'Nữ', 'Khác']),
+            'hoTen' => $faker->lastName . ' ' . $faker->firstName,
+            'chucDanh' => $faker->randomElement([
+                'Nhân viên kinh doanh',
+                'Trưởng phòng nhân sự',
+                'Kỹ sư phần mềm',
+                'Nhân viên kế toán',
+                'Trưởng nhóm kỹ thuật',
+                'Chuyên viên marketing',
+                'Chăm sóc khách hàng',
+            ]),
+            'soDienThoai' => $faker->unique()->numerify('0#########'), // dùng định dạng số VN
+            'email' => strtolower(
+                preg_replace('/[^a-z0-9]/', '', $faker->unique()->userName())
+            ) . '@gmail.com',
+            'gioiTinh' => $faker->randomElement(['Nam', 'Nữ', 'Khác']),
             'ngayVaoLam' => now()->toDateString(),
-            'ngaySinh' => $this->faker->optional()->date(),
-            'trangthai'   => $this->faker->boolean(), // true: Hoạt động, false: Không hoạt động
+            'ngaySinh' => $faker->optional()->date(),
+            'trangthai'   => $faker->boolean(), // true: Hoạt động, false: Không hoạt động
             'maTK' => TaiKhoan::inRandomOrder()->first()->maTK, // Lấy tài khoản ngẫu nhiên
             'maCL' => CaLam::inRandomOrder()->first()->maCL, // Lấy tài khoản ngẫu nhiên
 
         ];
+        // return [
+        //     'hoTen' => $this->faker->name(),
+        //     'chucDanh' => $this->faker->jobTitle(),
+        //     'soDienThoai' => $this->faker->unique()->phoneNumber(),
+        //     'email' => $this->faker->unique()->safeEmail(),
+        //     'gioiTinh' => $this->faker->randomElement(['Nam', 'Nữ', 'Khác']),
+        //     'ngayVaoLam' => now()->toDateString(),
+        //     'ngaySinh' => $this->faker->optional()->date(),
+        //     'trangthai'   => $this->faker->boolean(), // true: Hoạt động, false: Không hoạt động
+        //     'maTK' => TaiKhoan::inRandomOrder()->first()->maTK, // Lấy tài khoản ngẫu nhiên
+        //     'maCL' => CaLam::inRandomOrder()->first()->maCL, // Lấy tài khoản ngẫu nhiên
+
+        // ];
     }
 
     public function configure()

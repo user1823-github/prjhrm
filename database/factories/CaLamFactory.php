@@ -17,7 +17,7 @@ class CaLamFactory extends Factory
     public function definition()
     {
         return [
-            'tenCa' => $this->faker->randomElement(['Fulltime', 'Part-time', 'Overtime']),
+            'tenCa' => $this->faker->randomElement(['Fulltime', 'Part-time', 'Ca Phát', 'Ca Thoại', 'Ca Phát(2)']),
             'gioCheckInSom' => $this->faker->numberBetween(1, 6),
             'gioCheckOutMuon' => $this->faker->numberBetween(1, 6)
         ];
