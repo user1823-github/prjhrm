@@ -15,7 +15,17 @@ return new class extends Migration
             $table->integer('maVT')->autoIncrement();
             $table->text('credentialID')->nullable();
             $table->text('authenticatorAttachment')->nullable();
-            $table->integer('maNV')->unique();
+            $table->integer('maVTC');
+            // $table->integer('maNV')->unique();
+            $table->integer('maNV');
+
+            $table
+                ->foreign('maVTC')
+                ->references('maVTC')
+                ->on('vantaychallenge')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
+
             $table
                 ->foreign('maNV')
                 ->references('maNV')
@@ -32,6 +42,7 @@ return new class extends Migration
     public function down()
     {
         Schema::table('vantay', function (Blueprint $table) {
+            $table->dropForeign(['maVTC']);
             $table->dropForeign(['maNV']);
         });
         Schema::dropIfExists('vantay');

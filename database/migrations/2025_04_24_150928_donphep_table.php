@@ -34,13 +34,22 @@ return new class extends Migration
             ])->default('Chờ duyệt');
             $table->string('nhanXet')->nullable();
             $table->float('truPhep')->nullable();
+
+            $table->integer('maLLV');
             $table->integer('maNV');
+
+            $table->foreign('maLLV')
+                ->references('maLLV')
+                ->on('lichlamviec')
+                ->onUpdate('cascade');
+
 
             $table->foreign('maNV')
                 ->references('maNV')
                 ->on('nhanvien')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
+
 
             $table->timestamps();
         });

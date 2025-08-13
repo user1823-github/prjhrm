@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\LichLamViec;
 use App\Models\NhanVien;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -31,6 +32,7 @@ class DonPhepFactory extends Factory
             'trangThai' => $this->faker->randomElement(['Chờ duyệt', 'Đã duyệt', 'Từ chối']),
             // 'nhanXet' => NhanVien::inRandomOrder()->first()->hoTen,
             // 'truPhep' => NhanVien::inRandomOrder()->first()->hoTen,
+            'maLLV' => LichLamViec::inRandomOrder()->first()->maLLV,
             'maNV' => NhanVien::inRandomOrder()->first()->maNV,
         ];
     }

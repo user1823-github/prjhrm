@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class VanTay extends Model
 {
@@ -16,11 +17,19 @@ class VanTay extends Model
     protected $fillable = [
         'credentialID',
         'authenticatorAttachment',
+        'maVTC',
         'maNV',
     ];
+
+    public function vantayChallenges(): HasOne
+    {
+
+        return $this->hasOne(VanTayChallenge::class, 'maVTC', 'maVTC');
+    }
 
     public function nhanVien()
     {
         return $this->belongsTo(NhanVien::class, 'maNV', 'maNV');
     }
+
 }

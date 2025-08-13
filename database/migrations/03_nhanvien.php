@@ -15,12 +15,15 @@ return new class extends Migration
         Schema::create('nhanvien', function (Blueprint $table) {
             $table->integer('maNV')->autoIncrement();
             $table->string('hoTen', 50)->nullable();
+            $table->string('avatar', 50)->nullable();
             $table->string('chucDanh')->nullable();
             $table->string('soDienThoai', 20)->unique()->nullable();
             $table->string('email', 50)->unique()->nullable();
             $table->enum('gioiTinh', ['Nam', 'Nữ', 'Khác'])->nullable();
             $table->date('ngayVaoLam')->nullable();
             $table->date('ngaySinh')->nullable();
+            $table->string('phongBan')->nullable();
+            $table->string('vanPhong')->nullable();
             $table->boolean('trangThai');
 
             $table->integer('maTK')->unique();  // Thêm cột khóa ngoại

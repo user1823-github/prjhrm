@@ -16,12 +16,15 @@ return new class extends Migration
             $table->string('challenge', 255);
             $table->timestamps();
 
-            $table->integer('maNV')->index();
+            // $table->integer('maNV')->index();
+            $table->integer('maNV');
+
             $table
                 ->foreign('maNV')
                 ->references('maNV')
                 ->on('nhanvien')
                 ->onDelete('cascade');
+
         });
     }
 
@@ -30,9 +33,9 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('vantaychallenge', function (Blueprint $table) {
-            $table->dropForeign(['maNV']);
-        });
+        // Schema::table('vantaychallenge', function (Blueprint $table) {
+        //     $table->dropForeign(['maNV']);
+        // });
         Schema::dropIfExists('vantaychallenge');
     }
 };

@@ -18,6 +18,7 @@ class NhanVien extends Model
 
     protected $fillable = [
         'hoTen',
+        'avatar',
         'chucDanh',
         'soDienThoai',
         'email',
@@ -25,6 +26,8 @@ class NhanVien extends Model
         'ngayVaoLam',
         'tienLuong',
         'ngaySinh',
+        'phongBan',
+        'vanPhong',
         'trangThai',
         'maTK',
         'maCL',
@@ -76,10 +79,15 @@ class NhanVien extends Model
         return $this->hasOne(PhieuLuong::class, 'maPL', 'maPL');
     }
 
-    public function vanTay(): hasOne
+    // public function vanTay(): hasOne
+    // {
+
+    //     return $this->hasOne(VanTay::class, 'maVT', 'maVT');
+    // }
+    public function vanTay()
     {
 
-        return $this->hasOne(VanTay::class, 'maVT', 'maVT');
+        return $this->hasMany(VanTay::class, 'maVT', 'maVT');
     }
 
     public function vantayChallenges()
