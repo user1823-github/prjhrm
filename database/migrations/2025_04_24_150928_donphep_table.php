@@ -15,10 +15,11 @@ return new class extends Migration
             $table->integer('maDP')->autoIncrement();
             $table->dateTime('ngayTao');
             $table->enum('loaiNghiPhep', [
-                'Nghỉ phép năm',
                 'Nghỉ không lương',
-                'Nghỉ có lương',
-                'Nghỉ đột xuất',
+                'Nghỉ có việc riêng',
+                'Nghỉ cưới xin',
+                'Nghỉ con kết hôn',
+                'Nghỉ ma chay',
                 'Nghỉ phép ốm',
                 'Nghỉ thai sản',
             ]);

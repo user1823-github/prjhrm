@@ -23,7 +23,7 @@ class DonPhepFactory extends Factory
 
         return [
             'ngayTao' => now()->toDateTimeString(), // Ví dụ: "2025-07-17 14:32:11"
-            'loaiNghiPhep' => $this->faker->randomElement(['Nghỉ phép năm', 'Nghỉ không lương', 'Nghỉ có lương', 'Nghỉ đột xuất', 'Nghỉ phép ốm', 'Nghỉ thai sản']),
+            'loaiNghiPhep' => $this->faker->randomElement(['Nghỉ không lương', 'Nghỉ có việc riêng', 'Nghỉ cưới xin',  'Nghỉ con kết hôn', 'Nghỉ ma chay', 'Nghỉ phép ốm', 'Nghỉ thai sản']),
             'lyDo' => $this->faker->sentence(),
             'ngayNghi' => $this->faker->date(),
             'batDauNghi' => $start->format('H:i'),

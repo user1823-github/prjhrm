@@ -24,7 +24,7 @@ class NhanVien extends Model
         'email',
         'gioiTinh',
         'ngayVaoLam',
-        'tienLuong',
+        // 'tienLuong',
         'ngaySinh',
         'phongBan',
         'vanPhong',
