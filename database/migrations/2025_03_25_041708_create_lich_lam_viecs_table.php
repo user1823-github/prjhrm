@@ -22,7 +22,9 @@ return new class extends Migration
             $table->time('tgCheckInSom')->nullable(); // Số phút check-in sớm tối đa
             $table->time('tgCheckOutMuon')->nullable(); // Số phút check-out muộn tối đa
             $table->decimal('heSoLuong', 5, 2)->default(1.0); // Hệ số lương
+            $table->decimal('phuCap', 10, 2)->default(0.00); // Phụ cấp
             $table->decimal('tienThuong', 10, 2)->default(0.00); // Tiền thưởng
+            $table->decimal('tienPhat', 10, 2)->default(0.00); // Tiền thưởng
 
             // $table->integer('maTK')->unique();  // Thêm cột khóa ngoại
             $table->integer('maNV');

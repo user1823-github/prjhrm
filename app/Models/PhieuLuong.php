@@ -27,6 +27,7 @@ class PhieuLuong extends Model
         // 'luongHeSo',
         // 'luongThuong',
         // 'tongCong',
+        'phuCap',
         'maNV'
     ];
 

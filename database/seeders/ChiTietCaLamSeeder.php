@@ -20,7 +20,7 @@ class ChiTietCaLamSeeder extends Seeder
             'tgBatDauNghi' => '12:00',
             'tgKetThucNghi' => '13:00',
             'heSoLuong' => 1,
-            'tienThuong' => 0,
+            // 'tienThuong' => 0,
             'maCL' => 1,
         ]);
 
@@ -31,7 +31,7 @@ class ChiTietCaLamSeeder extends Seeder
             'tgBatDauNghi' => '12:00',
             'tgKetThucNghi' => '13:00',
             'heSoLuong' => 1,
-            'tienThuong' => 0,
+            // 'tienThuong' => 0,
             'maCL' => 1,
         ]);
 
@@ -42,7 +42,7 @@ class ChiTietCaLamSeeder extends Seeder
             'tgBatDauNghi' => '12:00',
             'tgKetThucNghi' => '13:00',
             'heSoLuong' => 1,
-            'tienThuong' => 0,
+            // 'tienThuong' => 0,
             'maCL' => 1,
         ]);
 
@@ -53,7 +53,7 @@ class ChiTietCaLamSeeder extends Seeder
             'tgBatDauNghi' => '12:00',
             'tgKetThucNghi' => '13:00',
             'heSoLuong' => 1,
-            'tienThuong' => 0,
+            // 'tienThuong' => 0,
             'maCL' => 1,
         ]);
 
@@ -64,7 +64,7 @@ class ChiTietCaLamSeeder extends Seeder
             'tgBatDauNghi' => '12:00',
             'tgKetThucNghi' => '13:00',
             'heSoLuong' => 1,
-            'tienThuong' => 0,
+            // 'tienThuong' => 0,
             'maCL' => 1,
         ]);
 
@@ -76,7 +76,7 @@ class ChiTietCaLamSeeder extends Seeder
             'tgBatDauNghi' => '12:00',
             'tgKetThucNghi' => '13:00',
             'heSoLuong' => 1,
-            'tienThuong' => 0,
+            // 'tienThuong' => 0,
             'maCL' => 2,
         ]);
 
@@ -87,7 +87,7 @@ class ChiTietCaLamSeeder extends Seeder
             'tgBatDauNghi' => '12:00',
             'tgKetThucNghi' => '13:00',
             'heSoLuong' => 1,
-            'tienThuong' => 0,
+            // 'tienThuong' => 0,
             'maCL' => 2,
         ]);
 
@@ -99,7 +99,7 @@ class ChiTietCaLamSeeder extends Seeder
             'tgBatDauNghi' => '12:00',
             'tgKetThucNghi' => '13:00',
             'heSoLuong' => 1,
-            'tienThuong' => 0,
+            // 'tienThuong' => 0,
             'maCL' => 2,
         ]);
 
@@ -111,7 +111,7 @@ class ChiTietCaLamSeeder extends Seeder
             'tgBatDauNghi' => '12:00',
             'tgKetThucNghi' => '13:00',
             'heSoLuong' => 1,
-            'tienThuong' => 0,
+            // 'tienThuong' => 0,
             'maCL' => 3,
         ]);
 
@@ -122,7 +122,7 @@ class ChiTietCaLamSeeder extends Seeder
             // 'tgBatDauNghi' => '12:00',
             // 'tgKetThucNghi' => '13:00',
             'heSoLuong' => 1,
-            'tienThuong' => 0,
+            // 'tienThuong' => 0,
             'maCL' => 3,
         ]);
 
@@ -133,7 +133,7 @@ class ChiTietCaLamSeeder extends Seeder
             'tgBatDauNghi' => '12:00',
             'tgKetThucNghi' => '13:00',
             'heSoLuong' => 1,
-            'tienThuong' => 0,
+            // 'tienThuong' => 0,
             'maCL' => 3,
         ]);
 
@@ -145,7 +145,7 @@ class ChiTietCaLamSeeder extends Seeder
             // 'tgBatDauNghi' => '12:00',
             // 'tgKetThucNghi' => '13:00',
             'heSoLuong' => 1,
-            'tienThuong' => 0,
+            // 'tienThuong' => 0,
             'maCL' => 4,
         ]);
 
@@ -156,7 +156,7 @@ class ChiTietCaLamSeeder extends Seeder
             // 'tgBatDauNghi' => '12:00',
             // 'tgKetThucNghi' => '13:00',
             'heSoLuong' => 1,
-            'tienThuong' => 0,
+            // 'tienThuong' => 0,
             'maCL' => 4,
         ]);
 
@@ -167,7 +167,7 @@ class ChiTietCaLamSeeder extends Seeder
             'tgBatDauNghi' => '12:00',
             'tgKetThucNghi' => '13:00',
             'heSoLuong' => 1,
-            'tienThuong' => 0,
+            // 'tienThuong' => 0,
             'maCL' => 4,
         ]);
     }

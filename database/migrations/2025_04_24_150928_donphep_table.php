@@ -20,7 +20,7 @@ return new class extends Migration
                 'Nghỉ cưới xin',
                 'Nghỉ con kết hôn',
                 'Nghỉ ma chay',
-                'Nghỉ phép ốm',
+                'Nghỉ ốm đau',
                 'Nghỉ thai sản',
             ]);
             $table->string('lyDo');

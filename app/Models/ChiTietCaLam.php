@@ -20,7 +20,7 @@ class ChiTietCaLam extends Model
         'tgBatDauNghi',
         'tgKetThucNghi',
         'heSoLuong',
-        'tienThuong',
+        'phuCap',
         'maCL'
     ];
 

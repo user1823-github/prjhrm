@@ -19,7 +19,7 @@ return new class extends Migration
             $table->time('tgBatDauNghi')->nullable(); // Giờ bắt đầu nghỉ
             $table->time('tgKetThucNghi')->nullable(); // Giờ kết thúc nghỉ
             $table->decimal('heSoLuong', 5, 2)->default(1.0); // Hệ số lương (VD: 1.5, 2.0)
-            $table->decimal('tienThuong', 10, 2)->default(0.0); // Tiền thưởng (VD: 500000)
+            $table->decimal('phuCap', 10, 2)->default(0.0); // Phụ cấp (VD: 500000)
 
             $table->integer('maCL');
             

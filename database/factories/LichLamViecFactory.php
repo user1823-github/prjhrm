@@ -30,6 +30,7 @@ class LichLamViecFactory extends Factory
             'tgCheckOutMuon' => $this->faker->time('H:i'),
             'heSoLuong' => $this->faker->randomFloat(2, 1, 3),
             'tienThuong' => $this->faker->randomFloat(2, 100, 1000),
+            'tienPhat' => 0,
             'maNV' => NhanVien::inRandomOrder()->first()->maNV,
             // 'maNL' => NgayLe::inRandomOrder()->first()->maNL,
             // 'maCTCL' => ChiTietCaLam::inRandomOrder()->first()->maCTCL
