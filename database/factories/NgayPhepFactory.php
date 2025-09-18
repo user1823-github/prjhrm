@@ -17,13 +17,13 @@ class NgayPhepFactory extends Factory
      */
     public function definition(): array
     {
-        $soNgay = $this->faker->numberBetween(6, 12);
-        $daNghi = $this->faker->numberBetween(0, $soNgay);
+        // $soNgay = $this->faker->numberBetween(6, 12);
+        // $daNghi = $this->faker->numberBetween(0, $soNgay);
         return [
-            'namPhep' => $this->faker->numberBetween(2024, 2025),
-            'soNgay' => $soNgay,
-            'daNghi' => $daNghi,
-            'conLai' => $soNgay - $daNghi,
+            // 'namPhep' => $this->faker->numberBetween(2024, 2025),
+            'soNgay' => $this->faker->numberBetween(6, 12),
+            // 'daNghi' => 0,
+            // 'conLai' => 0,
             'maNV' => NhanVien::inRandomOrder()->first()->maNV,
         ];
     }

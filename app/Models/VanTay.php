@@ -16,7 +16,10 @@ class VanTay extends Model
 
     protected $fillable = [
         'credentialID',
+        // 'publicKey',
+        // 'signCount',
         'authenticatorAttachment',
+        'status',
         'maVTC',
         'maNV',
     ];
@@ -31,5 +34,4 @@ class VanTay extends Model
     {
         return $this->belongsTo(NhanVien::class, 'maNV', 'maNV');
     }
-
 }

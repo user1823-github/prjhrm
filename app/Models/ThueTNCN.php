@@ -17,7 +17,7 @@ class ThueTNCN extends Model
     protected $fillable = [
         'maSoThue',
         'soNguoiPhuThuoc',
-        'soTienGiamTru',
+        // 'soTienGiamTru',
         'ghiChu',
         'dinhKem',
         'ngayDangKy',

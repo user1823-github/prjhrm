@@ -15,7 +15,7 @@ return new class extends Migration
             $table->integer('maTNCN')->autoIncrement();
             $table->string('maSoThue')->nullable();
             $table->integer('soNguoiPhuThuoc')->default(0);
-            $table->float('soTienGiamTru')->default(0);
+            // $table->float('soTienGiamTru')->default(0);
 
             $table->string('ghiChu')->nullable();
             $table->string('dinhKem')->nullable();

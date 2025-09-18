@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('ngayphep', function (Blueprint $table) {
             $table->integer('maNP')->autoIncrement();
-            $table->integer('namPhep');
-            $table->integer('soNgay')->nullable();
-            $table->integer('daNghi')->nullable();
-            $table->integer('conLai')->nullable();
+            // $table->integer('namPhep');
+            $table->float('soNgay')->nullable();
+            // $table->float('daNghi')->nullable();
+            // $table->float('conLai')->nullable();
             $table->integer('maNV');
 
             // $table->unique(['maNV', 'namPhep']);

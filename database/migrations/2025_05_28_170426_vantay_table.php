@@ -15,6 +15,7 @@ return new class extends Migration
             $table->integer('maVT')->autoIncrement();
             $table->text('credentialID')->nullable();
             $table->text('authenticatorAttachment')->nullable();
+            $table->boolean('status')->default(false);
             $table->integer('maVTC');
             // $table->integer('maNV')->unique();
             $table->integer('maNV');

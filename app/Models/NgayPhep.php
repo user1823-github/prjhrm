@@ -15,10 +15,10 @@ class NgayPhep extends Model
     public $timestamps = true;
 
     protected $fillable = [
-        'namPhep',
+        // 'namPhep',
         'soNgay',
-        'daNghi',
-        'conLai',
+        // 'daNghi',
+        // 'conLai',
         'maNV',
     ];
 
