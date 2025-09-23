@@ -18,7 +18,8 @@ class PhieuLuongFactory extends Factory
     public function definition(): array
     {
         $luongCoBan = $this->faker->numberBetween(5000000, 10000000);
-        $phuCap = $this->faker->numberBetween(500000, 1000000);
+        $phucLoi = $this->faker->numberBetween(500000, 1000000);
+        $tienPhat = $this->faker->numberBetween(500000, 1000000);
         $gioLam = $this->faker->numberBetween(120, 180);
         $gioOT = $this->faker->numberBetween(0, 20);
         $luongGio = $luongCoBan / $gioLam;
@@ -48,7 +49,8 @@ class PhieuLuongFactory extends Factory
             // 'luongHeSo' => $luongTinhHeSo,
             // 'luongThuong' => $luongThuong,
             // 'tongCong' => $tongCong,
-            'phuCap' => $phuCap,
+            'phucLoi' => $phucLoi,
+            'tienPhat' => $tienPhat,
             'maNV' => NhanVien::inRandomOrder()->first()->maNV,
         ];
     }

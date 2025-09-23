@@ -24,7 +24,8 @@ return new class extends Migration
             $table->decimal('heSoLuong', 5, 2)->default(1.0); // Hệ số lương
             $table->decimal('phuCap', 10, 2)->default(0.00); // Phụ cấp
             $table->decimal('tienThuong', 10, 2)->default(0.00); // Tiền thưởng
-            $table->decimal('tienPhat', 10, 2)->default(0.00); // Tiền thưởng
+            $table->decimal('tienPhat', 10, 2)->default(0.00); // Tiền phạt
+            $table->boolean('chamGiuaCa')->default(0); // Chấm giữa ca
 
             // $table->integer('maTK')->unique();  // Thêm cột khóa ngoại
             $table->integer('maNV');

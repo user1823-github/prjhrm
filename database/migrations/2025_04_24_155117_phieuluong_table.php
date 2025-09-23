@@ -23,7 +23,10 @@ return new class extends Migration
             ]);
             // $table->boolean('trangThaiTT')->default(0); // 0: Chưa thanh toán, 1: Đã thanh toán
             $table->decimal('luongCoBan', 15, 2)->default(0);
-            $table->decimal('phuCap', 15, 2)->default(0);
+            $table->decimal('phucLoi', 15, 2)->default(0);
+            $table->decimal('tienPhat', 15, 2)->default(0);
+            // $table->dateTime('thoiGian')->default(now());
+            $table->boolean('trangThaiChot')->default(0);
             // $table->decimal('luongGio', 15, 2)->default(0);
             // $table->integer('gioLam')->default(0);
             // $table->integer('caLam')->default(0);

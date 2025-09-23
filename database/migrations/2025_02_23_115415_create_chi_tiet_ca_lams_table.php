@@ -20,6 +20,7 @@ return new class extends Migration
             $table->time('tgKetThucNghi')->nullable(); // Giờ kết thúc nghỉ
             $table->decimal('heSoLuong', 5, 2)->default(1.0); // Hệ số lương (VD: 1.5, 2.0)
             $table->decimal('phuCap', 10, 2)->default(0.0); // Phụ cấp (VD: 500000)
+            $table->boolean('chamGiuaCa')->default(0); // Chấm giữa ca
 
             $table->integer('maCL');
             

@@ -21,6 +21,7 @@ class ChiTietCaLam extends Model
         'tgKetThucNghi',
         'heSoLuong',
         'phuCap',
+        'chamGiuaCa',
         'maCL'
     ];
 

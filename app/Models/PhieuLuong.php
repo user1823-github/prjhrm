@@ -27,7 +27,21 @@ class PhieuLuong extends Model
         // 'luongHeSo',
         // 'luongThuong',
         // 'tongCong',
-        'phuCap',
+        // 'phuCap',
+        'phucLoi',
+        'tienPhat',
+        // 'tongThuNhap',
+        // 'luongDongBH',
+        // 'BHXH',
+        // 'BHYT',
+        // 'BHTN',
+        // 'congDoan',
+        // 'thuNhapChiuThue',
+        // 'soNguoiPhuThuoc',
+        // 'giamTru',
+        // 'thuNhapTinhThue',
+        // 'thucLinh',
+        'trangThaiChot',
         'maNV'
     ];
 

@@ -28,6 +28,7 @@ class LichLamViec extends Model
         'phuCap',
         'tienThuong',
         'tienPhat',
+        'chamGiuaCa',
         'maNV',
         // 'maNL',
         // 'maCTCL',
