@@ -51,6 +51,7 @@ class PhieuLuongFactory extends Factory
             // 'tongCong' => $tongCong,
             'phucLoi' => $phucLoi,
             'tienPhat' => $tienPhat,
+            'kyLuong' => $this->faker->date('2025-m-01'), // ví dụ "2025-09-01"
             'maNV' => NhanVien::inRandomOrder()->first()->maNV,
         ];
     }

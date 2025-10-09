@@ -17,6 +17,7 @@ class BaoHiemXH extends Model
     protected $fillable = [
         'maSoBHXH',
         'vung',
+        'mucDong',
         // 'bhxh_NLD', // (8%)
         // 'bhyt_NLD', // (1.5%)
         // 'bhtn_NLD', // (1%)

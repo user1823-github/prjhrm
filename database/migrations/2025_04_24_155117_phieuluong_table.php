@@ -26,6 +26,7 @@ return new class extends Migration
             $table->decimal('phucLoi', 15, 2)->default(0);
             $table->decimal('tienPhat', 15, 2)->default(0);
             // $table->dateTime('thoiGian')->default(now());
+            $table->date('kyLuong');
             $table->boolean('trangThaiChot')->default(0);
             // $table->decimal('luongGio', 15, 2)->default(0);
             // $table->integer('gioLam')->default(0);

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class BangCong extends Model
 {
@@ -15,7 +16,8 @@ class BangCong extends Model
 
     protected $fillable = [
         'tgCheckIn',
-        'tgGiuaCa',
+        'tgRaGiuaCa',
+        'tgVaoGiuaCa',
         'tgCheckOut',
         'maLLV'
     ];
@@ -23,5 +25,10 @@ class BangCong extends Model
     public function lichLamViec()
     {
         return $this->belongsTo(LichLamViec::class, 'maLLV', 'maLLV');
+    }
+
+    public function lichSuChamCong(): HasOne
+    {
+        return $this->hasOne(LichSuChamCong::class, 'maBC', 'maBC');
     }
 }

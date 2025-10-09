@@ -41,6 +41,7 @@ class PhieuLuong extends Model
         // 'giamTru',
         // 'thuNhapTinhThue',
         // 'thucLinh',
+        'kyLuong',
         'trangThaiChot',
         'maNV'
     ];

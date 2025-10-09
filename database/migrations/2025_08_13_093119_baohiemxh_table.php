@@ -20,6 +20,7 @@ return new class extends Migration
                 'Vùng 3 (3,860,000 VND/tháng)',
                 'Vùng 4 (3,450,000 VND/tháng)',
             ]);
+            $table->float('mucDong')->nullable();
             // $table->float('bhxh_NLD')->default(0);
             // $table->float('bhyt_NLD')->default(0);
             // $table->float('bhtn_NLD')->default(0);

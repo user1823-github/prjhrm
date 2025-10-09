@@ -14,7 +14,8 @@ return new class extends Migration
         Schema::create('bangcong', function (Blueprint $table) {
             $table->integer('maBC')->autoIncrement();
             $table->time('tgCheckIn')->nullable();
-            $table->time('tgGiuaCa')->nullable();
+            $table->time('tgRaGiuaCa')->nullable();
+            $table->time('tgVaoGiuaCa')->nullable();
             $table->time('tgCheckOut')->nullable();
             $table->integer('maLLV')->unique(); // khóa ngoại 1-1
 
